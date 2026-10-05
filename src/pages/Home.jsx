@@ -7,6 +7,7 @@ import AboutTeaser from '../components/AboutTeaser'
 import EventsSection from '../components/EventsSection'
 import TeamSection from '../components/TeamSection'
 import CommunitySection from '../components/CommunitySection'
+import GallerySection from '../components/GallerySection'
 import Footer from '../components/Footer'
 
 export default function Home() {
@@ -31,6 +32,7 @@ export default function Home() {
         <Hero />
         <AboutTeaser />
         <EventsSection />
+        <GallerySection />
         <TeamSection />
         <CommunitySection />
       </main>
