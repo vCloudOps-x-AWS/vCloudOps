@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
 import {
-  Calendar,
-  MapPin,
   ArrowSquareOut,
   CaretRight,
   CaretDown,
@@ -137,100 +135,79 @@ export default function AccordionGallery({
                 </div>
               </div>
 
-              {/* ── Expanded Content Layer (Permanently in DOM with stable inner width) ── */}
+              {/* ── Expanded Content Layer (Modern Swiss Editorial Poster) ── */}
               <div className="accordion-expanded-content">
                 <div className="accordion-expanded-inner">
-                  {/* Top Bar: Minimalist Developer Ticket Header */}
-                  <div className="flex items-center justify-between gap-3 pb-2.5 sm:pb-3 border-b border-white/10 text-xs font-mono">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-sky-400 tracking-wider">
-                        // {itemNumber}
-                      </span>
-                      <span className="text-white/20">/</span>
-                      <span className="text-slate-300 font-semibold uppercase tracking-wider text-[11px] sm:text-xs">
-                        {item.mode || item.category}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2 sm:gap-3 text-slate-300 text-[11px] sm:text-xs">
-                      <div className="flex items-center gap-1.5">
-                        <Calendar weight="duotone" className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                        <span>{item.date}</span>
+                  <div className="flex flex-col md:flex-row h-full w-full gap-4 sm:gap-6 items-stretch justify-between">
+                    {/* ── Left Rail: Swiss Date & Location Block ── */}
+                    <div className="flex md:flex-col justify-between items-start shrink-0 pb-3 md:pb-0 border-b md:border-b-0 md:border-r border-white/10 md:pr-6 md:w-36">
+                      <div>
+                        {/* Index Indicator */}
+                        <div className="text-[11px] font-mono font-bold text-sky-400/90 tracking-widest uppercase mb-1">
+                          // {itemNumber}
+                        </div>
+                        {/* Big Typography Date */}
+                        <div className="font-mono font-black text-white text-3xl sm:text-4xl md:text-5xl tracking-tighter leading-none">
+                          {item.dateDay || '13'}
+                        </div>
+                        <div className="text-xs sm:text-sm font-mono font-bold tracking-widest text-sky-400 uppercase mt-1">
+                          {item.dateMonth || 'OCT'} {item.dateYear || '2026'}
+                        </div>
                       </div>
 
-                      {item.venue && (
-                        <>
-                          <span className="text-white/20">·</span>
-                          <div className="flex items-center gap-1.5">
-                            <MapPin weight="duotone" className="w-3.5 h-3.5 text-rose-400 shrink-0" />
-                            {item.mapsUrl ? (
-                              <a
-                                href={item.mapsUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-sky-300 hover:text-white underline underline-offset-4 decoration-sky-400/50 hover:decoration-sky-300 transition-colors"
-                                title="Open Venue in Google Maps"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                <span>{item.venue}</span>
-                                <ArrowSquareOut className="w-3 h-3 text-sky-400" />
-                              </a>
-                            ) : (
-                              <span>{item.venue}</span>
-                            )}
-                          </div>
-                        </>
-                      )}
+                      {/* Location / Mode Indicator */}
+                      <div className="pt-2 md:pt-4 md:border-t border-white/10 w-full flex flex-col items-end md:items-start text-right md:text-left">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold">
+                          VENUE / MODE
+                        </span>
+                        {item.mapsUrl ? (
+                          <a
+                            href={item.mapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs font-mono font-bold text-sky-300 hover:text-white underline underline-offset-4 decoration-sky-400/40 hover:decoration-sky-300 transition-colors mt-0.5"
+                            title="Open Location in Google Maps"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <span>{item.locationCode || item.venue || 'CAMPUS'}</span>
+                            <ArrowSquareOut className="w-3 h-3 text-sky-400" />
+                          </a>
+                        ) : (
+                          <span className="text-xs font-mono font-bold text-slate-300 mt-0.5">
+                            {item.locationCode || item.mode || 'ONLINE'}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Main Grid: 2-Column Blueprint on Desktop, Clean Stack on Mobile */}
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-5 my-auto pt-2.5 sm:pt-3.5">
-                    {/* Left Column: Title, CLI Command Hook, Narrative Brief */}
-                    <div className="md:col-span-6 flex flex-col justify-between gap-2.5">
+                    {/* ── Right Rail: Editorial Typography & Story ── */}
+                    <div className="flex-1 flex flex-col justify-between py-1 min-w-0">
                       <div>
-                        <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-tight">
+                        {/* Mode / Category Tag */}
+                        <div className="inline-flex items-center gap-2 mb-1.5">
+                          <span className="text-[10px] sm:text-[11px] font-mono font-semibold uppercase tracking-widest text-slate-400">
+                            {item.mode || item.category}
+                          </span>
+                        </div>
+
+                        {/* Main Editorial Title */}
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
                           {item.title}
                         </h3>
-                        {item.command && (
-                          <div className="mt-2 inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-black/40 border border-white/10 text-[11px] sm:text-xs font-mono text-emerald-400 backdrop-blur-md">
-                            <span className="text-slate-500 select-none font-bold">$</span>
-                            <span className="truncate">{item.command}</span>
-                          </div>
+
+                        {/* Strong Lead Statement */}
+                        {item.lead && (
+                          <p className="text-xs sm:text-sm md:text-[15px] font-semibold text-sky-100/90 mt-2 leading-snug">
+                            {item.lead}
+                          </p>
                         )}
                       </div>
 
-                      <p className="text-xs sm:text-[13px] text-slate-300/90 leading-relaxed max-w-md">
+                      {/* Crisp Body Description */}
+                      <p className="text-xs sm:text-[13px] text-slate-300/85 leading-relaxed max-w-xl mt-3 md:mt-0">
                         {item.desc}
                       </p>
                     </div>
-
-                    {/* Right Column: Structured Session Blueprint Highlights */}
-                    {item.highlights && item.highlights.length > 0 && (
-                      <div className="md:col-span-6 flex flex-col justify-center gap-1.5 sm:gap-2 border-t md:border-t-0 md:border-l border-white/10 pt-2.5 md:pt-0 md:pl-4">
-                        <div className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-semibold mb-0.5">
-                          Session Blueprint
-                        </div>
-                        {item.highlights.map((hl) => (
-                          <div
-                            key={hl.num}
-                            className="flex items-start gap-2.5 p-1.5 sm:p-2 rounded-lg bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] hover:border-white/15 transition-all"
-                          >
-                            <span className="text-[11px] font-mono font-bold text-sky-400 bg-sky-950/70 border border-sky-400/20 px-1.5 py-0.5 rounded shrink-0">
-                              {hl.num}
-                            </span>
-                            <div className="min-w-0">
-                              <h4 className="text-xs font-bold text-white tracking-tight">
-                                {hl.title}
-                              </h4>
-                              <p className="text-[11px] text-slate-300/80 leading-snug">
-                                {hl.detail}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
