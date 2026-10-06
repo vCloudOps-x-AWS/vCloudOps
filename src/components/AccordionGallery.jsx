@@ -8,9 +8,7 @@ import {
   CheckCircle,
   Sparkle,
   CaretDown,
-  ArrowRight,
 } from '@phosphor-icons/react'
-import { usePageTransition } from '../hooks/usePageTransition'
 import './AccordionGallery.css'
 
 export default function AccordionGallery({
@@ -19,7 +17,6 @@ export default function AccordionGallery({
   onSelect = () => {},
   className = '',
 }) {
-  const { transitionTo } = usePageTransition()
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const galleryRef = useRef(null)
 
@@ -205,7 +202,7 @@ export default function AccordionGallery({
                         <span>{item.date}</span>
                       </div>
 
-                      {/* Location Tag */}
+                      {/* Location Tag (Rendered only when venue is provided) */}
                       {item.venue && (
                         <div className="flex items-center gap-2">
                           <MapPin weight="duotone" className="w-4 h-4 text-rose-400 shrink-0" />
@@ -215,7 +212,7 @@ export default function AccordionGallery({
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-1.5 text-sky-300 hover:text-white underline underline-offset-4 decoration-sky-400/50 hover:decoration-sky-300 transition-colors group/link"
-                              title="Open VIT Bibwewadi College in Google Maps"
+                              title="Open Venue in Google Maps"
                               onClick={(e) => e.stopPropagation()}
                             >
                               <span>{item.venue}</span>
@@ -229,57 +226,9 @@ export default function AccordionGallery({
                     </div>
 
                     {/* Description */}
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl line-clamp-3 sm:line-clamp-4">
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
                       {item.desc}
                     </p>
-
-                    {/* Bottom strip: Tags and CTA button */}
-                    <div className="flex items-center justify-between gap-3 pt-2">
-                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                        {item.tags?.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[10px] sm:text-xs font-mono px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md bg-white/5 text-slate-300 border border-white/10"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {item.mapsUrl ? (
-                        <a
-                          href={item.mapsUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-400 text-slate-950 hover:bg-sky-300 transition-all shadow-md shadow-sky-400/25 shrink-0"
-                        >
-                          <span>{item.actionLabel || 'View Map'}</span>
-                          <ArrowSquareOut className="w-3.5 h-3.5" />
-                        </a>
-                      ) : item.actionUrl ? (
-                        <a
-                          href={item.actionUrl}
-                          target={item.actionUrl.startsWith('http') ? '_blank' : '_self'}
-                          rel={item.actionUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            if (!item.actionUrl.startsWith('http')) {
-                              e.preventDefault()
-                              transitionTo(item.actionUrl)
-                            }
-                          }}
-                          className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-400 text-slate-950 hover:bg-sky-300 transition-all shadow-md shadow-sky-400/25 shrink-0"
-                        >
-                          <span>{item.actionLabel || 'Join Lab'}</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </a>
-                      ) : (
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-semibold text-slate-400 bg-white/5 border border-white/10 shrink-0">
-                          <span>{item.actionLabel || 'Details Coming Soon'}</span>
-                        </div>
-                      )}
-                    </div>
                   </div>
                 </div>
               </div>
@@ -290,3 +239,4 @@ export default function AccordionGallery({
     </div>
   )
 }
+

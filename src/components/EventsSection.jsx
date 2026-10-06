@@ -13,20 +13,18 @@ gsap.registerPlugin(ScrollTrigger)
 const INITIAL_ACTIVE_EVENTS = [
   {
     id: 'github-basics',
-    title: 'GitHub Basics',
+    title: 'GitHub Basics & GitOps',
     collapsedTitle: 'GitHub Basics',
     collapsedMeta: 'Offline Workshop',
-    tagline: 'Version Control, Branching & GitOps Foundations',
+    tagline: 'Version Control, Branching & Collaborative Workflows',
     mode: 'Offline Workshop',
     date: '13th Oct, 2026',
     venue: 'VIT Bibwewadi College, Pune',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Vishwakarma+Institute+of+Technology+Bibwewadi+Pune',
-    desc: 'Hands-on code-along workshop on campus. Get direct CLI and console experience, master core Git workflows, branch lifecycle strategies, conflict resolution, collaborative pull requests, and automated repository actions with live in-person mentor debugging.',
+    desc: 'A comprehensive, hands-on masterclass on campus designed to take you from foundational CLI commands to real-world collaborative engineering. Learn repository initialization, multi-branch strategies, atomic commits, merge conflict resolution, pull request reviews, and automated repository actions with live, in-person mentorship and peer debugging.',
     src: '/images/events/github-basics.jpg',
     fallbackSrc: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?q=80&w=2076&auto=format&fit=crop',
-    tags: ['Git CLI', 'Branching & Merge', 'PR Review', 'Campus Offline'],
     category: 'Hands-on Lab',
-    actionLabel: 'Open Venue Map',
   },
   {
     id: 'weekly-aws-workshops',
@@ -36,15 +34,10 @@ const INITIAL_ACTIVE_EVENTS = [
     tagline: '100% Interactive Cloud Architecture Builds',
     mode: 'Online Live',
     date: 'Every Sunday',
-    venue: 'Discord Voice & AWS Console',
-    mapsUrl: null,
     desc: 'Interactive live builds from scratch. Deploy live static websites on Amazon S3, architect serverless APIs with AWS Lambda & API Gateway, spin up cloud databases, and explore Generative AI deployments with Amazon Bedrock — every project is pushed directly to your GitHub portfolio.',
     src: '/images/events/aws-builder.jpg',
     fallbackSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
-    tags: ['AWS Lambda', 'Amazon S3', 'Bedrock GenAI', 'Serverless'],
     category: 'Weekly Sprint',
-    actionLabel: 'Join Discord Lab',
-    actionUrl: 'https://discord.gg',
   },
 ]
 
@@ -62,15 +55,10 @@ const STAY_TUNED_CARD = {
   tagline: 'Hackathons, Deep Dives & Cloud Sprints',
   mode: 'Upcoming Events',
   date: 'Semester Roadmap · 2026–27',
-  venue: 'Hybrid · Campus & Global',
-  mapsUrl: null,
   desc: 'Collaborate in teams to design and deploy innovative, practical, and scalable cloud solutions solving real-world challenges, earn AWS credits, win badges and swag, and walk away with working demos that elevate your engineering resume.',
   src: '/images/events/upcoming-event.jpg',
   fallbackSrc: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
-  tags: ['Agentic AI', 'Cloud Hackathon', 'AWS Credits', 'Swag & Badges'],
   category: 'Upcoming Events',
-  actionLabel: 'Stay Tuned for Updates',
-  actionUrl: '/join',
 }
 
 /**
