@@ -18,28 +18,13 @@
   text-align: center;
 }
 
-.team-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: .55rem;
-  margin-bottom: 1.5rem;
-  color: #67d6ff;
-  font: 600 .7rem/1 var(--font-mono);
-  letter-spacing: .18em;
-  text-transform: uppercase;
-}
-
-.team-kicker img {
-  width: 1rem;
-  height: 1rem;
-  object-fit: contain;
-}
-
 .team-header h2 {
   margin: 0 0 1rem;
-  font-size: clamp(2.2rem, 5vw, 4.6rem);
-  line-height: .98;
-  letter-spacing: -.06em;
+  font-family: var(--font-main);
+  font-size: clamp(2rem, 4.8vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.025em;
   text-wrap: balance;
 }
 
