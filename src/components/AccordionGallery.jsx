@@ -138,73 +138,75 @@ export default function AccordionGallery({
               {/* ── Expanded Content Layer (Modern Swiss Editorial Poster) ── */}
               <div className="accordion-expanded-content">
                 <div className="accordion-expanded-inner">
-                  <div className="flex flex-col md:flex-row h-full w-full gap-4 sm:gap-6 items-stretch justify-between">
+                  <div className="flex flex-col md:flex-row h-full w-full gap-2 sm:gap-4 md:gap-6 items-stretch justify-between">
                     {/* ── Left Rail: Swiss Date & Location Block ── */}
-                    <div className="flex md:flex-col justify-between items-start shrink-0 pb-3 md:pb-0 border-b md:border-b-0 md:border-r border-white/10 md:pr-6 md:w-36">
-                      <div>
+                    <div className="flex md:flex-col justify-between items-center md:items-start shrink-0 pb-2 md:pb-0 border-b md:border-b-0 md:border-r border-white/10 md:pr-6 md:w-36">
+                      <div className="flex items-baseline md:block gap-2 sm:gap-3">
                         {/* Index Indicator */}
-                        <div className="text-[11px] font-mono font-bold text-sky-400/90 tracking-widest uppercase mb-1">
+                        <div className="text-[10px] sm:text-[11px] font-mono font-bold text-sky-400/90 tracking-widest uppercase md:mb-1">
                           // {itemNumber}
                         </div>
                         {/* Big Typography Date */}
-                        <div className="font-mono font-black text-white text-3xl sm:text-4xl md:text-5xl tracking-tighter leading-none">
+                        <div className="font-mono font-black text-white text-2xl sm:text-3xl md:text-5xl tracking-tighter leading-none">
                           {item.dateDay || '13'}
                         </div>
-                        <div className="text-xs sm:text-sm font-mono font-bold tracking-widest text-sky-400 uppercase mt-1">
+                        <div className="text-[11px] sm:text-xs md:text-sm font-mono font-bold tracking-widest text-sky-400 uppercase md:mt-1">
                           {item.dateMonth || 'OCT'} {item.dateYear || '2026'}
                         </div>
                       </div>
 
-                      {/* Location / Mode Indicator */}
-                      <div className="pt-2 md:pt-4 md:border-t border-white/10 w-full flex flex-col items-end md:items-start text-right md:text-left">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold">
-                          VENUE / MODE
-                        </span>
-                        {item.mapsUrl ? (
-                          <a
-                            href={item.mapsUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs font-mono font-bold text-sky-300 hover:text-white underline underline-offset-4 decoration-sky-400/40 hover:decoration-sky-300 transition-colors mt-0.5"
-                            title="Open Location in Google Maps"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <span>{item.locationCode || item.venue || 'CAMPUS'}</span>
-                            <ArrowSquareOut className="w-3 h-3 text-sky-400" />
-                          </a>
-                        ) : (
-                          <span className="text-xs font-mono font-bold text-slate-300 mt-0.5">
-                            {item.locationCode || item.mode || 'ONLINE'}
+                      {/* Location / Venue Indicator (only rendered when venue or maps link exists) */}
+                      {(item.venue || item.mapsUrl) && (
+                        <div className="pt-0 md:pt-4 md:border-t border-white/10 w-auto md:w-full flex flex-col items-end md:items-start text-right md:text-left">
+                          <span className="hidden md:inline-block text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold">
+                            VENUE
                           </span>
-                        )}
-                      </div>
+                          {item.mapsUrl ? (
+                            <a
+                              href={item.mapsUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-mono font-bold text-sky-300 hover:text-white underline underline-offset-4 decoration-sky-400/40 hover:decoration-sky-300 transition-colors"
+                              title="Open Location in Google Maps"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <span>{item.locationCode || item.venue || 'CAMPUS'}</span>
+                              <ArrowSquareOut className="w-3 h-3 text-sky-400" />
+                            </a>
+                          ) : (
+                            <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-300">
+                              {item.locationCode || item.venue}
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
 
                     {/* ── Right Rail: Editorial Typography & Story ── */}
-                    <div className="flex-1 flex flex-col justify-between py-1 min-w-0">
+                    <div className="flex-1 flex flex-col justify-between py-0.5 sm:py-1 min-w-0">
                       <div>
                         {/* Mode / Category Tag */}
-                        <div className="inline-flex items-center gap-2 mb-1.5">
-                          <span className="text-[10px] sm:text-[11px] font-mono font-semibold uppercase tracking-widest text-slate-400">
+                        <div className="inline-flex items-center gap-2 mb-1">
+                          <span className="text-[9px] sm:text-[10px] md:text-[11px] font-mono font-semibold uppercase tracking-widest text-slate-400">
                             {item.mode || item.category}
                           </span>
                         </div>
 
                         {/* Main Editorial Title */}
-                        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
+                        <h3 className="text-base sm:text-xl md:text-3xl font-extrabold text-white tracking-tight leading-snug sm:leading-tight">
                           {item.title}
                         </h3>
 
                         {/* Strong Lead Statement */}
                         {item.lead && (
-                          <p className="text-xs sm:text-sm md:text-[15px] font-semibold text-sky-100/90 mt-2 leading-snug">
+                          <p className="text-[11px] sm:text-xs md:text-[15px] font-semibold text-sky-100/90 mt-1 sm:mt-1.5 md:mt-2 leading-snug">
                             {item.lead}
                           </p>
                         )}
                       </div>
 
                       {/* Crisp Body Description */}
-                      <p className="text-xs sm:text-[13px] text-slate-300/85 leading-relaxed max-w-xl mt-3 md:mt-0">
+                      <p className="text-[11px] sm:text-xs md:text-[13px] text-slate-300/85 leading-relaxed text-justify max-w-xl mt-1.5 md:mt-0">
                         {item.desc}
                       </p>
                     </div>

@@ -12,23 +12,23 @@ gsap.registerPlugin(ScrollTrigger)
 ──────────────────────────────────────────────────────── */
 const INITIAL_ACTIVE_EVENTS = [
   {
-    id: 'github-basics',
-    title: 'GitHub Basics & GitOps',
-    collapsedTitle: 'GitHub Basics',
-    collapsedMeta: 'Offline Workshop',
-    mode: 'In-Person Lab',
-    dateDay: '13',
+    id: 'commit-to-git',
+    title: 'Commit to Git: Hands-On Git & GitHub Workshop',
+    collapsedTitle: 'Commit to Git',
+    collapsedMeta: 'Hands-On Workshop',
+    mode: 'In-Person',
+    dateDay: '12',
     dateMonth: 'OCT',
     dateYear: '2026',
-    date: '13 Oct 2026',
+    date: '12 Oct 2026',
     locationCode: 'VIT PUNE',
-    venue: 'VIT Bibwewadi Campus',
+    venue: 'New Seminar Hall, VIT Pune',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Vishwakarma+Institute+of+Technology+Bibwewadi+Pune',
-    lead: 'Master version control, multi-branching & collaborative PR workflows.',
-    desc: 'Hands-on code-along workshop on campus. Master core terminal Git workflows, atomic commits, branch lifecycle strategies, conflict resolution, and collaborative pull requests with live 1-on-1 mentor debugging.',
+    lead: 'From Your First Commit to Your First Pull Request — Learn Git, collaborate, build & deploy.',
+    desc: 'An interactive hands-on masterclass taking you through repository management, branching, and real-world team pull requests with on-ground mentor support. Features a live jamming break, an introduction to Cloud & DevOps, and an interactive quiz with exciting prizes!',
     src: '/images/events/github-basics.jpg',
     fallbackSrc: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?q=80&w=2076&auto=format&fit=crop',
-    category: 'Hands-on Lab',
+    category: 'Hands-on Workshop',
   },
   {
     id: 'weekly-aws-workshops',
@@ -40,7 +40,7 @@ const INITIAL_ACTIVE_EVENTS = [
     dateMonth: 'EVERY',
     dateYear: 'WEEK',
     date: 'Every Sunday',
-    locationCode: 'DISCORD',
+    locationCode: null,
     venue: null,
     mapsUrl: null,
     lead: '100% interactive cloud architecture builds deployed live from scratch.',
@@ -67,7 +67,7 @@ const STAY_TUNED_CARD = {
   dateMonth: 'ROADMAP',
   dateYear: '2027',
   date: 'Semester Roadmap · 2026–27',
-  locationCode: 'GLOBAL',
+  locationCode: null,
   venue: null,
   mapsUrl: null,
   lead: 'Collaborate in teams to architect scalable cloud solutions.',
@@ -238,10 +238,10 @@ export default function EventsSection({ customEvents }) {
       <div
         ref={pinWrapperRef}
         onWheel={handleWheel}
-        className="w-full h-screen min-h-[620px] max-h-[1080px] flex flex-col justify-between overflow-hidden relative select-none"
+        className="w-full h-[100dvh] min-h-[500px] max-h-[1080px] flex flex-col justify-between overflow-hidden relative select-none"
         style={{
-          paddingTop: 'clamp(5.25rem, 6.5vh + 1.25rem, 6rem)',
-          paddingBottom: 'clamp(1rem, 2.5vh, 2rem)',
+          paddingTop: 'clamp(4rem, 5vh + 1rem, 6rem)',
+          paddingBottom: 'clamp(0.75rem, 1.8vh, 1.75rem)',
         }}
       >
         {/* Ambient atmospheric glows */}
@@ -249,15 +249,15 @@ export default function EventsSection({ customEvents }) {
         <div className="absolute bottom-1/3 right-1/4 w-[550px] h-[340px] bg-indigo-500/10 rounded-full blur-[130px] pointer-events-none -z-10" />
 
         {/* ── Section Header ── */}
-        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mb-2 sm:mb-3">
+        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mb-1 sm:mb-3">
           <h2
-            className="font-extrabold text-white leading-tight tracking-tight mb-1 sm:mb-2"
-            style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)' }}
+            className="font-extrabold text-white leading-tight tracking-tight mb-0.5 sm:mb-2"
+            style={{ fontSize: 'clamp(1.4rem, 3.2vw, 2.75rem)' }}
           >
             Level Up Your Cloud Craft
           </h2>
 
-          <p className="text-xs sm:text-sm text-slate-300/90 leading-relaxed max-w-2xl px-2">
+          <p className="text-[11px] sm:text-sm text-slate-300/90 leading-relaxed max-w-2xl px-2 line-clamp-2 sm:line-clamp-none">
             Don&apos;t just learn the cloud — code it live. From hands-on Git essentials at VIT campus to weekly cloud builds and hackathon sprints.
           </p>
         </div>
