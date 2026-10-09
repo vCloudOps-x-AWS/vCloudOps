@@ -196,7 +196,7 @@ export default function MobileUfoEvents({
         }}
       >
         <svg
-          viewBox="0 0 200 70"
+          viewBox="0 5 200 50"
           className="ufo-svg"
           style={{ filter: theme.glowFilter }}
         >
