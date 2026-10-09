@@ -498,8 +498,8 @@ export default function MobileUfoEvents({
         </div>
       </div>
 
-      {/* ── 3. TOUCH NAVIGATION CONTROLS (Pill Tabs & Arrows) ── */}
-      <div className="floating-nav-bar">
+      {/* ── 3. TOUCH NAVIGATION CONTROLS (Pill Tabs & Arrows - Mobile Only) ── */}
+      <div className="floating-nav-bar md:hidden">
         {/* Left Arrow Button */}
         <button
           onClick={handlePrev}
@@ -549,10 +549,9 @@ export default function MobileUfoEvents({
         </button>
       </div>
 
-      {/* Interactive Micro-Label */}
-      <div className="swipe-hint-label">
-        <span className="block md:hidden">← Swipe to explore events →</span>
-        <span className="hidden md:block">← Click arrows, scroll, or use keys to explore events →</span>
+      {/* Interactive Micro-Label (Mobile Only) */}
+      <div className="swipe-hint-label md:hidden">
+        <span>← Swipe to explore events →</span>
       </div>
 
       {/* ── 4. DETAILS CARD MODAL (GLOW-IN-THE-DARK GLASS CHAMBER VIA PORTAL) ── */}
