@@ -65,20 +65,22 @@ export default function MobileUfoEvents({
   const theme = EVENT_THEMES[currentIndex % EVENT_THEMES.length] || EVENT_THEMES[0]
 
   // Sync with controlled activeIndex from parent (GSAP ScrollTrigger or external selection)
+  const lastControlledRef = useRef(controlledIndex)
   useEffect(() => {
     if (
       controlledIndex !== undefined &&
-      controlledIndex !== currentIndex &&
+      controlledIndex !== lastControlledRef.current &&
       controlledIndex >= 0 &&
       controlledIndex < total
     ) {
+      lastControlledRef.current = controlledIndex
       const direction = controlledIndex > currentIndex ? 1 : -1
       setTiltAngle(direction * 7)
       setCurrentIndex(controlledIndex)
       const timer = setTimeout(() => setTiltAngle(0), 400)
       return () => clearTimeout(timer)
     }
-  }, [controlledIndex, currentIndex, total])
+  }, [controlledIndex, total])
 
   // UFO Fly-in sequence trigger when mounted
   useEffect(() => {

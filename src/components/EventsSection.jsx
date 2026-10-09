@@ -211,11 +211,16 @@ export default function EventsSection({ customEvents }) {
     { scope: sectionRef, dependencies: [totalCards] }
   )
 
-  // Listen to window resize to keep ScrollTrigger measurements pristine
+  // Track desktop vs mobile screen
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  // Listen to window resize to keep ScrollTrigger measurements pristine and track desktop
   useEffect(() => {
     const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768)
       ScrollTrigger.refresh()
     }
+    handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
@@ -268,13 +273,20 @@ export default function EventsSection({ customEvents }) {
           </p>
         </div>
 
-        {/* ── UFO Beam Events Showcase (Unified Mobile & Laptop) ── */}
+        {/* ── UFO Beam Events Showcase ── */}
         <div className="w-full flex-1 flex flex-col justify-center items-center">
-          <MobileUfoEvents
-            items={events}
-            activeIndex={activeIndex}
-            onSelect={scrollToCard}
-          />
+          {isDesktop ? (
+            <MobileUfoEvents
+              items={events}
+              activeIndex={activeIndex}
+              onSelect={(idx) => {
+                setActiveIndex(idx)
+                scrollToCard(idx)
+              }}
+            />
+          ) : (
+            <MobileUfoEvents items={events} />
+          )}
         </div>
       </div>
     </section>
