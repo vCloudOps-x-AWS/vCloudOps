@@ -682,3 +682,128 @@
 .modal-btn-dismiss:active {
   transform: scale(0.96);
 }
+
+/* ── 6. RESPONSIVE DESKTOP & LAPTOP ADAPTATION (>= 768px) ── */
+@media (min-width: 768px) {
+  .mobile-ufo-events-container {
+    max-width: 620px;
+    padding: 0.5rem 1rem 1rem 1rem;
+  }
+
+  .ufo-craft-anchor {
+    width: 235px;
+    height: 82px;
+  }
+
+  .ufo-beam-stage {
+    max-width: 520px;
+    min-height: 480px;
+    margin-top: -20px;
+  }
+
+  .beam-floating-content {
+    padding: 4.6rem 1.8rem 2.2rem 1.8rem;
+  }
+
+  .beam-mode-text-row {
+    max-width: 280px;
+    margin-bottom: 0.75rem;
+  }
+
+  .beam-mode-text-row span {
+    font-size: 0.85rem !important;
+    letter-spacing: 0.28em !important;
+  }
+
+  .beam-date-row {
+    max-width: 280px;
+    margin-bottom: 0.95rem;
+  }
+
+  .beam-date-day {
+    font-size: 2.75rem;
+  }
+
+  .beam-date-month {
+    font-size: 0.82rem;
+    letter-spacing: 0.15em;
+  }
+
+  .beam-venue-chip {
+    padding: 0.28rem 0.8rem;
+    font-size: 0.72rem;
+  }
+
+  .beam-title {
+    max-width: 380px;
+    font-size: 1.35rem;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+
+  .beam-lead {
+    max-width: 400px;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    margin-bottom: 1.35rem;
+  }
+
+  .beam-floor-shadow-dock {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .beam-floor-shadow-disc {
+    width: 270px;
+    height: 56px;
+    filter: blur(10px);
+  }
+
+  .beam-more-info-btn {
+    padding: 0.65rem 1.75rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+  }
+
+  .beam-more-info-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .floating-nav-bar {
+    max-width: 360px;
+    margin-top: 0.85rem;
+    gap: 1rem;
+  }
+
+  .nav-arrow-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .nav-arrow-btn:hover {
+    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: scale(1.08);
+  }
+
+  .nav-pill {
+    padding: 0.32rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .beam-details-modal-card {
+    max-width: 450px;
+  }
+
+  .modal-event-title {
+    font-size: 1.45rem;
+  }
+
+  .modal-event-lead {
+    font-size: 0.88rem;
+  }
+
+  .modal-desc-text {
+    font-size: 0.88rem;
+  }
+}

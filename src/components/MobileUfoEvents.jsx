@@ -47,8 +47,12 @@ const EVENT_THEMES = [
   },
 ]
 
-export default function MobileUfoEvents({ items = [] }) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+export default function MobileUfoEvents({
+  items = [],
+  activeIndex: controlledIndex,
+  onSelect,
+}) {
+  const [currentIndex, setCurrentIndex] = useState(controlledIndex ?? 0)
   const [touchStartX, setTouchStartX] = useState(null)
   const [touchDeltaX, setTouchDeltaX] = useState(0)
   const [tiltAngle, setTiltAngle] = useState(0)
@@ -59,6 +63,22 @@ export default function MobileUfoEvents({ items = [] }) {
   const total = items.length
   const currentItem = items[currentIndex] || items[0]
   const theme = EVENT_THEMES[currentIndex % EVENT_THEMES.length] || EVENT_THEMES[0]
+
+  // Sync with controlled activeIndex from parent (GSAP ScrollTrigger or external selection)
+  useEffect(() => {
+    if (
+      controlledIndex !== undefined &&
+      controlledIndex !== currentIndex &&
+      controlledIndex >= 0 &&
+      controlledIndex < total
+    ) {
+      const direction = controlledIndex > currentIndex ? 1 : -1
+      setTiltAngle(direction * 7)
+      setCurrentIndex(controlledIndex)
+      const timer = setTimeout(() => setTiltAngle(0), 400)
+      return () => clearTimeout(timer)
+    }
+  }, [controlledIndex, currentIndex, total])
 
   // UFO Fly-in sequence trigger when mounted
   useEffect(() => {
@@ -96,8 +116,11 @@ export default function MobileUfoEvents({ items = [] }) {
       setTiltAngle(direction * 7)
       setCurrentIndex(index)
       setTimeout(() => setTiltAngle(0), 400)
+      if (onSelect) {
+        onSelect(index)
+      }
     },
-    [currentIndex, total]
+    [currentIndex, total, onSelect]
   )
 
   const handlePrev = useCallback(() => {
@@ -107,6 +130,20 @@ export default function MobileUfoEvents({ items = [] }) {
   const handleNext = useCallback(() => {
     goToIndex(Math.min(total - 1, currentIndex + 1))
   }, [currentIndex, total, goToIndex])
+
+  // Keyboard navigation support for desktop/laptop
+  useEffect(() => {
+    const handleKeyNav = (e) => {
+      if (isDetailsOpen) return
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        goToIndex(Math.min(total - 1, currentIndex + 1))
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        goToIndex(Math.max(0, currentIndex - 1))
+      }
+    }
+    window.addEventListener('keydown', handleKeyNav)
+    return () => window.removeEventListener('keydown', handleKeyNav)
+  }, [currentIndex, goToIndex, isDetailsOpen, total])
 
   // Touch Swipe Handlers for tactile mobile gestures
   const onTouchStart = (e) => {
@@ -512,9 +549,10 @@ export default function MobileUfoEvents({ items = [] }) {
         </button>
       </div>
 
-      {/* Swipe Hint Micro-Label */}
+      {/* Interactive Micro-Label */}
       <div className="swipe-hint-label">
-        <span>← Swipe to explore events →</span>
+        <span className="block md:hidden">← Swipe to explore events →</span>
+        <span className="hidden md:block">← Click arrows, scroll, or use keys to explore events →</span>
       </div>
 
       {/* ── 4. DETAILS CARD MODAL (GLOW-IN-THE-DARK GLASS CHAMBER VIA PORTAL) ── */}

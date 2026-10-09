@@ -2,7 +2,6 @@ import { useRef, useState, useCallback, useEffect, useMemo } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import AccordionGallery from './AccordionGallery'
 import MobileUfoEvents from './MobileUfoEvents'
 import { getLenis } from '../utils/smoothScroll'
 
@@ -269,14 +268,9 @@ export default function EventsSection({ customEvents }) {
           </p>
         </div>
 
-        {/* ── Mobile UFO Beam View (Pure Floating Info & Dynamic Light) ── */}
-        <div className="block md:hidden w-full flex-1 flex flex-col justify-center items-center">
-          <MobileUfoEvents items={events} />
-        </div>
-
-        {/* ── Desktop Controlled Accordion Gallery Container (>= 768px) ── */}
-        <div className="hidden md:flex w-full max-w-6xl mx-auto px-3 sm:px-6 my-auto flex-1 flex-col justify-center">
-          <AccordionGallery
+        {/* ── UFO Beam Events Showcase (Unified Mobile & Laptop) ── */}
+        <div className="w-full flex-1 flex flex-col justify-center items-center">
+          <MobileUfoEvents
             items={events}
             activeIndex={activeIndex}
             onSelect={scrollToCard}
