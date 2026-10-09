@@ -430,12 +430,12 @@ const ParticleText = ({
 
       // Preserve full typography contours without dropping key pixels
       const maxParticles = isMobileView
-        ? Math.max(1600, Math.min(2600, Math.floor((width * height) / 100)))
+        ? Math.max(800, Math.min(1400, Math.floor((width * height) / 160)))
         : Math.max(2400, Math.min(4500, Math.floor((width * height) / 80)));
       const stride = Math.max(1, Math.floor(targets.length / maxParticles));
       const selected = targets.filter((_, index) => index % stride === 0);
 
-      const baseParticleSize = isMobileView ? 2.4 : (particleSize || 2.7);
+      const baseParticleSize = isMobileView ? 2.8 : (particleSize || 2.7);
 
       particles = selected.map((target, index) => {
         const seed = ((index * 9301 + 49297) % 233280) / 233280;
@@ -566,11 +566,26 @@ const ParticleText = ({
     window.addEventListener('scroll', updateCachedRect, { passive: true });
     window.addEventListener('resize', updateCachedRect, { passive: true });
 
+    const handleDocVisibility = () => {
+      if (document.hidden) {
+        if (animationFrame !== null) {
+          window.cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+        }
+      } else if (isVisible) {
+        ensureRenderLoop();
+      }
+    };
+    document.addEventListener('visibilitychange', handleDocVisibility);
+
     const visibilityObserver = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
         if (isVisible) {
           ensureRenderLoop();
+        } else if (animationFrame !== null) {
+          window.cancelAnimationFrame(animationFrame);
+          animationFrame = null;
         }
       },
       { threshold: 0.05 }
@@ -588,6 +603,7 @@ const ParticleText = ({
       buildId += 1;
       visibilityObserver.disconnect();
       resizeObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleDocVisibility);
       reduceMotionQuery?.removeEventListener('change', handleReduceMotionChange);
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('touchmove', handlePointerMove);

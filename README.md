@@ -65,25 +65,26 @@ The application is built on an **Ethereal Glass** architectural design system wi
 - **Asymmetrical Bento Grid**: Double-bezel (`Doppelrand`) cards highlighting Cloud Architecture, CI/CD Pipelines, Containers & Kubernetes, and DevSecOps.
 - **ScrollTrigger Kinetics**: Staggered scroll reveals with smooth blur clearing.
 
-### 5. Workshops & Events Showcase (`EventsSection.jsx`)
-- **Categorized Tabs**: Filter workshops by *All*, *Workshops*, *Bootcamps*, and *Labs*.
-- **Interactive Registration Modal**: Full event modal with quick registration form, speaker tags, and prerequisites.
+### 5. Interactive Accordion Workshops & Events (`EventsSection.jsx` & `AccordionGallery.jsx`)
+- **Pinned Responsive Storyboard**: Pinned full-viewport track with dynamically scaled scroll distance and responsive scrub (`0.35s` on mobile, `0.8s` on desktop).
+- **Fluid Mobile Accordion Morphing**: Seamless height transitions (`64px` collapsed -> `clamp(350px, 49vh, 395px)` expanded) with coordinated content slide-and-fade, eliminating jarring `display: none` snapping.
+- **Desktop 3D Tilt Kinetics**: Expanded cards track mouse coordinates for subtle perspective rotation.
 
-### 6. Core Leadership & Team (`TeamSection.jsx`)
-- **Double-Bezel Member Cards**: Showcases leads and mentors with roles, tech tags, and direct GitHub/LinkedIn links.
+### 6. Interactive Roster & Domains (`TeamSection.jsx`)
+- **Orbital Dock Carousel**: Interactive 3D deck displaying team leads and members across 10 specialized domains.
+- **Ultra-Lightweight WebP Portraits**: 30 portraits compressed to high-fidelity WebP format with `loading="lazy"` and `decoding="async"`, reducing payload from 35.7 MB to 0.57 MB.
 
-### 7. Community Hub & FAQ (`CommunitySection.jsx`)
-- **Interactive FAQ Accordion**: Expandable Q&A accordion with smooth GSAP height transitions.
-- **Community Onboarding**: Direct links for Discord, GitHub, and WhatsApp community groups.
+### 7. Orbiting Moments Community Gallery (`GallerySection.jsx`)
+- **Cinematic Community Highlights**: Curated snapshots from cloud workshops, hackathons, and sprint sessions.
 
-### 8. Cosmic Parallax Universe (`SpaceBackground.jsx`)
+### 8. Cosmic Parallax Universe (`SpaceBackground.jsx` & `SpaceJourneyCanvas.jsx`)
 - **Multi-Layered Planetary Field**: Layered SVGs including Moon, Ocean Exoplanet, Ringed Titan, Dwarf planets, and twinkling starfields.
-- **Smooth Parallax Coupling**: Synchronized with Lenis smooth scroll for deep celestial depth perception.
+- **GPU Hardware Layering**: `will-change: transform, opacity` hints ensure silky 60+ FPS compositor-driven scroll parallax.
 
 ### 9. Interactive Shader Glow Cursor (`GlowCursor.jsx`)
 - **Custom OGL Shaders**: Full-viewport WebGL cursor trail with cyan/violet dual-color gradient, pulse dynamics, and film grain noise.
-- **Deep Sleep Optimization**: Automatically suspends the WebGL loop when the cursor is idle (zero CPU & GPU usage).
-- **Non-Obtrusive Overlay**: `pointer-events: none` overlay ensures 100% responsiveness on all underlying buttons, links, and text.
+- **Touch & Mobile Bypass**: Automatically bypasses WebGL canvas on touch devices (`pointer: coarse` / `hover: none`) to conserve mobile battery and GPU fill-rate.
+- **Deep Sleep Optimization**: Automatically suspends the WebGL loop when the cursor is idle or tab is hidden.
 
 ---
 
@@ -93,16 +94,18 @@ The application is built on an **Ethereal Glass** architectural design system wi
 vCloudOps/
 ├── public/
 │   ├── Logo/                 # Official brand icons and marks (PNG/SVG)
-│   ├── clouds/               # Atmospheric cloud imagery
-│   ├── favicon.svg           # Site favicon
-│   └── logo-mark.png         # Legacy brand icon
+│   ├── images/events/        # High-resolution optimized WebP event banners
+│   ├── team-logos/           # Domain insignia and logos (WebP/PNG)
+│   └── team-members/roster/  # 30 optimized WebP team portraits
 ├── src/
 │   ├── components/
 │   │   ├── AboutTeaser.jsx   # Mission briefing & asymmetrical bento grid
-│   │   ├── CloudBackground.jsx # Alternative procedural cloud backdrop
-│   │   ├── CommunitySection.jsx# FAQ accordion & community onboarding
-│   │   ├── EventsSection.jsx # Workshop cards & registration modal
+│   │   ├── AccordionGallery.css # Fluid accordion transitions & responsive styles
+│   │   ├── AccordionGallery.jsx # Interactive horizontal/vertical event accordion
+│   │   ├── CosmicWarpTransition.jsx # Route warp gateway transition effect
+│   │   ├── EventsSection.jsx # Workshop cards & ScrollTrigger pinned story
 │   │   ├── Footer.jsx        # Dual-tier footer with navigation & social links
+│   │   ├── GallerySection.jsx# Community moments & snapshot gallery
 │   │   ├── GlowCursor.jsx    # Hardware-accelerated OGL WebGL glow cursor
 │   │   ├── GlowCursor.css    # Cursor canvas layering and viewport styling
 │   │   ├── Hero.jsx          # Hero section with CTAs & live rolling stats
@@ -111,22 +114,28 @@ vCloudOps/
 │   │   ├── ParticleText.css  # Particle text layout & responsive anchors
 │   │   ├── ScrollCue.jsx     # Animated scroll guidance indicator
 │   │   ├── SpaceBackground.jsx# Parallax cosmic vector background
-│   │   └── TeamSection.jsx   # Core leadership cards with social badges
+│   │   ├── TeamSection.jsx   # Core leadership cards & 3D carousel
+│   │   └── space/            # Modular deep-space journey celestial bodies
 │   ├── hooks/
+│   │   ├── usePageTransition.js # Route transition trigger hook
 │   │   ├── useReducedMotion.js # Accessibility hook for motion preferences
 │   │   └── useScrolled.js    # Scroll threshold detection hook
 │   ├── pages/
-│   │   └── Home.jsx          # Primary single-page composition
+│   │   ├── Home.jsx          # Primary single-page composition
+│   │   └── JoinPage.jsx      # Code-split recruitment application portal
 │   ├── utils/
-│   │   └── smoothScroll.js   # Lenis initialization & GSAP ticker binding
+│   │   └── smoothScroll.js   # Lenis initialization & mobile touch inertia
 │   ├── App.css               # Global utility rules
-│   ├── App.jsx               # Root application component
-│   ├── index.css             # Tailwind v4 directives, custom properties, & keyframes
+│   ├── App.jsx               # Root application component with code splitting
+│   ├── index.css             # Tailwind v4 directives & keyframes
 │   └── main.jsx              # DOM entry point
-├── .oxlintrc.json            # Oxlint configuration
-├── index.html                # HTML entry template with meta tags & SEO
+├── scripts/
+│   ├── check-roster.mjs      # Automated integrity verification for roster
+│   ├── make-favicon.js       # Favicon generator
+│   └── optimize-images.mjs   # Sharp image compression pipeline (WebP)
+├── index.html                # HTML entry template with font preconnects & SEO
 ├── package.json              # Project dependencies & scripts
-├── vite.config.js            # Vite configuration (port 3000, host enabled)
+├── vite.config.js            # Vite config (port 3000, manual vendor chunks)
 └── README.md                 # Complete project documentation
 ```
 
@@ -149,7 +158,7 @@ vCloudOps/
 
 2. **Checkout the active branch**:
    ```bash
-   git checkout sanskar
+   git checkout updates
    ```
 
 3. **Install dependencies**:

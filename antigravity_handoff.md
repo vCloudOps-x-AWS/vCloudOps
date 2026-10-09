@@ -49,24 +49,39 @@ This document tracks modifications made to the `vCloudOps` repository by the Ant
 - **Unified 3D Mouse Parallax**: Fluid mouse tracking with smooth lerping, translational sway, and subtle perspective tilt synchronized across every star.
 - **Preserved Planetary System**: All SVG celestial bodies, atmospheres, and meteors in `SpaceBackground.jsx` remain intact.
 
+### F. Performance Optimization & Asset Pipeline
+- **Sharp WebP Pipeline (`scripts/optimize-images.mjs`)**: Compressed 30 team portraits, event banners, and logos to high-quality WebP.
+  - Roster photo payload dropped by **98.4%** (from 35.71 MB to 0.57 MB).
+  - All images include `loading="lazy"` and `decoding="async"`.
+- **GlowCursor Touch Device Bypass**: Checks `(pointer: coarse)` and `(hover: none)`. If mobile touch device, bypasses WebGL canvas rendering completely to eliminate GPU drain and overheating.
+- **Vite 8 Rolldown Chunk Splitting**: Configured `manualChunks` in `vite.config.js` into modular cached vendor bundles (`vendor-react`, `vendor-animation`, `vendor-webgl`, `vendor-icons`).
+  - Main entry JS bundle reduced by **81%** (from 836 kB down to 157 kB).
+- **Route Code Splitting**: Implemented `React.lazy` for `JoinPage.jsx` wrapped in `<Suspense>`.
+- **Non-Blocking Fonts**: Replaced `@import` in `index.css` with `<link rel="preconnect">` and asynchronous stylesheet loading in `index.html`.
+- **Lenis Mobile Decoupling**: Set `smoothTouch: false` and `syncTouch: false` to allow native 120Hz mobile touch scrolling while keeping smooth wheel glide on desktop.
+
+### G. Mobile Accordion Expand Transition (`AccordionGallery.jsx` & `EventsSection.jsx`)
+- **Fluid Numerical Height Morphing**: Replaced `display: none` and `height: auto` with interpolatable numerical heights (`64px` collapsed -> `clamp(350px, 49vh, 395px)` expanded) animated via `cubic-bezier(0.16, 1, 0.3, 1)`.
+- **Coordinated Content Crossfade & Slide**:
+  - Collapsed header bar gently fades out and slides up (`translateY(-8px)`).
+  - Expanded event details glide in from `translateY(14px)` with opacity fade and staggered delay.
+- **Mobile ScrollTrigger Pinning**:
+  - Dynamically scaled pin scroll distance on mobile (`window.innerWidth < 768`) to ~750px (`window.innerHeight * (totalCards * 0.55)`) so each card advances with 1 natural thumb swipe.
+  - Reduced scrub latency to `0.35s` on mobile for instantaneous gesture responsiveness.
+
 ---
 
-## 2. Upstream Git & Pull Request Status
+## 2. Upstream Git & Branch Status
 
-- **Branch**: `sanskar`
-- **Upstream Synchronization**: Pulled and merged `origin/main` (`39ee40d Merge pull request #5 from vCloudOps-x-AWS/sanskar`), cleanly resolving all dependencies with 0 conflicts.
-- **Previous PR**: [vCloudOps Pull Request #5](https://github.com/vCloudOps-x-AWS/vCloudOps/pull/5) — **Merged** into `main`.
-- **Current Head**: `291fdcf` (pushed to `origin/sanskar`).
-- **New Pull Request**: Ready to open from `sanskar` to `main`:
-  - **Direct Compare & Create Link**: [Create Pull Request: sanskar → main](https://github.com/vCloudOps-x-AWS/vCloudOps/compare/main...sanskar?expand=1)
-  - **Head**: `sanskar`
-  - **Base**: `main`
-  - **Merge State**: `mergeable: true` (0 conflicts)
+- **Branch**: `updates`
+- **Synchronized with**: `origin/main`
+- **Status**: Production build verified with Vite 8 (`npm run build`), roster checks passed (`npm run roster:check`).
 
 ---
 
 ## 3. Tooling & Development Standards
 
-- **Dev Server**: Run on port 3000 (`npm run dev`) configured in `vite.config.js` to avoid PWA port 5173 collisions.
-- **Linter**: Run `npm run lint` (`oxlint`). Must maintain 0 errors and 0 warnings.
-- **Design Guidelines**: Always reference `design.md` for the *Ethereal Glass* design system (Double-Bezel architecture, Phosphor Icons, and color palettes).
+- **Dev Server**: Run on port 3000 (`npm run dev`) configured in `vite.config.js` to avoid PWA port collisions.
+- **Roster Verification**: Run `npm run roster:check` before pushing any team changes.
+- **Build Verification**: Run `npm run build` to verify rolldown chunking and bundle constraints.
+- **Design Guidelines**: Always reference `design.md` for the *Ethereal Glass* design system.

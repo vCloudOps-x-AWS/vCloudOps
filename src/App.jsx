@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import './index.css'
 import Home from './pages/Home'
-import JoinPage from './pages/JoinPage'
 import GlowCursor from './components/GlowCursor'
 import { TransitionProvider } from './context/TransitionContext'
 import CosmicWarpTransition from './components/CosmicWarpTransition'
+
+const JoinPage = lazy(() => import('./pages/JoinPage'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -22,32 +23,35 @@ function App() {
         <ScrollToTop />
         <CosmicWarpTransition />
         <GlowCursor
-        color="#67E8F9"
-        secondaryColor="#A78BFA"
-        trailLength={40}
-        trailWidth={8}
-        trailTaper={0.8}
-        followSpeed={0.16}
-        glowIntensity={1.9}
-        glowSpread={1.2}
-        hotspot={0.65}
-        brightness={1.25}
-        opacity={1}
-        pulseSpeed={1.1}
-        noiseStrength={0.035}
-        idleFade
-        idleTimeout={700}
-        fadeDuration={900}
-        blendMode="screen"
-        global
-      >
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/join" element={<JoinPage />} />
-          <Route path="/apply" element={<Navigate to="/join" replace />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </GlowCursor>
+          color="#67E8F9"
+          secondaryColor="#A78BFA"
+          trailLength={40}
+          trailWidth={8}
+          trailTaper={0.8}
+          followSpeed={0.16}
+          glowIntensity={1.9}
+          glowSpread={1.2}
+          hotspot={0.65}
+          brightness={1.25}
+          opacity={1}
+          pulseSpeed={1.1}
+          noiseStrength={0.035}
+          idleFade
+          idleTimeout={700}
+          fadeDuration={900}
+          blendMode="screen"
+          maxDevicePixelRatio={1.25}
+          global
+        >
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/join" element={<JoinPage />} />
+              <Route path="/apply" element={<Navigate to="/join" replace />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
+        </GlowCursor>
       </TransitionProvider>
     </BrowserRouter>
   )

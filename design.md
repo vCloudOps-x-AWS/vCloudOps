@@ -45,6 +45,17 @@ The application employs an **"Ethereal Glass"** visual archetype designed to con
 - The internal icon translates and scales independently on hover (`group-hover:translate-x-0.5 group-hover:-translate-y-0.5`).
 - Enhanced with a soft cyan radial energy bloom on entrance.
 
+### Interactive Events Accordion (`EventsSection.jsx` & `AccordionGallery.jsx`)
+- **Desktop Dynamic Width Expansion**: Multi-card horizontal storyboard where hovering/focusing expands the target panel smoothly while adjacent panels compress with subtle 3D parallax tilt.
+- **Mobile Fluid Numerical Morphing**:
+  - Eliminates jarring `display: none` / `height: auto` snapping.
+  - Collapsed card sits at an elegant `64px` tap target with pill metadata tag and chevron indicator.
+  - Expanded card interpolates smoothly to `clamp(350px, 49vh, 395px)` using a silky `cubic-bezier(0.16, 1, 0.3, 1)` easing curve.
+  - Features coordinated crossfade: collapsed title bar drifts up (`translateY(-8px)`) and fades out, while the full event hero image and details glide up from `translateY(14px)` with staggered opacity.
+- **Gesture-Paced Scroll Pinning**:
+  - Dynamically scaled pin scroll distance on mobile (`window.innerHeight * 0.55 * totalCards` ~750px) allows each card to advance with 1 natural thumb swipe.
+  - Mobile scrub is tuned to `0.35s` for immediate touch feedback.
+
 ---
 
 ## 4. Dynamic Particle Typography (`ParticleText.jsx`)
@@ -62,7 +73,9 @@ To ensure a continuous 60+ FPS on all devices (including mobile):
 1. **Zero Runtime `shadowBlur`**: Canvas renders avoid expensive CPU-bound `ctx.shadowBlur`. Instead, particle textures are pre-rendered into offscreen canvas sprites once and blitted with `ctx.drawImage`.
 2. **IntersectionObserver Suspension**: Background canvases and particle loops automatically pause via `IntersectionObserver` when scrolled out of view.
 3. **Throttled Scroll Handlers**: Window scroll listeners are coupled to `requestAnimationFrame` or Lenis ticker events rather than raw DOM event spam.
-4. **Lenis Smooth Scroll Integration**: Hardware-accelerated inertial scrolling synchronized with GSAP (`gsap.ticker.add(lenis.raf)`) and lag smoothing (`gsap.ticker.lagSmoothing(500, 33)`).
+4. **Lenis Smooth Scroll Integration**: Hardware-accelerated inertial scrolling synchronized with GSAP (`gsap.ticker.add(lenis.raf)`) and lag smoothing (`gsap.ticker.lagSmoothing(500, 33)`). Mobile touch scrolling is decoupled (`smoothTouch: false`) to ensure native 120Hz gesture response without touch drag latency.
+5. **Asset Optimization & Next-Gen Formats**: All photographic assets (team roster, event banners, domain insignia) are compressed to WebP via Sharp with explicit width/height dimensions, `loading="lazy"`, and `decoding="async"` to prevent main-thread decoding bottlenecks.
+6. **Vite Rolldown Vendor Chunking**: Manual chunking splits vendor libraries into distinct, highly cacheable bundles (`vendor-react`, `vendor-animation`, `vendor-webgl`, `vendor-icons`), keeping entry payload under 160 kB.
 
 ---
 
@@ -88,4 +101,5 @@ To ensure a continuous 60+ FPS on all devices (including mobile):
 - **Shader-Driven Trail**: 64-point parametric curve with distance falloff, hotspot core, film grain noise, and subtle breathing pulse.
 - **Deep Sleep State**: When pointer is idle for >700ms, the trail dissolves over 900ms and completely pauses its `requestAnimationFrame` loop, dropping CPU and GPU consumption to 0%. It wakes instantaneously upon pointer interaction.
 - **Mobile Graceful Degradation**: Pure touch devices (`pointer: coarse`) bypass cursor rendering to preserve battery life and eliminate touch overhead.
+
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Mesh, Program, Renderer, Triangle } from 'ogl';
 import './GlowCursor.css';
 
@@ -156,6 +156,23 @@ const GlowCursor = ({
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const propsRef = useRef({});
+  const [isTouchDevice, setIsTouchDevice] = useState(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return Boolean((window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(hover: none)').matches) && !mobile);
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const coarseMedia = window.matchMedia('(pointer: coarse)');
+    const updateTouch = () => {
+      const isCoarse = coarseMedia.matches || window.matchMedia('(hover: none)').matches;
+      setIsTouchDevice(isCoarse && !mobile);
+    };
+    coarseMedia.addEventListener?.('change', updateTouch);
+    return () => coarseMedia.removeEventListener?.('change', updateTouch);
+  }, [mobile]);
 
   useEffect(() => {
     propsRef.current = {
@@ -184,13 +201,17 @@ const GlowCursor = ({
   });
 
   useEffect(() => {
+    if (isTouchDevice) return undefined;
+
     const isTouchOnly =
       typeof window !== 'undefined' &&
       window.matchMedia &&
-      window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      (window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
+       window.matchMedia('(pointer: coarse)').matches);
 
     // Gracefully disable on pure touch mobile devices to save battery & maintain instant touch latency
     if (isTouchOnly && !propsRef.current.mobile) {
+      setIsTouchDevice(true);
       return undefined;
     }
 
@@ -377,7 +398,10 @@ const GlowCursor = ({
     };
 
     const handleVisibilityChange = () => {
-      if (!document.hidden) {
+      if (document.hidden) {
+        if (raf) cancelAnimationFrame(raf);
+        isSleeping = true;
+      } else {
         wakeLoop();
       }
     };
@@ -420,7 +444,11 @@ const GlowCursor = ({
       mesh.geometry.remove();
       program.remove();
     };
-  }, [maxDevicePixelRatio, global, mobile]);
+  }, [maxDevicePixelRatio, global, mobile, isTouchDevice]);
+
+  if (isTouchDevice) {
+    return <>{children}</>;
+  }
 
   if (global) {
     return (

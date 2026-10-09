@@ -27,7 +27,7 @@ const INITIAL_ACTIVE_EVENTS = [
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Vishwakarma+Institute+of+Technology+Bibwewadi+Pune',
     lead: 'From Your First Commit to Your First Pull Request — Learn Git, collaborate, build & deploy.',
     desc: 'An interactive hands-on masterclass taking you through repository management, branching, and real-world team pull requests with on-ground mentor support. Features a live jamming break, an introduction to Cloud & DevOps, and an interactive quiz with exciting prizes!',
-    src: '/images/events/github-basics.jpg',
+    src: '/images/events/github-basics.webp',
     fallbackSrc: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?q=80&w=2076&auto=format&fit=crop',
     category: 'Hands-on Workshop',
   },
@@ -46,7 +46,7 @@ const INITIAL_ACTIVE_EVENTS = [
     mapsUrl: null,
     lead: '100% interactive cloud architecture builds deployed live from scratch.',
     desc: 'Architect serverless APIs with AWS Lambda, connect cloud databases, configure Amazon S3 static hosting with CloudFront CDN, and explore Generative AI deployments on Amazon Bedrock.',
-    src: '/images/events/aws-builder.jpg',
+    src: '/images/events/aws-builder.webp',
     fallbackSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
     category: 'Weekly Sprint',
   },
@@ -73,7 +73,7 @@ const STAY_TUNED_CARD = {
   mapsUrl: null,
   lead: 'Collaborate in teams to architect scalable cloud solutions.',
   desc: 'Compete in high-stakes multi-track hackathons, earn AWS credits, win badges and swag, and walk away with production-grade engineering resume projects.',
-  src: '/images/events/upcoming-event.jpg',
+  src: '/images/events/upcoming-event.webp',
   fallbackSrc: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
   category: 'Roadmap',
 }
@@ -152,14 +152,14 @@ export default function EventsSection({ customEvents }) {
         Math.max(1400, window.innerHeight * Math.max(1.6, totalCards * 0.65))
 
       const step = 1 / totalCards
-      const deadband = Math.min(0.025, step * 0.12)
+      const deadband = Math.min(0.02, step * 0.1)
 
       const trigger = ScrollTrigger.create({
         trigger: section,
         pin: pinWrapper,
         start: 'top top',
         end: () => `+=${getPinDistance()}`,
-        scrub: 0.8,
+        scrub: isMobile ? 0.35 : 0.8,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {

@@ -799,7 +799,7 @@ export default function SpaceBackground() {
       {/* ── Hero Celestial Bodies (0% -> 15% Exit Choreography) ── */}
       {/* 1. Top-Right Icy Moon / Lunar Cratered Planet */}
       <motion.div
-        style={reduced ? { opacity: moonOpacity } : { y: moonY, x: moonX, rotate: moonRotate, opacity: moonOpacity }}
+        style={reduced ? { opacity: moonOpacity } : { y: moonY, x: moonX, rotate: moonRotate, opacity: moonOpacity, willChange: 'transform, opacity' }}
         className="absolute inset-0 pointer-events-none"
       >
         <TopRightMoon />
@@ -807,7 +807,7 @@ export default function SpaceBackground() {
 
       {/* 2. Bottom-Left Continental Ocean World + Orbiting Mini Moon */}
       <motion.div
-        style={reduced ? { opacity: oceanPlanetOpacity } : { y: oceanPlanetY, x: oceanPlanetX, rotate: oceanPlanetRotate, opacity: oceanPlanetOpacity }}
+        style={reduced ? { opacity: oceanPlanetOpacity } : { y: oceanPlanetY, x: oceanPlanetX, rotate: oceanPlanetRotate, opacity: oceanPlanetOpacity, willChange: 'transform, opacity' }}
         className="absolute inset-0 pointer-events-none"
       >
         <BottomLeftPlanet />
@@ -815,7 +815,7 @@ export default function SpaceBackground() {
 
       {/* 3. Mid-Distance Ringed Planet */}
       <motion.div
-        style={reduced ? { opacity: ringedOpacity } : { y: ringedY, rotate: ringedRotate, opacity: ringedOpacity }}
+        style={reduced ? { opacity: ringedOpacity } : { y: ringedY, rotate: ringedRotate, opacity: ringedOpacity, willChange: 'transform, opacity' }}
         className="absolute inset-0 pointer-events-none"
       >
         <RingedPlanet />
@@ -824,7 +824,7 @@ export default function SpaceBackground() {
       {/* ── Small Moving Planets & Orbs (Scroll-Linked Parallax) ── */}
       {/* 4. Amethyst Dwarf Planet (Upper Left) */}
       <motion.div
-        style={reduced ? { opacity: purpleOpacity } : { y: purpleY, x: purpleX, opacity: purpleOpacity }}
+        style={reduced ? { opacity: purpleOpacity } : { y: purpleY, x: purpleX, opacity: purpleOpacity, willChange: 'transform, opacity' }}
         className="absolute inset-0 pointer-events-none"
       >
         <PurpleDwarfPlanet />
@@ -832,7 +832,7 @@ export default function SpaceBackground() {
 
       {/* 5. Emerald Gas Mini-Giant with Tilted Rings (Mid Left) */}
       <motion.div
-        style={reduced ? { opacity: tealOpacity } : { y: tealY, x: tealX, rotate: tealRotate, opacity: tealOpacity }}
+        style={reduced ? { opacity: tealOpacity } : { y: tealY, x: tealX, rotate: tealRotate, opacity: tealOpacity, willChange: 'transform, opacity' }}
         className="absolute inset-0 pointer-events-none"
       >
         <TealRingedPlanet />
@@ -840,7 +840,7 @@ export default function SpaceBackground() {
 
       {/* 6. Ruby Lava Molten Dwarf Planet (Upper Mid Space) */}
       <motion.div
-        style={reduced ? { opacity: rubyOpacity } : { y: rubyY, scale: rubyScale, opacity: rubyOpacity }}
+        style={reduced ? { opacity: rubyOpacity } : { y: rubyY, scale: rubyScale, opacity: rubyOpacity, willChange: 'transform, opacity' }}
         className="absolute inset-0 pointer-events-none"
       >
         <RubyLavaPlanet />
@@ -848,7 +848,7 @@ export default function SpaceBackground() {
 
       {/* 7. Crystalline Cyan Ice Moon (Lower Right) */}
       <motion.div
-        style={reduced ? { opacity: iceMoonOpacity } : { y: iceMoonY, x: iceMoonX, opacity: iceMoonOpacity }}
+        style={reduced ? { opacity: iceMoonOpacity } : { y: iceMoonY, x: iceMoonX, opacity: iceMoonOpacity, willChange: 'transform, opacity' }}
         className="absolute inset-0 pointer-events-none"
       >
         <CyanIceMoon />
@@ -856,7 +856,7 @@ export default function SpaceBackground() {
 
       {/* 8. Golden Pearl Solar Orb (Upper Right Mid Space) */}
       <motion.div
-        style={reduced ? { opacity: goldOpacity } : { y: goldY, opacity: goldOpacity }}
+        style={reduced ? { opacity: goldOpacity } : { y: goldY, opacity: goldOpacity, willChange: 'transform, opacity' }}
         className="absolute inset-0 pointer-events-none"
       >
         <GoldenPearlPlanet />
