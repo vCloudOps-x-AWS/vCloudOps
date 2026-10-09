@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import AccordionGallery from './AccordionGallery'
+import MobileUfoEvents from './MobileUfoEvents'
 import { getLenis } from '../utils/smoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -141,6 +142,11 @@ export default function EventsSection({ customEvents }) {
         stRef.current = null
       }
 
+      // On mobile screens (< 768px), disable pin-hijacking for smooth native scrolling & UFO swipe
+      if (typeof window !== 'undefined' && window.innerWidth < 768) {
+        return
+      }
+
       // Vertical distance dynamically scaled to the number of cards
       const getPinDistance = () =>
         Math.max(1400, window.innerHeight * Math.max(1.6, totalCards * 0.65))
@@ -215,8 +221,9 @@ export default function EventsSection({ customEvents }) {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Handle horizontal trackpad scroll translation to vertical scroll
+  // Handle horizontal trackpad scroll translation to vertical scroll (Desktop only)
   const handleWheel = (e) => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 8) {
       const lenis = getLenis()
       if (lenis) {
@@ -238,10 +245,10 @@ export default function EventsSection({ customEvents }) {
       <div
         ref={pinWrapperRef}
         onWheel={handleWheel}
-        className="w-full h-[100dvh] min-h-[500px] max-h-[1080px] flex flex-col justify-between overflow-hidden relative select-none"
+        className="w-full min-h-[100dvh] md:h-[100dvh] max-h-none md:max-h-[1080px] flex flex-col justify-between overflow-visible md:overflow-hidden relative select-none"
         style={{
           paddingTop: 'clamp(4rem, 5vh + 1rem, 6rem)',
-          paddingBottom: 'clamp(0.75rem, 1.8vh, 1.75rem)',
+          paddingBottom: 'clamp(1rem, 2vh, 2rem)',
         }}
       >
         {/* Ambient atmospheric glows */}
@@ -262,8 +269,13 @@ export default function EventsSection({ customEvents }) {
           </p>
         </div>
 
-        {/* ── Controlled Accordion Gallery Container ── */}
-        <div className="w-full max-w-6xl mx-auto px-3 sm:px-6 my-auto flex-1 flex flex-col justify-center">
+        {/* ── Mobile UFO Beam View (Pure Floating Info & Dynamic Light) ── */}
+        <div className="block md:hidden w-full flex-1 flex flex-col justify-center items-center">
+          <MobileUfoEvents items={events} />
+        </div>
+
+        {/* ── Desktop Controlled Accordion Gallery Container (>= 768px) ── */}
+        <div className="hidden md:flex w-full max-w-6xl mx-auto px-3 sm:px-6 my-auto flex-1 flex-col justify-center">
           <AccordionGallery
             items={events}
             activeIndex={activeIndex}
