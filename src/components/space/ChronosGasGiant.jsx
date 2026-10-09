@@ -18,7 +18,7 @@ export default function ChronosGasGiant({ progress, isMobile = false, reduced = 
       opacityRange={[0, 0.96, 0.96, 0]}
       rotateRange={[-4, -1, 2, 5]}
       scaleRange={[0.92, 1, 1, 0.94]}
-      className="absolute top-[36%] left-[-10%] sm:left-[2%] md:left-[5%] lg:left-[7%]"
+      className="absolute top-[34%] sm:top-[35%] left-[12%] sm:left-[16%] md:left-[20%] lg:left-[24%] xl:left-[26%]"
       reduced={reduced}
     >
       <div
