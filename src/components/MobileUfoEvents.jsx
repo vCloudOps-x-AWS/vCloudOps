@@ -56,12 +56,9 @@ export default function MobileUfoEvents({
   const [touchStartX, setTouchStartX] = useState(null)
   const [touchDeltaX, setTouchDeltaX] = useState(0)
   const [tiltAngle, setTiltAngle] = useState(0)
-  const [isFlyingIn, setIsFlyingIn] = useState(false)
-  const [isBeamOn, setIsBeamOn] = useState(false)
-  const [hasUnfolded, setHasUnfolded] = useState(false)
+  const [isFlyingIn, setIsFlyingIn] = useState(true)
   const [isDetailsOpen, setIsDetailsOpen] = useState(false)
   const containerRef = useRef(null)
-  const hasTriggeredInViewRef = useRef(false)
 
   const total = items.length
   const currentItem = items[currentIndex] || items[0]
@@ -85,39 +82,12 @@ export default function MobileUfoEvents({
     }
   }, [controlledIndex, total])
 
-  // Scroll in-view trigger: only turn on and unfold the beam from top to bottom when user scrolls to the UFO
+  // UFO Fly-in sequence trigger when mounted
   useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0]
-        if (entry.isIntersecting && !hasTriggeredInViewRef.current) {
-          hasTriggeredInViewRef.current = true
-          // UFO fly-in entrance
-          setIsFlyingIn(true)
-          setTimeout(() => setIsFlyingIn(false), 900)
-
-          // Short suspense delay as UFO arrives, then ignite thruster and unfold beam top-to-bottom
-          setTimeout(() => {
-            setIsBeamOn(true)
-            setTimeout(() => {
-              setHasUnfolded(true)
-            }, 1150)
-          }, 320)
-
-          observer.disconnect()
-        }
-      },
-      {
-        threshold: 0.15,
-        rootMargin: '0px 0px -5% 0px',
-      }
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
+    const timer = setTimeout(() => {
+      setIsFlyingIn(false)
+    }, 900)
+    return () => clearTimeout(timer)
   }, [])
 
   // Close modal on Escape and prevent background scroll while modal is active
@@ -321,24 +291,13 @@ export default function MobileUfoEvents({
         <div
           className="ufo-thruster-bloom"
           style={{
-            background: `radial-gradient(circle, rgba(${theme.beamColor}, ${isBeamOn ? 0.85 : 0.15}) 0%, rgba(${theme.beamColor}, 0) 70%)`,
-            transform: `translateX(-50%) scale(${isBeamOn ? 1 : 0.6})`,
-            transition: 'background 0.5s ease, transform 0.5s ease',
+            background: `radial-gradient(circle, rgba(${theme.beamColor}, 0.8) 0%, rgba(${theme.beamColor}, 0) 70%)`,
           }}
         />
       </div>
 
       {/* ── 2. THE TRIANGULAR BEAM OF LIGHT WITH SUSPENDED FLOATING INFO ── */}
-      <div
-        key={`beam-stage-${currentIndex}`}
-        className={`ufo-beam-stage ${
-          !isBeamOn
-            ? 'beam-off'
-            : !hasUnfolded
-            ? 'beam-unfolding'
-            : 'beam-active'
-        }`}
-      >
+      <div key={`beam-stage-${currentIndex}`} className="ufo-beam-stage beam-reveal-action">
         {/* Vector SVG Triangular Beam Cone & Floor Ellipse */}
         <svg
           viewBox="0 0 380 470"
@@ -407,15 +366,13 @@ export default function MobileUfoEvents({
         />
 
         {/* Laser Sweeper Beam Leading Edge (Travels top to bottom as beam reveals info) */}
-        {isBeamOn && !hasUnfolded && (
-          <div
-            className="beam-laser-sweeper"
-            style={{
-              background: `linear-gradient(90deg, transparent 5%, rgba(${theme.beamColor}, 0.95) 50%, transparent 95%)`,
-              boxShadow: `0 0 16px rgba(${theme.beamColor}, 1)`,
-            }}
-          />
-        )}
+        <div
+          className="beam-laser-sweeper"
+          style={{
+            background: `linear-gradient(90deg, transparent 5%, rgba(${theme.beamColor}, 0.95) 50%, transparent 95%)`,
+            boxShadow: `0 0 16px rgba(${theme.beamColor}, 1)`,
+          }}
+        />
 
         {/* ── PURE FLOATING INFO (NO CARDS, SUSPENDED IN THE LIGHT BEAM) ── */}
         <div className="beam-floating-content">
@@ -544,14 +501,7 @@ export default function MobileUfoEvents({
       </div>
 
       {/* ── 3. TOUCH NAVIGATION CONTROLS (Pill Tabs & Arrows - Mobile Only) ── */}
-      <div
-        className="floating-nav-bar md:hidden"
-        style={{
-          opacity: isBeamOn ? 1 : 0,
-          pointerEvents: isBeamOn ? 'auto' : 'none',
-          transition: 'opacity 0.6s ease 0.5s',
-        }}
-      >
+      <div className="floating-nav-bar md:hidden">
         {/* Left Arrow Button */}
         <button
           onClick={handlePrev}
@@ -602,13 +552,7 @@ export default function MobileUfoEvents({
       </div>
 
       {/* Interactive Micro-Label (Mobile Only) */}
-      <div
-        className="swipe-hint-label md:hidden"
-        style={{
-          opacity: isBeamOn ? 1 : 0,
-          transition: 'opacity 0.6s ease 0.7s',
-        }}
-      >
+      <div className="swipe-hint-label md:hidden">
         <span>← Swipe to explore events →</span>
       </div>
 
