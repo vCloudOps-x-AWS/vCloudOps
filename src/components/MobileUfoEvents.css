@@ -686,85 +686,86 @@
 /* ── 6. RESPONSIVE DESKTOP & LAPTOP ADAPTATION (>= 768px) ── */
 @media (min-width: 768px) {
   .mobile-ufo-events-container {
-    max-width: 620px;
-    padding: 0.5rem 1rem 1rem 1rem;
+    max-width: 580px;
+    padding: 0.25rem 0.5rem 0.5rem 0.5rem;
   }
 
   .ufo-craft-anchor {
-    width: 235px;
-    height: 60px;
+    width: 215px;
+    height: 54px;
   }
 
   .ufo-beam-stage {
-    max-width: 520px;
-    min-height: 480px;
-    margin-top: -16px;
+    max-width: 470px;
+    height: clamp(380px, 50vh, 440px);
+    min-height: 370px;
+    margin-top: -14px;
   }
 
   .beam-floating-content {
-    padding: 4.6rem 1.8rem 2.2rem 1.8rem;
+    padding: 3.8rem 1.4rem 1.2rem 1.4rem;
   }
 
   .beam-mode-text-row {
-    max-width: 280px;
-    margin-bottom: 0.75rem;
+    max-width: 260px;
+    margin-bottom: 0.45rem;
   }
 
   .beam-mode-text-row span {
-    font-size: 0.85rem !important;
-    letter-spacing: 0.28em !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.25em !important;
   }
 
   .beam-date-row {
-    max-width: 280px;
-    margin-bottom: 0.95rem;
+    max-width: 260px;
+    margin-bottom: 0.55rem;
   }
 
   .beam-date-day {
-    font-size: 2.75rem;
+    font-size: 2.35rem;
   }
 
   .beam-date-month {
-    font-size: 0.82rem;
-    letter-spacing: 0.15em;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
   }
 
   .beam-venue-chip {
-    padding: 0.28rem 0.8rem;
-    font-size: 0.72rem;
+    padding: 0.22rem 0.65rem;
+    font-size: 0.68rem;
   }
 
   .beam-title {
     max-width: 265px;
-    font-size: 1.28rem;
-    line-height: 1.32;
-    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin-bottom: 0.55rem;
     text-wrap: balance;
   }
 
   .beam-lead {
     max-width: 295px;
-    font-size: 0.84rem;
-    line-height: 1.5;
-    margin-bottom: 1.35rem;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    margin-bottom: 0.95rem;
     text-wrap: balance;
   }
 
   .beam-floor-shadow-dock {
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.85rem;
+    margin-bottom: 0.25rem;
   }
 
   .beam-floor-shadow-disc {
-    width: 270px;
-    height: 56px;
-    filter: blur(10px);
+    width: 240px;
+    height: 46px;
+    filter: blur(8px);
   }
 
   .beam-more-info-btn {
-    padding: 0.65rem 1.75rem;
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
+    padding: 0.55rem 1.5rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
   }
 
   .beam-more-info-btn:hover {

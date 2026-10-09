@@ -249,10 +249,10 @@ export default function EventsSection({ customEvents }) {
       <div
         ref={pinWrapperRef}
         onWheel={handleWheel}
-        className="w-full min-h-[100dvh] md:h-[100dvh] max-h-none md:max-h-[1080px] flex flex-col justify-between overflow-visible md:overflow-hidden relative select-none"
+        className="w-full min-h-[100dvh] md:h-[100dvh] max-h-none md:max-h-[1080px] flex flex-col justify-between overflow-visible relative select-none"
         style={{
-          paddingTop: 'clamp(6.25rem, 8vh + 2rem, 8.5rem)',
-          paddingBottom: 'clamp(1.5rem, 3vh, 3rem)',
+          paddingTop: 'clamp(4.75rem, 6vh + 1rem, 5.75rem)',
+          paddingBottom: 'clamp(0.75rem, 1.5vh, 1.5rem)',
         }}
       >
         {/* Ambient atmospheric glows */}
@@ -260,7 +260,7 @@ export default function EventsSection({ customEvents }) {
         <div className="absolute bottom-1/3 right-1/4 w-[550px] h-[340px] bg-indigo-500/10 rounded-full blur-[130px] pointer-events-none -z-10" />
 
         {/* ── Section Header ── */}
-        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-1 sm:mt-2 mb-1 sm:mb-3">
+        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-0.5 sm:mt-1 mb-0.5 sm:mb-2">
           <h2
             className="font-extrabold text-white leading-tight tracking-tight mb-0.5 sm:mb-2"
             style={{ fontSize: 'clamp(1.4rem, 3.2vw, 2.75rem)' }}

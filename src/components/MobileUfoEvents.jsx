@@ -332,7 +332,7 @@ export default function MobileUfoEvents({
 
           {/* The Conical Triangular Shaft of Light (Anchored precisely to UFO emitter nozzle) */}
           <polygon
-            points="125,0 255,0 376,448 4,448"
+            points="125,0 255,0 372,430 8,430"
             fill={`url(#beamShaftGrad-${currentIndex})`}
             stroke={`url(#beamRayGrad-${currentIndex})`}
             strokeWidth="1.5"
@@ -342,9 +342,9 @@ export default function MobileUfoEvents({
           {/* Floor Illumination Impact Ring */}
           <ellipse
             cx="190"
-            cy="448"
-            rx="182"
-            ry="18"
+            cy="430"
+            rx="176"
+            ry="16"
             fill={`url(#beamFloorGrad-${currentIndex})`}
             stroke={`rgba(${theme.beamColor}, 0.5)`}
             strokeWidth="1.2"
