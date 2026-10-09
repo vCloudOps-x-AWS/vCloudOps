@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import {
   CaretLeft,
   CaretRight,
   ArrowSquareOut,
   MapPin,
   Sparkle,
+  X,
 } from '@phosphor-icons/react'
 import './MobileUfoEvents.css'
 
@@ -51,6 +53,7 @@ export default function MobileUfoEvents({ items = [] }) {
   const [touchDeltaX, setTouchDeltaX] = useState(0)
   const [tiltAngle, setTiltAngle] = useState(0)
   const [isFlyingIn, setIsFlyingIn] = useState(true)
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false)
   const containerRef = useRef(null)
 
   const total = items.length
@@ -64,6 +67,25 @@ export default function MobileUfoEvents({ items = [] }) {
     }, 900)
     return () => clearTimeout(timer)
   }, [])
+
+  // Close modal on Escape and prevent background scroll while modal is active
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsDetailsOpen(false)
+      }
+    }
+    if (isDetailsOpen) {
+      window.addEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = ''
+    }
+  }, [isDetailsOpen])
 
   // Navigation handlers
   const goToIndex = useCallback(
@@ -271,7 +293,7 @@ export default function MobileUfoEvents({ items = [] }) {
 
           {/* The Conical Triangular Shaft of Light (Anchored precisely to UFO emitter nozzle) */}
           <polygon
-            points="145,0 235,0 376,448 4,448"
+            points="125,0 255,0 376,448 4,448"
             fill={`url(#beamShaftGrad-${currentIndex})`}
             stroke={`url(#beamRayGrad-${currentIndex})`}
             strokeWidth="1.5"
@@ -315,25 +337,26 @@ export default function MobileUfoEvents({ items = [] }) {
 
         {/* ── PURE FLOATING INFO (NO CARDS, SUSPENDED IN THE LIGHT BEAM) ── */}
         <div className="beam-floating-content">
-          {/* Level 1 (Apex): Glowing Event Index & Mode Tag */}
-          <div className="beam-apex-row">
-            <span
-              className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest font-bold uppercase"
-              style={{
-                color: theme.accent,
-                textShadow: `0 0 10px ${theme.textGlow}`,
-              }}
-            >
-              <Sparkle weight="fill" className="w-2.5 h-2.5 animate-pulse" />
-              // EVENT {itemNumber} · {currentItem.mode || currentItem.category}
-            </span>
-          </div>
+          {/* Mode Name (Pure glowing typography — no pill capsule) */}
+          {(currentItem.mode || currentItem.category) && (
+            <div className="beam-mode-text-row">
+              <span
+                className="font-mono text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em]"
+                style={{
+                  color: theme.accent,
+                  textShadow: `0 0 14px ${theme.textGlow}, 0 0 28px rgba(${theme.beamColor}, 0.6)`,
+                }}
+              >
+                {currentItem.mode || currentItem.category}
+              </span>
+            </div>
+          )}
 
           {/* Level 2 (Upper Cone): Big Luminous Holographic Date */}
           <div className="beam-date-row">
-            <div className="flex items-baseline justify-center gap-2">
+            <div className="flex items-baseline justify-center gap-1.5">
               <span
-                className="font-mono font-black text-4xl sm:text-5xl tracking-tighter leading-none text-white"
+                className="font-mono font-black text-3xl sm:text-4xl tracking-tighter leading-none text-white"
                 style={{
                   textShadow: `0 0 25px ${theme.textGlow}, 0 0 50px rgba(${theme.beamColor}, 0.6)`,
                 }}
@@ -341,7 +364,7 @@ export default function MobileUfoEvents({ items = [] }) {
                 {currentItem.dateDay || '12'}
               </span>
               <span
-                className="font-mono font-extrabold text-xs sm:text-sm tracking-widest uppercase"
+                className="font-mono font-extrabold text-[11px] sm:text-xs tracking-wider uppercase"
                 style={{
                   color: theme.accent,
                   textShadow: `0 0 12px ${theme.textGlow}`,
@@ -407,37 +430,34 @@ export default function MobileUfoEvents({ items = [] }) {
             </p>
           )}
 
-          {/* Level 5 (Widest Base): Full Description copy illuminated in the light */}
-          <p
-            className="beam-desc"
-            style={{
-              textShadow: `0 0 12px rgba(0, 0, 0, 0.95)`,
-            }}
-          >
-            {currentItem.desc}
-          </p>
+          {/* ── Level 5: CIRCULAR SHADOW PART OF LIGHT BEAM WITH MORE INFO BUTTON ── */}
+          <div className="beam-floor-shadow-dock">
+            {/* The Glowing Circular / Elliptical Ground Shadow Pool */}
+            <div
+              className="beam-floor-shadow-disc"
+              style={{
+                background: `radial-gradient(ellipse 65% 50% at center, rgba(${theme.beamColor}, 0.5) 0%, rgba(${theme.beamColor}, 0.15) 50%, rgba(0, 0, 0, 0.8) 75%, transparent 100%)`,
+              }}
+            />
 
-          {/* Ethereal Venue Map Link (Only for Event 1 venue map, no buttons for 2 & 3) */}
-          {currentItem.mapsUrl && (
-            <div className="beam-action-row">
-              <a
-                href={currentItem.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="beam-venue-btn"
-                style={{
-                  borderColor: theme.accent,
-                  boxShadow: `0 0 20px rgba(${theme.beamColor}, 0.35)`,
-                  color: '#FFFFFF',
-                  textShadow: `0 0 10px ${theme.textGlow}`,
-                }}
-              >
-                <MapPin className="w-3.5 h-3.5" style={{ color: theme.accent }} />
-                <span>Open Location in Google Maps</span>
-                <ArrowSquareOut className="w-3 h-3" />
-              </a>
-            </div>
-          )}
+            <button
+              type="button"
+              onClick={() => setIsDetailsOpen(true)}
+              className="beam-more-info-btn"
+              style={{
+                borderColor: theme.accent,
+                boxShadow: `0 0 22px rgba(${theme.beamColor}, 0.45), inset 0 0 12px rgba(${theme.beamColor}, 0.25)`,
+                background: `radial-gradient(ellipse at center, rgba(${theme.beamColor}, 0.28) 0%, rgba(10, 15, 29, 0.92) 80%)`,
+                color: '#FFFFFF',
+                textShadow: `0 0 10px ${theme.textGlow}`,
+              }}
+              aria-label={`Open details for ${currentItem.title}`}
+            >
+              <Sparkle weight="fill" className="w-3.5 h-3.5" style={{ color: theme.accent }} />
+              <span>More Info</span>
+              <ArrowSquareOut weight="bold" className="w-3.5 h-3.5" style={{ color: theme.accent }} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -496,6 +516,200 @@ export default function MobileUfoEvents({ items = [] }) {
       <div className="swipe-hint-label">
         <span>← Swipe to explore events →</span>
       </div>
+
+      {/* ── 4. DETAILS CARD MODAL (GLOW-IN-THE-DARK GLASS CHAMBER VIA PORTAL) ── */}
+      {isDetailsOpen && typeof document !== 'undefined' && createPortal(
+        <div
+          className="beam-details-modal-backdrop"
+          onClick={() => setIsDetailsOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Details for ${currentItem.title}`}
+        >
+          <div
+            className="beam-details-modal-card"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              borderColor: `rgba(${theme.beamColor}, 0.55)`,
+              background: `radial-gradient(ellipse at 50% -10%, rgba(${theme.beamColor}, 0.28) 0%, rgba(9, 15, 30, 0.85) 50%, rgba(3, 7, 18, 0.94) 100%)`,
+              boxShadow: `0 0 60px -8px rgba(${theme.beamColor}, 0.45), inset 0 0 35px -8px rgba(${theme.beamColor}, 0.2), 0 30px 60px rgba(0, 0, 0, 0.95)`,
+            }}
+          >
+            {/* Ambient Top Glow Bar */}
+            <div
+              className="modal-top-glow-bar"
+              style={{
+                background: `linear-gradient(90deg, transparent 0%, ${theme.accent} 50%, transparent 100%)`,
+                boxShadow: `0 0 16px ${theme.accent}`,
+              }}
+            />
+
+            {/* Header: Mode Name & Close Button */}
+            <div className="modal-header-row">
+              <span
+                className="font-mono text-[11px] font-black uppercase tracking-[0.22em]"
+                style={{
+                  color: theme.accent,
+                  textShadow: `0 0 14px ${theme.textGlow}`,
+                }}
+              >
+                {currentItem.mode || currentItem.category}
+              </span>
+
+              <button
+                type="button"
+                onClick={() => setIsDetailsOpen(false)}
+                className="modal-close-btn"
+                style={{
+                  borderColor: `rgba(${theme.beamColor}, 0.4)`,
+                  color: theme.accent,
+                }}
+                aria-label="Close details"
+              >
+                <X weight="bold" className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Body: Using the Exact Typography & Aesthetic from the Beam (No Dark Boxy Banner) */}
+            <div className="modal-body-content">
+              {/* Date & Location Telemetry Bar (Matching the Beam Date Row) */}
+              <div className="modal-telemetry-row">
+                <div className="flex items-baseline gap-2">
+                  <span
+                    className="font-mono font-black text-3xl sm:text-4xl tracking-tighter leading-none text-white"
+                    style={{
+                      textShadow: `0 0 20px ${theme.textGlow}, 0 0 40px rgba(${theme.beamColor}, 0.5)`,
+                    }}
+                  >
+                    {currentItem.dateDay || '12'}
+                  </span>
+                  <span
+                    className="font-mono font-extrabold text-xs sm:text-sm tracking-wider uppercase"
+                    style={{
+                      color: theme.accent,
+                      textShadow: `0 0 10px ${theme.textGlow}`,
+                    }}
+                  >
+                    {currentItem.dateMonth || 'OCT'} {currentItem.dateYear || '2026'}
+                  </span>
+                </div>
+
+                {(currentItem.venue || currentItem.mapsUrl) && (
+                  <div>
+                    {currentItem.mapsUrl ? (
+                      <a
+                        href={currentItem.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-mono text-xs font-bold transition-opacity hover:opacity-80"
+                        style={{
+                          color: theme.accent,
+                          textShadow: `0 0 10px ${theme.textGlow}`,
+                        }}
+                      >
+                        <MapPin weight="bold" className="w-3.5 h-3.5" />
+                        <span className="underline underline-offset-2">
+                          {currentItem.locationCode || currentItem.venue || 'CAMPUS'}
+                        </span>
+                        <ArrowSquareOut className="w-3 h-3" />
+                      </a>
+                    ) : (
+                      <span
+                        className="font-mono text-xs font-bold text-slate-300"
+                        style={{ textShadow: `0 0 8px ${theme.textGlow}` }}
+                      >
+                        {currentItem.locationCode || currentItem.venue}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Glowing Event Title (Matching the Beam Title) */}
+              <h3
+                className="modal-event-title"
+                style={{
+                  textShadow: `0 0 20px ${theme.textGlow}, 0 0 35px rgba(${theme.beamColor}, 0.4)`,
+                }}
+              >
+                {currentItem.title}
+              </h3>
+
+              {/* Lead Statement (Matching the Beam Lead) */}
+              {currentItem.lead && (
+                <p
+                  className="modal-event-lead"
+                  style={{
+                    color: theme.badgeText,
+                    textShadow: `0 0 14px rgba(${theme.beamColor}, 0.6)`,
+                  }}
+                >
+                  {currentItem.lead}
+                </p>
+              )}
+
+              {/* The Description Chamber (Frosted glass with theme accent bar) */}
+              <div
+                className="modal-desc-chamber"
+                style={{
+                  borderLeft: `2.5px solid ${theme.accent}`,
+                  borderColor: `rgba(${theme.beamColor}, 0.35)`,
+                  background: `rgba(${theme.beamColor}, 0.07)`,
+                  boxShadow: `inset 0 0 24px rgba(${theme.beamColor}, 0.08)`,
+                }}
+              >
+                <div
+                  className="modal-desc-label font-mono text-[10px] font-black tracking-[0.16em] uppercase mb-2"
+                  style={{
+                    color: theme.accent,
+                    textShadow: `0 0 8px ${theme.textGlow}`,
+                  }}
+                >
+                  // TRANSMISSION & BRIEFING
+                </div>
+                <p className="modal-desc-text">
+                  {currentItem.desc}
+                </p>
+              </div>
+
+              {/* Bottom Actions: Matching Beam Button Aesthetics */}
+              <div className="modal-actions-row">
+                {currentItem.mapsUrl && (
+                  <a
+                    href={currentItem.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="modal-btn-primary"
+                    style={{
+                      borderColor: theme.accent,
+                      boxShadow: `0 0 20px rgba(${theme.beamColor}, 0.45), inset 0 0 10px rgba(${theme.beamColor}, 0.25)`,
+                      background: `radial-gradient(ellipse at center, rgba(${theme.beamColor}, 0.28) 0%, rgba(10, 15, 29, 0.92) 80%)`,
+                      color: '#FFFFFF',
+                      textShadow: `0 0 8px ${theme.textGlow}`,
+                    }}
+                  >
+                    <MapPin weight="bold" className="w-3.5 h-3.5" style={{ color: theme.accent }} />
+                    <span>Open in Maps</span>
+                    <ArrowSquareOut weight="bold" className="w-3.5 h-3.5" style={{ color: theme.accent }} />
+                  </a>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setIsDetailsOpen(false)}
+                  className="modal-btn-dismiss"
+                  style={{
+                    borderColor: `rgba(255, 255, 255, 0.18)`,
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   )
 }

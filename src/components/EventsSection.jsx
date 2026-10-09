@@ -6,7 +6,7 @@ import AccordionGallery from './AccordionGallery'
 import MobileUfoEvents from './MobileUfoEvents'
 import { getLenis } from '../utils/smoothScroll'
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 /* ────────────────────────────────────────────────────────
    Active Events (can be freely added, removed, or fetched)
@@ -159,7 +159,7 @@ export default function EventsSection({ customEvents }) {
         pin: pinWrapper,
         start: 'top top',
         end: () => `+=${getPinDistance()}`,
-        scrub: isMobile ? 0.35 : 0.8,
+        scrub: 0.8,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {

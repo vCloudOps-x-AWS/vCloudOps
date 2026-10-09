@@ -176,7 +176,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  clip-path: polygon(38% 0%, 62% 0%, 100% 96%, 0% 96%);
+  clip-path: polygon(33% 0%, 67% 0%, 99% 96%, 1% 96%);
   pointer-events: none;
   z-index: 6;
   opacity: 0.6;
@@ -211,7 +211,7 @@
   }
 }
 
-/* ── 3. SUSPENDED FLOATING INFO (NO CARDS, PURE TYPOGRAPHY IN LIGHT) ── */
+/* ── 3. SUSPENDED FLOATING INFO (CENTERED IN THE LIGHT VOLUME) ── */
 .beam-floating-content {
   position: relative;
   z-index: 20;
@@ -219,90 +219,175 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 1.5rem 1rem 1rem 1rem;
+  padding: 4.25rem 1.25rem 2rem 1.25rem;
+  font-family: var(--font-main, 'Plus Jakarta Sans', system-ui, sans-serif);
 }
 
-/* Apex (Narrow top near UFO emitter) */
-.beam-apex-row {
-  max-width: 240px;
-  margin-bottom: 0.45rem;
+/* Mode Name in Beam (Pure floating typography — no pill capsule) */
+.beam-mode-text-row {
+  max-width: 190px;
+  margin-bottom: 0.65rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Big Holographic Date */
 .beam-date-row {
-  max-width: 270px;
-  margin-bottom: 0.6rem;
+  max-width: 195px;
+  margin-bottom: 0.75rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Venue Link (Only rendered for Event 1) */
-.beam-venue-row {
-  margin-top: 0.2rem;
+.beam-date-day {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-weight: 900;
+  font-size: 2.15rem;
+  line-height: 1;
+  color: #FFFFFF;
+  letter-spacing: -0.04em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 20px rgba(255, 255, 255, 0.35);
 }
 
-/* Glowing Event Title */
+.beam-date-month {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+}
+
+/* Venue Link — Sleek tactile pill */
+.beam-venue-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-style: solid;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.beam-venue-chip:hover {
+  transform: translateY(-1px);
+}
+
+.beam-venue-chip:active {
+  transform: scale(0.96);
+}
+
+.beam-venue-label {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Glowing Event Title — Crisp high-contrast typography */
 .beam-title {
-  max-width: 320px;
-  font-size: 1.18rem;
+  max-width: 230px;
+  font-family: var(--font-main, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-size: 1.08rem;
   font-weight: 800;
   line-height: 1.25;
-  color: #ffffff;
+  color: #FFFFFF;
   letter-spacing: -0.015em;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.65rem;
+  text-wrap: balance;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 255, 255, 0.25);
   transition: text-shadow 0.45s ease;
 }
 
-/* Lead Statement */
+/* Lead Statement — High contrast slate-200 with protective drop-shadow */
 .beam-lead {
-  max-width: 330px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  font-style: italic;
-  line-height: 1.35;
-  margin-bottom: 0.55rem;
+  max-width: 255px;
+  font-family: var(--font-main, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #E2E8F0;
+  margin-bottom: 1.15rem;
+  text-wrap: balance;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
   transition: color 0.4s ease, text-shadow 0.4s ease;
 }
 
-/* Description copy floating across the widest base of the beam */
-.beam-desc {
-  max-width: 345px;
-  font-size: 0.75rem;
-  line-height: 1.5;
-  color: rgba(226, 232, 240, 0.92);
-  margin-bottom: 0.75rem;
-  text-align: center;
-  padding: 0 0.5rem;
+/* ── Level 5: CIRCULAR SHADOW PART WITH MORE INFO BUTTON ── */
+.beam-floor-shadow-dock {
+  position: relative;
+  margin-top: 1.25rem;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
 }
 
-/* Ethereal Venue Map Link Button (Only for Event 1 venue map) */
-.beam-action-row {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+.beam-floor-shadow-disc {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 44px;
+  border-radius: 50%;
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: -1;
+  animation: shadow-pulse 3s ease-in-out infinite;
 }
 
-.beam-venue-btn {
+@keyframes shadow-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 1;
+  }
+}
+
+.beam-more-info-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.45rem;
-  padding: 0.45rem 1rem;
+  padding: 0.52rem 1.35rem;
   border-radius: 9999px;
-  font-family: inherit;
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   border-width: 1px;
   border-style: solid;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(8px);
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  color: #FFFFFF;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  user-select: none;
 }
 
-.beam-venue-btn:active {
-  transform: scale(0.96);
+.beam-more-info-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.beam-more-info-btn:active {
+  transform: translateY(0) scale(0.96);
 }
 
 /* ── 4. FLOATING TOUCH NAVIGATION CONTROLS (PILL TABS & ARROWS) ── */
@@ -376,4 +461,224 @@
   font-family: monospace;
   letter-spacing: 0.05em;
   text-align: center;
+}
+
+/* ── 5. DETAILS CARD MODAL (GLOW-IN-THE-DARK GLASS CHAMBER) ── */
+.beam-details-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 99999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  box-sizing: border-box;
+  background: rgba(2, 6, 18, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation: modal-backdrop-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.beam-details-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  max-height: 84vh;
+  max-height: 84dvh;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 1.5rem;
+  border-width: 1px;
+  border-style: solid;
+  border-top-color: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  animation: modal-card-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  box-sizing: border-box;
+}
+
+@keyframes modal-card-in {
+  from {
+    transform: scale(0.92) translateY(18px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Ambient Top Glow Line */
+.modal-top-glow-bar {
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.modal-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.4rem 0.95rem 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: scale(1.08);
+}
+
+.modal-close-btn:active {
+  transform: scale(0.92);
+}
+
+.modal-body-content {
+  padding: 1.35rem 1.4rem 1.5rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Telemetry Bar (Date + Location mirroring beam) */
+.modal-telemetry-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.95rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.modal-event-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.45rem;
+  text-align: left;
+}
+
+.modal-event-lead {
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.45;
+  margin-bottom: 1.15rem;
+  text-align: left;
+}
+
+/* The Description Chamber (Frosted glass panel) */
+.modal-desc-chamber {
+  padding: 1rem 1.1rem;
+  border-radius: 0.85rem;
+  margin-bottom: 1.25rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.modal-desc-label {
+  font-size: 0.65rem;
+  text-align: left;
+}
+
+.modal-desc-text {
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: rgba(241, 245, 249, 0.92);
+  text-align: left;
+}
+
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+}
+
+.modal-btn-primary {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-width: 1px;
+  border-style: solid;
+  text-decoration: none;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.modal-btn-primary:active {
+  transform: scale(0.97);
+}
+
+.modal-btn-dismiss {
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.modal-btn-dismiss:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.modal-btn-dismiss:active {
+  transform: scale(0.96);
 }
