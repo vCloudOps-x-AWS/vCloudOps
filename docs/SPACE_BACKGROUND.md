@@ -14,12 +14,10 @@ The deep-space background system extends the signature vCloudOps cosmic theme do
 ├────────────────────────────────────────────────────────────────────────┤
 │  Layer 3: Near Foreground (z = 0 to +100px, Speed: 0.35x–0.60x)         │
 │    • ClosePassPlanet (Skimming dark planetoid with razor rim light)    │
-│    • SpacecraftRocket (Vector-thrust spacecraft with plasma wake)      │
 ├────────────────────────────────────────────────────────────────────────┤
 │  Layer 2: Midground (z = -100px to -200px, Speed: 0.10x–0.25x)         │
 │    • Hero Planets exit into upper orbit (0% - 18%)                     │
 │    • TerrestrialPlanet "Ares Prime" with canyon rifts (15% - 45%)      │
-│    • AsteroidCluster with 3D faceted tumble (15% - 45%)                │
 │    • OrbitalProbe telemetry relay satellite (15% - 45%)                │
 │    • ChronosGasGiant with shadow-cast rings & Hyperion moon (45% - 75%)│
 │    • BinaryStars mutual barycenter pair (75% - 100%)                   │
@@ -41,9 +39,10 @@ The journey is parameterized along normalized document scroll progress $p \in [0
 | Phase | Scroll Range | Narrative Milestone | Key Celestial Events | Color Shift / Atmosphere |
 |---|---|---|---|---|
 | **Phase 1** | `0.00 – 0.18` | **Hero Exit** | Top-Right Moon & Bottom-Left Ocean World drift upward and exit into upper orbit at natural parallax speeds. | Signature Electric Cyan (`#38BDF8`) & Azure (`#0EA5E9`) |
-| **Phase 2** | `0.15 – 0.45` | **Inner System & Asteroids** | Ares Prime (canyon/crater terrestrial world) emerges from the right edge; tumbling asteroid field passes; telemetry relay probe glides by; distant spiral galaxy emerges. | Electric Cobalt (`#2563EB`) & Indigo (`#4F46E5`) dust lanes |
-| **Phase 3** | `0.45 – 0.75` | **Deep Void & Gas Giant** | Grand Chronos Gas Giant floats into view with multi-tier rings, atmospheric storm eye, and escort moon; monumental Close-Pass dark planetoid skims foreground right edge. | Deep Void Ultraviolet (`#7C3AED`) & Midnight Cyan (`#0891B2`) |
-| **Phase 4** | `0.75 – 1.00` | **Outer Frontier / Nebula Core** | Luminous high-density cosmic nursery; futuristic Spacecraft Rocket with directional vector thrust cruises diagonally toward the footer; shimmering binary star pair anchors outer frontier. | Radiant Cosmic Magenta (`#D946EF`) & Vivid Cyan (`#06B6D4`) |
+| **Phase 2** | `0.15 – 0.40` | **Inner System & Exploration** | Ares Prime (canyon/crater terrestrial world) emerges from the right edge; telemetry relay probe glides by; distant spiral galaxy emerges. | Electric Cobalt (`#2563EB`) & Indigo (`#4F46E5`) dust lanes |
+| **Phase 3** | `0.32 – 0.58` | **Deep Void & Gas Giant** | Grand Chronos Gas Giant floats into view on the left edge with multi-tier rings, atmospheric storm eye, and escort moon Hyperion. | Deep Void Ultraviolet (`#7C3AED`) & Midnight Cyan (`#0891B2`) |
+| **Phase 4** | `0.60 – 0.86` | **Close-Pass Exoplanet** | Monumental Amethyst & Neon Violet exoplanet skims the foreground right edge with volumetric retro bands and impact basins. | Royal Amethyst (`#A855F7`) & Midnight Violet (`#3B0764`) |
+| **Phase 5** | `0.82 – 1.00` | **Outer Frontier / Nebula Core** | Luminous high-density cosmic nursery; shimmering binary star pair anchors outer frontier above footer. | Radiant Cosmic Magenta (`#D946EF`) & Vivid Cyan (`#06B6D4`) |
 
 ---
 
@@ -75,27 +74,22 @@ Far-background barred spiral galaxy featuring a starlight galactic nucleus, dual
 ### 4. `TerrestrialPlanet.jsx`
 Midground terrestrial desert/canyon world "Ares Prime" with spherical terrain shading, Valles Borealis rift chasms, retro pixel crater basins, and polar ice caps.
 
-### 5. `AsteroidCluster.jsx`
-Midground cluster of faceted, crystalline asteroids with continuous tumble animations. Automatically drops from 6 to 3 asteroids on screens `< 768px` to satisfy the mobile GPU budget.
-
-### 6. `OrbitalProbe.jsx`
+### 5. `OrbitalProbe.jsx`
 Deep-space telemetry relay probe featuring gold MLI thermal insulation, dual deployable photovoltaic solar panels, parabolic communication dish, and a pulsing status LED beacon.
 
-### 7. `ChronosGasGiant.jsx`
+### 6. `ChronosGasGiant.jsx`
 Large banded gas giant featuring chromatic storm belts, the "Azure Eye" storm vortex, north pole hexagonal cyclone, multi-tier rings with Cassini Division and cast shadow wedge, and orbiting moon "Hyperion".
 
+### 7. `ClosePassPlanet.jsx`
 Near-foreground monumental Amethyst & Neon Violet exoplanet skimming the right viewport edge. Features rich volumetric spherical radial gradients (`#FAF5FF` to `#160424`), flowing atmospheric cloud wisps in iridescent lavender, signature vCloudOps stepped retro bands (`#A855F7` to `#4C1D95`), realistically shadowed impact crater basins with delicate rim highlights, smooth day/night terminator gradient, and an elegant specular starlight crescent horizon (no harsh 360° stroke rings or googly-eye crater artifacts). Provides rich dual-tone contrast with the companion cyan moon.
 
-### 9. Companion Satellite Moon (`CyanIceMoon` in `SpaceBackground.jsx`)
+### 8. Companion Satellite Moon (`CyanIceMoon` in `SpaceBackground.jsx`)
 Volumetric companion satellite moon orbiting in upper-mid space (`top: 28%, right: 16%–26%`) with matching spherical shading, delicate impact crater basins, stepped pixel band accents, and day/night terminator shadow curve.
 
-### 10. `SpacecraftRocket.jsx`
-Futuristic exploration vessel with directional vector thruster nozzle, brilliant plasma core, engine bloom, and throttled exhaust wake.
-
-### 11. `BinaryStars.jsx`
+### 9. `BinaryStars.jsx`
 Outer-frontier mutual barycenter stellar pair shimmering with 4-point diffraction spikes and starlight halos.
 
-### 12. `SpaceJourneyCanvas.jsx`
+### 10. `SpaceJourneyCanvas.jsx`
 Master orchestrator component that organizes depth layers, passes viewport state, and mounts all journey entities.
 
 ---
@@ -129,7 +123,7 @@ Master orchestrator component that organizes depth layers, passes viewport state
      - Static planetary positioning and visual styling are preserved.
 4. **Mobile & Tablet Budget (< 768px)**:
    - Dynamic viewport detection (`window.innerWidth < 768`).
-   - Object count is reduced by 50% (e.g. AsteroidCluster drops secondary pebbles; shock diamonds on spacecraft exhaust are omitted; surface mare lines on close-pass planet are stripped).
+   - Visual complexity is optimized for mobile (e.g. surface mare lines on close-pass planet are stripped).
    - Planet radii and ring widths scale down automatically via Tailwind responsive classes (`sm:`, `md:`, `lg:`).
 5. **Zero Layout Shifts (CLS) & Zero Overflow**:
    - SVGs have explicit `viewBox` coordinates and proportional sizing.

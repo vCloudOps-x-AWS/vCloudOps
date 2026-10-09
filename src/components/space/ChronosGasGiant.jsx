@@ -8,17 +8,17 @@ import CelestialObject from './CelestialObject'
  * planetary cast shadow across the rear rings, translucent front rings with Cassini Division,
  * atmospheric Rayleigh back-glow, and an orbiting companion moon ("Hyperion").
  */
-export default function ChronosGasGiant({ progress, reduced = false }) {
+export default function ChronosGasGiant({ progress, isMobile = false, reduced = false }) {
   return (
     <CelestialObject
       progress={progress}
-      range={[0.40, 0.49, 0.66, 0.78]}
-      yRange={[240, 30, -50, -250]}
-      xRange={[-30, 0, 15, 35]}
+      range={[0.32, 0.40, 0.50, 0.58]}
+      yRange={isMobile ? [160, 20, -30, -180] : [240, 30, -50, -250]}
+      xRange={isMobile ? [-15, 0, 8, 15] : [-30, 0, 15, 35]}
       opacityRange={[0, 0.96, 0.96, 0]}
       rotateRange={[-4, -1, 2, 5]}
       scaleRange={[0.92, 1, 1, 0.94]}
-      className="absolute top-[40%] left-[0%] sm:left-[4%] md:left-[7%]"
+      className="absolute top-[36%] left-[-10%] sm:left-[2%] md:left-[5%] lg:left-[7%]"
       reduced={reduced}
     >
       <div
@@ -30,7 +30,7 @@ export default function ChronosGasGiant({ progress, reduced = false }) {
       >
         <svg
           viewBox="0 0 540 380"
-          className="w-72 h-52 sm:w-[420px] sm:h-[300px] md:w-[500px] md:h-[350px] lg:w-[560px] lg:h-[390px]"
+          className="w-56 h-40 sm:w-[420px] sm:h-[300px] md:w-[500px] md:h-[350px] lg:w-[560px] lg:h-[390px]"
           style={{
             filter: 'drop-shadow(0 0 28px rgba(56, 189, 248, 0.28))',
             transform: 'translateZ(0)',

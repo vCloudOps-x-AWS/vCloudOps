@@ -10,12 +10,12 @@ export default function BinaryStars({ progress, reduced = false }) {
   return (
     <CelestialObject
       progress={progress}
-      range={[0.74, 0.82, 0.98, 1.0]}
+      range={[0.82, 0.88, 0.98, 1.0]}
       yRange={[140, 20, -30, -50]}
       xRange={[30, 0, -10, -20]}
       opacityRange={[0, 0.9, 0.9, 0.85]}
       scaleRange={[0.9, 1, 1, 1]}
-      className="absolute top-[75%] right-[5%] sm:right-[10%] md:right-[14%]"
+      className="absolute top-[80%] right-[5%] sm:right-[10%] md:right-[14%]"
       reduced={reduced}
     >
       <div

@@ -215,24 +215,6 @@ a, button, input, select, textarea {
 }
 
 /* ─── Deep Space Parallax Journey Keyframes ─── */
-@keyframes asteroidTumble1 {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes asteroidTumble2 {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-}
-
 @keyframes telemetryPulse {
   0%, 100% {
     opacity: 0.35;
@@ -241,17 +223,6 @@ a, button, input, select, textarea {
   50% {
     opacity: 1;
     transform: scale(1.35);
-  }
-}
-
-@keyframes enginePlasmaPulse {
-  0%, 100% {
-    transform: scaleY(1) scaleX(1);
-    opacity: 0.85;
-  }
-  50% {
-    transform: scaleY(1.2) scaleX(0.9);
-    opacity: 1;
   }
 }
 
