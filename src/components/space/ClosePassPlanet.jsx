@@ -12,12 +12,12 @@ export default function ClosePassPlanet({ progress, isMobile = false, reduced = 
   return (
     <CelestialObject
       progress={progress}
-      range={[0.44, 0.52, 0.64, 0.74]}
-      yRange={[380, 50, -70, -380]}
-      xRange={[30, 0, -20, -50]}
+      range={[0.60, 0.68, 0.78, 0.86]}
+      yRange={isMobile ? [220, 30, -40, -220] : [340, 40, -60, -320]}
+      xRange={isMobile ? [15, 0, -8, -15] : [30, 0, -15, -35]}
       opacityRange={[0, 0.95, 0.95, 0]}
       scaleRange={[0.95, 1, 1, 0.95]}
-      className="absolute top-[42%] -right-12 sm:-right-20 md:-right-24 lg:-right-28"
+      className="absolute top-[58%] -right-10 sm:-right-16 md:-right-24 lg:-right-28"
       reduced={reduced}
     >
       <div
@@ -29,7 +29,7 @@ export default function ClosePassPlanet({ progress, isMobile = false, reduced = 
       >
         <svg
           viewBox="0 0 460 460"
-          className="w-64 h-64 sm:w-80 sm:h-80 md:w-[400px] md:h-[400px] lg:w-[480px] lg:h-[480px]"
+          className="w-52 h-52 sm:w-80 sm:h-80 md:w-[400px] md:h-[400px] lg:w-[480px] lg:h-[480px]"
           style={{
             filter: 'drop-shadow(0 0 28px rgba(168, 85, 247, 0.35))',
             transform: 'translateZ(0)',
