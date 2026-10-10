@@ -18,25 +18,9 @@
   text-align: center;
 }
 
-.team-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: .55rem;
-  margin-bottom: 1.5rem;
-  color: #67d6ff;
-  font: 600 .7rem/1 var(--font-mono);
-  letter-spacing: .18em;
-  text-transform: uppercase;
-}
-
-.team-kicker img {
-  width: 1rem;
-  height: 1rem;
-  object-fit: contain;
-}
-
 .team-header h2 {
   margin: 0 0 1rem;
+  font-weight: 800;
   font-size: clamp(2.2rem, 5vw, 4.6rem);
   line-height: .98;
   letter-spacing: -.06em;
@@ -655,7 +639,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: var(--portrait-position, center 38%);
+  object-position: center;
 }
 
 .team-member-initial {
@@ -838,11 +822,6 @@
   .team-member-nav:hover:not(:disabled) { background: transparent; }
   .team-member-nav:hover:not(:disabled)::before { border-color: #9ae7ff; background: #102439; }
 
-  .team-section {
-    --member-card-width: min(276px, calc(100vw - 2rem), calc((100dvh - 142px) * .8625));
-    --member-card-height: min(320px, calc((100vw - 2rem) * 1.15942), calc(100dvh - 142px));
-  }
-
   .team-header {
     padding-top: 6rem;
     padding-bottom: 2rem;
@@ -865,14 +844,20 @@
   }
 
   .team-member-view {
-    --mobile-card-reserve: calc(var(--dock-height) + var(--dock-bottom) + 56px);
-    --member-card-width: min(276px, calc(100vw - 2rem), calc((100dvh - var(--mobile-card-reserve)) * .8625));
-    --member-card-height: min(320px, calc((100vw - 2rem) * 1.15942), calc(100dvh - var(--mobile-card-reserve)));
     --dock-bottom: max(16px, env(safe-area-inset-bottom));
     --dock-height: 70px;
+    --member-top-reserve: calc(96px + env(safe-area-inset-top));
+    --member-bottom-reserve: calc(var(--dock-height) + var(--dock-bottom) + 44px);
+    --member-available-width: calc(100vw - max(16px, env(safe-area-inset-left)) - max(16px, env(safe-area-inset-right)));
+    --member-available-height: calc(100dvh - var(--member-top-reserve) - var(--member-bottom-reserve));
+    --member-card-width: min(276px, var(--member-available-width), calc(var(--member-available-height) * 276 / 320));
+    --member-card-height: calc(var(--member-card-width) * 320 / 276);
+    --member-card-center-offset: calc((var(--member-bottom-reserve) - var(--member-top-reserve)) / 2);
   }
 
   .team-member-view__topline button {
+    top: max(16px, env(safe-area-inset-top));
+    right: max(16px, env(safe-area-inset-right));
     width: 44px;
     height: 44px;
   }
@@ -897,16 +882,17 @@
     transform: translate(calc(-50% + var(--card-x-relative, var(--card-x, 0px))), -50%) translateZ(var(--card-z, 0px)) scale(var(--card-scale, 1)) rotateY(var(--card-rotate, 0deg));
   }
 
+  .team-member-portrait-image {
+    position: absolute;
+    inset: 0;
+  }
+
   .team-member-initial {
     font-size: 3rem;
   }
 
   .team-member-card__content {
-    padding: .8rem .85rem .7rem;
-  }
-
-  .team-header h2 {
-    font-weight: 800;
+    padding: 1rem .85rem .8rem;
   }
 
   .team-member-card__content h3 {
@@ -915,45 +901,6 @@
 
   .team-member-bio {
     font-size: .67rem;
-  }
-}
-
-@media (max-width: 700px) and (max-height: 420px) {
-  .team-section {
-    --member-card-width: min(276px, calc(100vw - 2rem), calc((100dvh - 118px) * .8625));
-    --member-card-height: min(320px, calc((100vw - 2rem) * 1.15942), calc(100dvh - 118px));
-  }
-
-  .team-member-view {
-    --dock-bottom: max(8px, env(safe-area-inset-bottom));
-    --dock-height: 54px;
-    --mobile-card-reserve: calc(var(--dock-height) + var(--dock-bottom) + 56px);
-    --member-card-width: min(276px, calc(100vw - 2rem), calc((100dvh - var(--mobile-card-reserve)) * .8625));
-    --member-card-height: min(320px, calc((100vw - 2rem) * 1.15942), calc(100dvh - var(--mobile-card-reserve)));
-  }
-
-  .team-member-view__topline button {
-    top: 1rem;
-    right: 1rem;
-  }
-
-  .team-carousel {
-    width: min(calc(var(--member-card-width) + 2rem), calc(100% - 2rem));
-    height: calc(var(--member-card-height) + 2rem);
-  }
-
-  .team-member-card {
-    grid-template-rows: minmax(0, 1fr) auto;
-  }
-
-  .team-member-view__hint {
-    display: none;
-  }
-
-  .team-orbit-dock {
-    opacity: .78;
-    transform: translateX(-50%) scale(.82);
-    transform-origin: center bottom;
   }
 }
 
