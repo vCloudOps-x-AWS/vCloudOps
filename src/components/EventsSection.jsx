@@ -2,46 +2,51 @@ import { useRef, useState, useCallback, useEffect, useMemo } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import AccordionGallery from './AccordionGallery'
+import MobileUfoEvents from './MobileUfoEvents'
 import { getLenis } from '../utils/smoothScroll'
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 /* ────────────────────────────────────────────────────────
    Active Events (can be freely added, removed, or fetched)
 ──────────────────────────────────────────────────────── */
 const INITIAL_ACTIVE_EVENTS = [
   {
-    id: 'github-basics',
-    title: 'GitHub Basics',
-    collapsedTitle: 'GitHub Basics',
-    collapsedMeta: 'Offline Workshop',
-    tagline: 'Version Control, Branching & GitOps Foundations',
-    mode: 'Offline Workshop',
-    date: '13th Oct, 2026',
-    venue: 'VIT Bibwewadi College, Pune',
+    id: 'commit-to-git',
+    title: 'Commit to Git: Hands-On Git & GitHub Workshop',
+    collapsedTitle: 'Commit to Git',
+    collapsedMeta: 'Hands-On Workshop',
+    mode: 'In-Person',
+    dateDay: '12',
+    dateMonth: 'OCT',
+    dateYear: '2026',
+    date: '12 Oct 2026',
+    locationCode: 'VIT PUNE',
+    venue: 'New Seminar Hall, VIT Pune',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Vishwakarma+Institute+of+Technology+Bibwewadi+Pune',
-    desc: 'Hands-on code-along workshop on campus. Get direct CLI and console experience, master core Git workflows, branch lifecycle strategies, conflict resolution, collaborative pull requests, and automated repository actions with live in-person mentor debugging.',
+    lead: 'From Your First Commit to Your First Pull Request — Learn Git, collaborate, build & deploy.',
+    desc: 'An interactive hands-on masterclass taking you through repository management, branching, and real-world team pull requests with on-ground mentor support. Features a live jamming break, an introduction to Cloud & DevOps, and an interactive quiz with exciting prizes!',
     src: '/images/events/github-basics.webp',
     fallbackSrc: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?q=80&w=2076&auto=format&fit=crop',
-    tags: ['Git CLI', 'Branching & Merge', 'PR Review', 'Campus Offline'],
-    category: 'Hands-on Lab',
-    actionLabel: 'Open Venue Map',
+    category: 'Hands-on Workshop',
   },
   {
     id: 'weekly-aws-workshops',
     title: 'Weekly AWS Builder Workshops',
     collapsedTitle: 'AWS Builder Workshops',
     collapsedMeta: 'Every Sunday',
-    tagline: '100% Interactive Cloud Architecture Builds',
     mode: 'Online Live',
+    dateDay: 'SUN',
+    dateMonth: 'EVERY',
+    dateYear: 'WEEK',
     date: 'Every Sunday',
-    venue: 'Discord Voice & AWS Console',
+    locationCode: null,
+    venue: null,
     mapsUrl: null,
-    desc: 'Interactive live builds from scratch. Deploy live static websites on Amazon S3, architect serverless APIs with AWS Lambda & API Gateway, spin up cloud databases, and explore Generative AI deployments with Amazon Bedrock — every project is pushed directly to your GitHub portfolio.',
+    lead: '100% interactive cloud builds deployed live from scratch on AWS.',
+    desc: 'Architect serverless APIs with AWS Lambda, connect cloud databases, configure Amazon S3 static hosting with CloudFront CDN, and explore Generative AI deployments on Amazon Bedrock.',
     src: '/images/events/aws-builder.webp',
     fallbackSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
-    tags: ['AWS Lambda', 'Amazon S3', 'Bedrock GenAI', 'Serverless'],
     category: 'Weekly Sprint',
     actionLabel: 'Join Discord Lab',
     actionUrl: 'https://discord.gg/yMZhKMhc2n',
@@ -56,21 +61,22 @@ const INITIAL_ACTIVE_EVENTS = [
 const STAY_TUNED_CARD = {
   id: 'stay-tuned-upcoming-events',
   isTerminalCard: true,
-  title: 'Stay Tuned for Upcoming Events',
-  collapsedTitle: 'Stay Tuned',
-  collapsedMeta: 'Upcoming Events',
-  tagline: 'Hackathons, Deep Dives & Cloud Sprints',
-  mode: 'Upcoming Events',
-  date: 'Semester Roadmap · 2026–27',
-  venue: 'Hybrid · Campus & Global',
+  title: '26 Roadmap: AI & Agentic AI Hackathon',
+  collapsedTitle: '26 Roadmap',
+  collapsedMeta: 'AI, ML & Agentic AI',
+  mode: '26 ROADMAP',
+  dateDay: 'TBA',
+  dateMonth: 'ANNOUNCING',
+  dateYear: 'SOON',
+  date: 'Date: To Be Announced (TBA) · Stay Tuned for Updates',
+  locationCode: null,
+  venue: null,
   mapsUrl: null,
-  desc: 'Collaborate in teams to design and deploy innovative, practical, and scalable cloud solutions solving real-world challenges, earn AWS credits, win badges and swag, and walk away with working demos that elevate your engineering resume.',
+  lead: 'Autonomous Agentic AI, RAG & Machine Learning on AWS. Stay tuned for dates!',
+  desc: 'Get ready for our flagship hackathon dedicated to cutting-edge AI! Delve into Artificial Intelligence, Machine Learning, Autonomous Agentic AI orchestration, and production Retrieval-Augmented Generation (RAG) pipelines on AWS. Collaborate with fellow builders, architect intelligent systems, and compete for exclusive AWS credits, prizes, and mentorship. Official dates and venue will be announced soon — stay tuned for updates!',
   src: '/images/events/upcoming-event.webp',
-  fallbackSrc: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
-  tags: ['Agentic AI', 'Cloud Hackathon', 'AWS Credits', 'Swag & Badges'],
-  category: 'Upcoming Events',
-  actionLabel: 'Stay Tuned for Updates',
-  actionUrl: '/join',
+  fallbackSrc: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop',
+  category: 'Roadmap Flagship',
 }
 
 /**
@@ -124,26 +130,19 @@ export default function EventsSection({ customEvents }) {
     }
   }, [totalCards])
 
-  // GSAP ScrollTrigger Pinned Accordion Setup
+  // GSAP ScrollTrigger Responsive Accordion Setup via matchMedia
   useGSAP(
     () => {
       const section = sectionRef.current
       const pinWrapper = pinWrapperRef.current
       if (!section || !pinWrapper) return
 
-      // Clean up previous trigger if re-running
-      if (stRef.current) {
-        stRef.current.kill()
-        stRef.current = null
-      }
-
-      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-
-      // Vertical distance dynamically scaled to the number of cards
+      // Enable pin-hijacked scroll on both mobile and desktop/laptop screens
       const getPinDistance = () => {
-        if (typeof window !== 'undefined' && window.innerWidth < 768) {
-          // On mobile: balanced pin scroll so swiping advances through cards smoothly without excessive dragging
-          return Math.max(750, window.innerHeight * Math.max(1.2, totalCards * 0.55))
+        const isMob = typeof window !== 'undefined' && window.innerWidth < 768
+        if (isMob) {
+          // Mobile touch scroll: calibrated so each card gets ~350-450px of smooth scroll
+          return Math.max(900, window.innerHeight * Math.max(1.3, totalCards * 0.55))
         }
         return Math.max(1400, window.innerHeight * Math.max(1.6, totalCards * 0.65))
       }
@@ -156,7 +155,7 @@ export default function EventsSection({ customEvents }) {
         pin: pinWrapper,
         start: 'top top',
         end: () => `+=${getPinDistance()}`,
-        scrub: isMobile ? 0.35 : 0.8,
+        scrub: typeof window !== 'undefined' && window.innerWidth < 768 ? 0.4 : 0.8,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
@@ -197,29 +196,44 @@ export default function EventsSection({ customEvents }) {
 
       stRef.current = trigger
 
-      const timeout = setTimeout(() => {
-        ScrollTrigger.refresh()
-      }, 250)
-
       return () => {
-        clearTimeout(timeout)
         trigger.kill()
+        stRef.current = null
       }
     },
     { scope: sectionRef, dependencies: [totalCards] }
   )
 
-  // Listen to window resize to keep ScrollTrigger measurements pristine
+  // Track desktop vs mobile screen
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== 'undefined' ? window.innerWidth >= 768 : false
+  )
+
+  // Listen to window resize to keep ScrollTrigger measurements pristine and track desktop
+  // In Chrome on mobile devices, vertical scrolling collapses/expands the browser URL bar,
+  // which fires window resize events with changing innerHeight.
+  // We only re-calculate & refresh ScrollTrigger if the viewport WIDTH changes (e.g., orientation or window resize).
   useEffect(() => {
+    let lastWidth = typeof window !== 'undefined' ? window.innerWidth : 0
+
     const handleResize = () => {
-      ScrollTrigger.refresh()
+      if (typeof window === 'undefined') return
+      const currentWidth = window.innerWidth
+      if (currentWidth !== lastWidth) {
+        lastWidth = currentWidth
+        setIsDesktop(currentWidth >= 768)
+        ScrollTrigger.refresh()
+      }
     }
+
+    handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Handle horizontal trackpad scroll translation to vertical scroll
+  // Handle horizontal trackpad scroll translation to vertical scroll (Desktop only)
   const handleWheel = (e) => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 8) {
       const lenis = getLenis()
       if (lenis) {
@@ -234,43 +248,50 @@ export default function EventsSection({ customEvents }) {
     <section
       id="events"
       ref={sectionRef}
-      className="relative w-full z-20"
+      className="relative w-full max-w-full overflow-x-clip z-20"
       aria-label="Events and Workshops Section"
     >
       {/* ── Pinned Full-Viewport Container ── */}
       <div
         ref={pinWrapperRef}
         onWheel={handleWheel}
-        className="w-full h-screen min-h-[560px] sm:min-h-[620px] max-h-[1080px] flex flex-col justify-between overflow-hidden relative select-none"
+        className="w-full h-[100dvh] max-h-[100dvh] md:max-h-[1080px] flex flex-col justify-start items-center gap-1 sm:gap-2 overflow-visible relative select-none"
         style={{
-          paddingTop: 'clamp(4.5rem, 5.5vh + 1.25rem, 6rem)',
-          paddingBottom: 'clamp(0.75rem, 2vh, 2rem)',
+          paddingTop: isDesktop
+            ? 'clamp(7.5rem, 10vh + 2rem, 9.2rem)'
+            : 'clamp(4.25rem, 6vh + 1rem, 5.5rem)',
+          paddingBottom: 'clamp(0.5rem, 1vh, 1rem)',
         }}
       >
         {/* Ambient atmospheric glows */}
-        <div className="absolute top-1/4 left-1/4 w-[650px] h-[380px] bg-sky-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-        <div className="absolute bottom-1/3 right-1/4 w-[550px] h-[340px] bg-indigo-500/10 rounded-full blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+          <div className="absolute top-1/4 left-1/4 w-[min(650px,90vw)] h-[380px] bg-sky-500/10 rounded-full blur-[140px]" />
+          <div className="absolute bottom-1/3 right-1/4 w-[min(550px,85vw)] h-[340px] bg-indigo-500/10 rounded-full blur-[130px]" />
+        </div>
 
         {/* ── Section Header ── */}
-        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mb-2 sm:mb-3">
+        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-1 mb-0">
           <h2
-            className="font-extrabold text-white leading-tight tracking-tight mb-1 sm:mb-2"
-            style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)' }}
+            className="font-extrabold text-white leading-tight tracking-tight mb-1"
+            style={{ fontSize: 'clamp(1.4rem, 3.2vw, 2.7rem)' }}
           >
             Level Up Your Cloud Craft
           </h2>
 
-          <p className="text-xs sm:text-sm text-slate-300/90 leading-relaxed max-w-2xl px-2">
+          <p className="text-xs sm:text-sm text-slate-300/90 font-medium leading-relaxed max-w-2xl px-2">
             Don&apos;t just learn the cloud — code it live. From hands-on Git essentials at VIT campus to weekly cloud builds and hackathon sprints.
           </p>
         </div>
 
-        {/* ── Controlled Accordion Gallery Container ── */}
-        <div className="w-full max-w-6xl mx-auto px-3 sm:px-6 my-auto flex-1 flex flex-col justify-center">
-          <AccordionGallery
+        {/* ── UFO Beam Events Showcase (Scroll & Touch Synchronized) ── */}
+        <div className="w-full flex flex-col justify-start items-center mt-1 sm:mt-1.5">
+          <MobileUfoEvents
             items={events}
             activeIndex={activeIndex}
-            onSelect={scrollToCard}
+            onSelect={(idx) => {
+              setActiveIndex(idx)
+              scrollToCard(idx)
+            }}
           />
         </div>
       </div>

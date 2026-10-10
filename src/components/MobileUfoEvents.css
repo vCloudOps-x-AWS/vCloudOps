@@ -1,0 +1,897 @@
+/* ──────────────────────────────────────────────────────────
+   Mobile UFO Events Section Styling
+   NO CARDS — Pure Ethereal Hologram Suspended in Triangular Light Beam
+   Ultra-lightweight, 60-120 FPS hardware-accelerated animations
+────────────────────────────────────────────────────────── */
+
+.mobile-ufo-events-container {
+  position: relative;
+  width: 100%;
+  max-width: clamp(340px, 92vw, 460px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+  padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+  user-select: none;
+  touch-action: pan-y pinch-zoom;
+  box-sizing: border-box;
+}
+
+/* ── 1. UFO Entrance Fly-In ── */
+.mobile-ufo-events-container.is-flying-in .ufo-craft-anchor {
+  animation: ufo-fly-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ufo-fly-in {
+  0% {
+    transform: translateY(-50px) scale(0.7) rotate(-4deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(6px) scale(1.05) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* ── UFO Craft Anchor & Levitation ── */
+.ufo-craft-anchor {
+  position: relative;
+  z-index: 30;
+  width: clamp(155px, 46vw, 185px);
+  height: clamp(40px, 11vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+  animation: ufo-hover 4s ease-in-out infinite;
+}
+
+@keyframes ufo-hover {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-4px) rotate(1.2deg);
+  }
+  70% {
+    transform: translateY(3.5px) rotate(-1.2deg);
+  }
+}
+
+.ufo-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transition: filter 0.45s ease;
+}
+
+/* Perimeter navigation beacon pulses */
+.ufo-beacon {
+  transition: fill 0.4s ease;
+}
+
+.beacon-1 {
+  animation: beacon-pulse 1.8s ease-in-out infinite;
+}
+
+.beacon-2 {
+  animation: beacon-pulse 1.8s ease-in-out infinite 0.3s;
+}
+
+.beacon-3 {
+  animation: beacon-pulse 1.8s ease-in-out infinite 0.6s;
+}
+
+.beacon-center {
+  animation: beacon-pulse 1.2s ease-in-out infinite 0.15s;
+}
+
+@keyframes beacon-pulse {
+  0%, 100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px #ffffff);
+  }
+}
+
+/* Thruster bloom below UFO emitter */
+.ufo-thruster-bloom {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 24px;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(6px);
+  transition: background 0.45s ease;
+  z-index: -1;
+}
+
+/* ── 2. THE TRIANGULAR BEAM STAGE (DEVICE-ADAPTIVE LIGHT VOLUME) ── */
+.ufo-beam-stage {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  max-width: clamp(300px, 88vw, 395px);
+  height: clamp(345px, 46vh, 415px);
+  min-height: 335px;
+  max-height: 425px;
+  margin-top: -18px; /* Connects seamlessly under UFO underbelly emitter */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+  box-sizing: border-box;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Initial reveal animation when craft flies in */
+.ufo-beam-stage.beam-reveal-action {
+  animation: beam-reveal-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: clip-path, opacity;
+}
+
+@keyframes beam-reveal-down {
+  0% {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  100% {
+    clip-path: inset(0 0 0% 0);
+    opacity: 1;
+  }
+}
+
+/* Vector SVG Triangular Beam Cone covering the entire stage */
+.triangular-beam-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.beam-polygon {
+  transition: fill 0.45s ease, stroke 0.45s ease;
+}
+
+/* Subtle horizontal light shimmer lines inside the beam */
+.beam-shimmer-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(36% 0%, 64% 0%, 97.4% 91.5%, 2.6% 91.5%);
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.6;
+  transition: background 0.45s ease;
+}
+
+/* Sweeper Laser line traveling top to bottom with the initial beam reveal */
+/* GPU-accelerated with transform: translateY for 60-120fps Chrome performance */
+.beam-laser-sweeper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  pointer-events: none;
+  z-index: 30;
+  will-change: transform, opacity;
+  animation: laser-sweep 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes laser-sweep {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(420px);
+    opacity: 0;
+  }
+}
+
+/* Top-to-bottom light sweep revealing contents as laser sweeps down */
+.beam-content-switch {
+  animation: content-beam-unfurl 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform, clip-path;
+}
+
+@keyframes content-beam-unfurl {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(-16px);
+  }
+  25% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0% 0);
+    transform: translateY(0);
+  }
+}
+
+/* ── 3. SUSPENDED FLOATING INFO (BOUNDED WITHIN THE INNER BEAM CONE) ── */
+.beam-floating-content {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: clamp(2.1rem, 4.8vh, 2.75rem) 0.65rem 0.65rem 0.65rem;
+  box-sizing: border-box;
+  font-family: var(--font-main, 'Plus Jakarta Sans', system-ui, sans-serif);
+}
+
+.beam-info-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+/* Mode Name in Beam (Bounded inside top cone) */
+.beam-mode-text-row {
+  max-width: min(155px, 44%);
+  margin-bottom: clamp(0.2rem, 0.6vh, 0.35rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.beam-mode-badge {
+  font-size: clamp(9px, 2.3vw, 10.5px);
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+}
+
+/* Big Holographic Date (Bounded inside upper cone) */
+.beam-date-row {
+  max-width: min(170px, 46%);
+  margin-bottom: clamp(0.25rem, 0.7vh, 0.45rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.beam-date-day {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-weight: 900;
+  font-size: clamp(1.75rem, 6.2vw, 2.2rem);
+  line-height: 1;
+  color: #FFFFFF;
+  letter-spacing: -0.04em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 20px rgba(255, 255, 255, 0.35);
+}
+
+.beam-date-month {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-weight: 800;
+  font-size: clamp(10px, 2.5vw, 11px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+}
+
+/* Venue Tag & Links */
+.beam-venue-wrapper {
+  margin-top: 0.15rem;
+  max-width: 100%;
+}
+
+.beam-venue-link {
+  font-size: clamp(10px, 2.5vw, 11px);
+  max-width: 100%;
+}
+
+.beam-venue-text {
+  max-width: 145px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.beam-venue-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-style: solid;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.beam-venue-chip:hover {
+  transform: translateY(-1px);
+}
+
+.beam-venue-chip:active {
+  transform: scale(0.96);
+}
+
+.beam-venue-label {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Glowing Event Title (Strictly bounded inside mid cone safe zone) */
+.beam-title {
+  max-width: min(182px, 48%);
+  font-family: var(--font-main, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-size: clamp(0.84rem, 2.4vw, 0.96rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: #FFFFFF;
+  letter-spacing: -0.015em;
+  margin-bottom: clamp(0.25rem, 0.6vh, 0.4rem);
+  text-wrap: balance;
+  word-break: break-word;
+  hyphens: auto;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 255, 255, 0.25);
+  transition: text-shadow 0.45s ease;
+}
+
+/* Lead Statement (Bounded inside lower cone safe zone — NO line clamp truncation) */
+.beam-lead {
+  max-width: min(192px, 50%);
+  font-family: var(--font-main, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-size: clamp(0.66rem, 1.85vw, 0.74rem);
+  font-weight: 600;
+  line-height: 1.36;
+  color: #F1F5F9;
+  margin-bottom: 0;
+  text-wrap: pretty;
+  display: block;
+  overflow: visible;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* ── Level 5: FLOATING MORE INFO BUTTON (NESTLED INSIDE THE LIGHT BEAM) ── */
+.beam-btn-wrapper {
+  position: relative;
+  z-index: 25;
+  margin-top: clamp(0.65rem, 1.4vh, 0.95rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.beam-more-info-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: clamp(0.46rem, 1.1vh, 0.54rem) clamp(1.15rem, 3.5vw, 1.4rem);
+  border-radius: 9999px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: clamp(0.68rem, 2.2vw, 0.74rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  color: #FFFFFF;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.beam-more-info-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.beam-more-info-btn:active {
+  transform: translateY(0) scale(0.96);
+}
+
+/* ── 4. FLOATING TOUCH NAVIGATION CONTROLS (PILL TABS & ARROWS) ── */
+.floating-nav-bar {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: clamp(270px, 78vw, 320px);
+  margin-top: clamp(0.3rem, 0.9vh, 0.5rem);
+  gap: 0.75rem;
+}
+
+.nav-arrow-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-arrow-btn:active {
+  transform: scale(0.92);
+  background: rgba(30, 41, 59, 0.85);
+}
+
+.nav-arrow-btn.is-disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.nav-pills-track {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-pill.is-active {
+  color: #030712;
+  font-weight: 800;
+  transform: scale(1.08);
+}
+
+/* Swipe Hint */
+.swipe-hint-label {
+  margin-top: clamp(0.2rem, 0.6vh, 0.35rem);
+  font-size: clamp(9.5px, 2.3vw, 11px);
+  color: rgba(203, 213, 225, 0.85);
+  font-family: monospace;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* ── 5. DETAILS CARD MODAL (GLOW-IN-THE-DARK GLASS CHAMBER) ── */
+.beam-details-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 99999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  box-sizing: border-box;
+  background: rgba(2, 6, 18, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation: modal-backdrop-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.beam-details-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  max-height: 84vh;
+  max-height: 84dvh;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 1.5rem;
+  border-width: 1px;
+  border-style: solid;
+  border-top-color: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  animation: modal-card-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  box-sizing: border-box;
+}
+
+@keyframes modal-card-in {
+  from {
+    transform: scale(0.92) translateY(18px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Ambient Top Glow Line */
+.modal-top-glow-bar {
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.modal-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.4rem 0.95rem 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: scale(1.08);
+}
+
+.modal-close-btn:active {
+  transform: scale(0.92);
+}
+
+.modal-body-content {
+  padding: 1.35rem 1.4rem 1.5rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Telemetry Bar (Date + Location mirroring beam) */
+.modal-telemetry-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.95rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.modal-event-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.45rem;
+  text-align: left;
+}
+
+.modal-event-lead {
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.45;
+  margin-bottom: 1.15rem;
+  text-align: left;
+}
+
+/* The Description Chamber (Frosted glass panel) */
+.modal-desc-chamber {
+  padding: 1rem 1.1rem;
+  border-radius: 0.85rem;
+  margin-bottom: 1.25rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.modal-desc-label {
+  font-size: 0.65rem;
+  text-align: left;
+}
+
+.modal-desc-text {
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: rgba(241, 245, 249, 0.92);
+  text-align: left;
+}
+
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+}
+
+.modal-btn-primary {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-width: 1px;
+  border-style: solid;
+  text-decoration: none;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.modal-btn-primary:active {
+  transform: scale(0.97);
+}
+
+.modal-btn-dismiss {
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.modal-btn-dismiss:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.modal-btn-dismiss:active {
+  transform: scale(0.96);
+}
+
+/* ── 6. RESPONSIVE DESKTOP & LAPTOP ADAPTATION (>= 768px) ── */
+@media (min-width: 768px) {
+  .mobile-ufo-events-container {
+    max-width: 580px;
+    padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+  }
+
+  .ufo-craft-anchor {
+    width: 215px;
+    height: 54px;
+  }
+
+  .ufo-beam-stage {
+    max-width: 460px;
+    height: clamp(340px, 44vh, 400px);
+    min-height: 330px;
+    margin-top: -20px;
+  }
+
+  .beam-floating-content {
+    padding: clamp(2.6rem, 3.8vh, 3.2rem) 1.2rem 0.8rem 1.2rem;
+    justify-content: flex-start;
+  }
+
+  .beam-info-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .beam-mode-text-row {
+    max-width: 260px;
+    margin-bottom: 0.35rem;
+  }
+
+  .beam-mode-text-row span {
+    font-size: 0.8rem !important;
+    letter-spacing: 0.25em !important;
+  }
+
+  .beam-date-row {
+    max-width: 260px;
+    margin-bottom: 0.45rem;
+  }
+
+  .beam-date-day {
+    font-size: 2.25rem;
+  }
+
+  .beam-date-month {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+  }
+
+  .beam-venue-chip {
+    padding: 0.22rem 0.65rem;
+    font-size: 0.68rem;
+  }
+
+  .beam-title {
+    max-width: 215px;
+    font-size: 1.05rem;
+    line-height: 1.25;
+    margin-bottom: 0.4rem;
+    text-wrap: balance;
+  }
+
+  .beam-lead {
+    max-width: 255px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    margin-bottom: 0.55rem;
+    text-wrap: balance;
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+
+  .beam-btn-wrapper {
+    margin-top: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .beam-more-info-btn {
+    padding: 0.5rem 1.4rem;
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+  }
+
+  .beam-more-info-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  /* Hide buttons on desktop/laptop (navigation is scroll-driven) */
+  .floating-nav-bar,
+  .swipe-hint-label {
+    display: none !important;
+  }
+
+  .beam-details-modal-card {
+    max-width: 450px;
+  }
+
+  .modal-event-title {
+    font-size: 1.45rem;
+  }
+
+  .modal-event-lead {
+    font-size: 0.88rem;
+  }
+
+  .modal-desc-text {
+    font-size: 0.88rem;
+  }
+}
+
+/* ── 7. COMPACT SCREEN HEIGHT ADAPTATION (COMPACT LAPTOPS & SHORT PHONES) ── */
+@media (max-height: 720px) {
+  .ufo-craft-anchor {
+    transform: scale(0.92);
+  }
+  .ufo-beam-stage {
+    height: clamp(315px, 45vh, 350px) !important;
+    min-height: 310px !important;
+  }
+  .beam-floating-content {
+    padding-top: 1.95rem !important;
+  }
+  .beam-date-day {
+    font-size: 1.85rem !important;
+  }
+  .beam-title {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.22rem !important;
+  }
+  .beam-lead {
+    font-size: 0.7rem !important;
+    margin-bottom: 0.15rem !important;
+  }
+  .beam-btn-wrapper {
+    margin-top: 0.55rem !important;
+  }
+}
+
+@media (max-height: 600px) {
+  .ufo-craft-anchor {
+    transform: scale(0.85);
+  }
+  .ufo-beam-stage {
+    height: 295px !important;
+    min-height: 285px !important;
+  }
+  .beam-floating-content {
+    padding-top: 1.6rem !important;
+  }
+  .beam-btn-wrapper {
+    margin-top: 0.35rem !important;
+  }
+}

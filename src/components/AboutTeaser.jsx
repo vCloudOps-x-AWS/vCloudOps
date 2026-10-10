@@ -117,7 +117,7 @@ export default function AboutTeaser() {
               alt="AWS SBG"
               className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain drop-shadow-[0_0_8px_rgba(255,153,0,0.5)]"
             />
-            <span className="text-[9px] sm:text-xs tracking-[0.22em] uppercase font-bold text-sky-400 drop-shadow-[0_0_12px_rgba(56,189,248,0.5)]">
+            <span className="text-[10px] sm:text-xs tracking-[0.22em] uppercase font-bold text-sky-400 drop-shadow-[0_0_12px_rgba(56,189,248,0.5)]">
               Our Core Mission
             </span>
           </div>
@@ -143,7 +143,7 @@ export default function AboutTeaser() {
         </h2>
 
         {/* Sub-copy */}
-        <p className="about-sub max-w-2xl text-[11px] sm:text-sm md:text-base leading-relaxed text-slate-300 font-normal px-1 sm:px-2 mb-5 sm:mb-10">
+        <p className="about-sub max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed text-slate-200/90 font-medium px-1 sm:px-2 mb-5 sm:mb-8">
           AWS SBG is a student-led engineering collective bridging the gap between university coursework and production engineering. From self-healing Kubernetes clusters to immutable infrastructure — we ship real systems with measurable impact.
         </p>
 
@@ -154,7 +154,7 @@ export default function AboutTeaser() {
             return (
               <div
                 key={i}
-                className="about-pillar group relative p-3 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-sky-400/40 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.4),0_0_20px_rgba(56,189,248,0.15)] text-left flex flex-row sm:flex-col sm:justify-between items-start gap-3 sm:gap-0"
+                className="about-pillar group relative p-3.5 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-sky-400/40 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.4),0_0_20px_rgba(56,189,248,0.15)] text-left flex flex-row sm:flex-col sm:justify-between items-start gap-3 sm:gap-0"
               >
                 {/* Pillar Icon */}
                 <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-sky-500/10 border border-sky-400/20 flex items-center justify-center text-sky-400 group-hover:bg-sky-500/20 group-hover:scale-105 transition-all shrink-0 mt-0.5 sm:mb-3">
@@ -164,14 +164,14 @@ export default function AboutTeaser() {
                 {/* Pillar Details */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-1.5 mb-1 sm:mb-1.5">
-                    <h3 className="text-xs sm:text-base font-bold text-white tracking-tight group-hover:text-sky-200 transition-colors">
+                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight group-hover:text-sky-200 transition-colors">
                       {pillar.title}
                     </h3>
-                    <span className="text-[8px] sm:text-[9px] font-mono uppercase tracking-wider text-sky-400/90 bg-sky-500/10 px-2 py-0.5 rounded-full border border-sky-400/20 shrink-0">
+                    <span className="text-[9px] sm:text-[10px] font-mono font-semibold uppercase tracking-wider text-sky-400 bg-sky-500/15 px-2 py-0.5 rounded-full border border-sky-400/25 shrink-0">
                       {pillar.tag}
                     </span>
                   </div>
-                  <p className="text-[10px] sm:text-xs text-slate-400 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-300/90 leading-relaxed font-normal">
                     {pillar.desc}
                   </p>
                 </div>
@@ -185,7 +185,7 @@ export default function AboutTeaser() {
       <a
         href="#events"
         onClick={handleScrollToEvents}
-        className="group inline-flex items-center gap-2 mt-4 text-[11px] sm:text-xs font-mono uppercase tracking-widest text-slate-400 hover:text-sky-400 transition-colors cursor-pointer py-1 px-3 rounded-full hover:bg-white/5"
+        className="group inline-flex items-center gap-2 mt-4 text-xs font-mono uppercase tracking-widest text-slate-300 hover:text-sky-300 transition-colors cursor-pointer py-1 px-3 rounded-full hover:bg-white/5"
       >
         <span>Explore Workshops & Events</span>
         <CaretDown weight="bold" className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-y-0.5 text-sky-400" />

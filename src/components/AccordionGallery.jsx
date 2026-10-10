@@ -1,16 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import {
-  Calendar,
-  MapPin,
   ArrowSquareOut,
   CaretRight,
-  Broadcast,
-  CheckCircle,
-  Sparkle,
   CaretDown,
-  ArrowRight,
 } from '@phosphor-icons/react'
-import { usePageTransition } from '../hooks/usePageTransition'
 import './AccordionGallery.css'
 
 export default function AccordionGallery({
@@ -19,7 +12,6 @@ export default function AccordionGallery({
   onSelect = () => {},
   className = '',
 }) {
-  const { transitionTo } = usePageTransition()
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const galleryRef = useRef(null)
 
@@ -70,8 +62,6 @@ export default function AccordionGallery({
         {items.map((item, index) => {
           const isExpanded = index === activeIndex
           const itemNumber = String(index + 1).padStart(2, '0')
-          const isOnline = item.mode?.toLowerCase().includes('online')
-          const isUpcoming = item.mode?.toLowerCase().includes('coming')
 
           return (
             <div
@@ -146,140 +136,80 @@ export default function AccordionGallery({
                 </div>
               </div>
 
-              {/* ── Expanded Content Layer (Permanently in DOM with stable inner width) ── */}
+              {/* ── Expanded Content Layer (Modern Swiss Editorial Poster) ── */}
               <div className="accordion-expanded-content">
                 <div className="accordion-expanded-inner">
-                  {/* Top Bar: Index (Left) + Mode badge (Right) */}
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs sm:text-sm font-extrabold text-sky-300 bg-sky-950/80 border border-sky-400/30 px-3 py-1 rounded-full backdrop-blur-md shadow-sm">
-                        {itemNumber} / {String(items.length).padStart(2, '0')}
-                      </span>
-                      {item.category && (
-                        <span className="hidden sm:inline-block font-mono text-[11px] font-semibold text-slate-300 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full backdrop-blur-md">
-                          {item.category}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Mode Pill */}
-                    {item.mode && (
-                      <span
-                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider backdrop-blur-md border ${
-                          isOnline
-                            ? 'bg-emerald-950/70 border-emerald-400/40 text-emerald-300'
-                            : isUpcoming
-                            ? 'bg-purple-950/70 border-purple-400/40 text-purple-300'
-                            : 'bg-sky-950/70 border-sky-400/40 text-sky-300'
-                        }`}
-                      >
-                        {isOnline ? (
-                          <Broadcast className="w-3.5 h-3.5 animate-pulse" />
-                        ) : isUpcoming ? (
-                          <Sparkle className="w-3.5 h-3.5" />
-                        ) : (
-                          <CheckCircle className="w-3.5 h-3.5" />
-                        )}
-                        {item.mode}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Content Area */}
-                  <div className="mt-auto pt-3 sm:pt-4 flex flex-col gap-2 sm:gap-2.5">
-                    {/* Event Title */}
-                    <div>
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
-                        {item.title}
-                      </h3>
-                      {item.tagline && (
-                        <p className="text-xs sm:text-sm font-mono text-sky-400/90 mt-1 uppercase tracking-wider font-semibold">
-                          {item.tagline}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Event Meta: Date & Venue */}
-                    <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 py-2 border-y border-white/10 text-xs sm:text-sm text-slate-300 font-medium">
-                      <div className="flex items-center gap-2">
-                        <Calendar weight="duotone" className="w-4 h-4 text-sky-400 shrink-0" />
-                        <span>{item.date}</span>
+                  <div className="flex flex-col md:flex-row h-full w-full gap-2 sm:gap-4 md:gap-6 items-stretch justify-between">
+                    {/* ── Left Rail: Swiss Date & Location Block ── */}
+                    <div className="flex md:flex-col justify-between items-center md:items-start shrink-0 pb-2 md:pb-0 border-b md:border-b-0 md:border-r border-white/10 md:pr-6 md:w-36">
+                      <div className="flex items-baseline md:block gap-2 sm:gap-3">
+                        {/* Index Indicator */}
+                        <div className="text-[10px] sm:text-[11px] font-mono font-bold text-sky-400/90 tracking-widest uppercase md:mb-1">
+                          // {itemNumber}
+                        </div>
+                        {/* Big Typography Date */}
+                        <div className="font-mono font-black text-white text-2xl sm:text-3xl md:text-5xl tracking-tighter leading-none">
+                          {item.dateDay || '13'}
+                        </div>
+                        <div className="text-[11px] sm:text-xs md:text-sm font-mono font-bold tracking-widest text-sky-400 uppercase md:mt-1">
+                          {item.dateMonth || 'OCT'} {item.dateYear || '2026'}
+                        </div>
                       </div>
 
-                      {/* Location Tag */}
-                      {item.venue && (
-                        <div className="flex items-center gap-2">
-                          <MapPin weight="duotone" className="w-4 h-4 text-rose-400 shrink-0" />
+                      {/* Location / Venue Indicator (only rendered when venue or maps link exists) */}
+                      {(item.venue || item.mapsUrl) && (
+                        <div className="pt-0 md:pt-4 md:border-t border-white/10 w-auto md:w-full flex flex-col items-end md:items-start text-right md:text-left">
+                          <span className="hidden md:inline-block text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold">
+                            VENUE
+                          </span>
                           {item.mapsUrl ? (
                             <a
                               href={item.mapsUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-sky-300 hover:text-white underline underline-offset-4 decoration-sky-400/50 hover:decoration-sky-300 transition-colors group/link"
-                              title="Open VIT Bibwewadi College in Google Maps"
+                              className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-mono font-bold text-sky-300 hover:text-white underline underline-offset-4 decoration-sky-400/40 hover:decoration-sky-300 transition-colors"
+                              title="Open Location in Google Maps"
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <span>{item.venue}</span>
-                              <ArrowSquareOut className="w-3.5 h-3.5 text-sky-400 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                              <span>{item.locationCode || item.venue || 'CAMPUS'}</span>
+                              <ArrowSquareOut className="w-3 h-3 text-sky-400" />
                             </a>
                           ) : (
-                            <span>{item.venue}</span>
+                            <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-300">
+                              {item.locationCode || item.venue}
+                            </span>
                           )}
                         </div>
                       )}
                     </div>
 
-                    {/* Description */}
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl line-clamp-3 sm:line-clamp-4">
-                      {item.desc}
-                    </p>
-
-                    {/* Bottom strip: Tags and CTA button */}
-                    <div className="flex items-center justify-between gap-3 pt-2">
-                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                        {item.tags?.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[10px] sm:text-xs font-mono px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md bg-white/5 text-slate-300 border border-white/10"
-                          >
-                            {tag}
+                    {/* ── Right Rail: Editorial Typography & Story ── */}
+                    <div className="flex-1 flex flex-col justify-between py-0.5 sm:py-1 min-w-0">
+                      <div>
+                        {/* Mode / Category Tag */}
+                        <div className="inline-flex items-center gap-2 mb-1">
+                          <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-widest text-slate-300">
+                            {item.mode || item.category}
                           </span>
-                        ))}
+                        </div>
+
+                        {/* Main Editorial Title */}
+                        <h3 className="text-base sm:text-xl md:text-3xl font-extrabold text-white tracking-tight leading-snug sm:leading-tight">
+                          {item.title}
+                        </h3>
+
+                        {/* Strong Lead Statement */}
+                        {item.lead && (
+                          <p className="text-[11px] sm:text-xs md:text-[15px] font-semibold text-sky-100/90 mt-1 sm:mt-1.5 md:mt-2 leading-snug">
+                            {item.lead}
+                          </p>
+                        )}
                       </div>
 
-                      {item.mapsUrl ? (
-                        <a
-                          href={item.mapsUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-400 text-slate-950 hover:bg-sky-300 transition-all shadow-md shadow-sky-400/25 shrink-0"
-                        >
-                          <span>{item.actionLabel || 'View Map'}</span>
-                          <ArrowSquareOut className="w-3.5 h-3.5" />
-                        </a>
-                      ) : item.actionUrl ? (
-                        <a
-                          href={item.actionUrl}
-                          target={item.actionUrl.startsWith('http') ? '_blank' : '_self'}
-                          rel={item.actionUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            if (!item.actionUrl.startsWith('http')) {
-                              e.preventDefault()
-                              transitionTo(item.actionUrl)
-                            }
-                          }}
-                          className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-400 text-slate-950 hover:bg-sky-300 transition-all shadow-md shadow-sky-400/25 shrink-0"
-                        >
-                          <span>{item.actionLabel || 'Join Lab'}</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </a>
-                      ) : (
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-semibold text-slate-400 bg-white/5 border border-white/10 shrink-0">
-                          <span>{item.actionLabel || 'Details Coming Soon'}</span>
-                        </div>
-                      )}
+                      {/* Crisp Body Description */}
+                      <p className="text-[11px] sm:text-xs md:text-[13px] text-slate-300/85 leading-relaxed text-justify max-w-xl mt-1.5 md:mt-0">
+                        {item.desc}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -291,3 +221,4 @@ export default function AccordionGallery({
     </div>
   )
 }
+

@@ -461,7 +461,7 @@ function PurpleDwarfPlanet() {
 function TealRingedPlanet() {
   return (
     <div
-      className="absolute top-[38%] left-[5%] sm:top-[42%] sm:left-[8%] md:left-[10%] pointer-events-none select-none"
+      className="absolute top-[38%] left-[5%] sm:top-[42%] sm:left-[8%] md:left-[10%] pointer-events-none select-none hidden md:block"
       style={{
         animation: 'floatOrbit2 19s ease-in-out infinite',
         willChange: 'transform',

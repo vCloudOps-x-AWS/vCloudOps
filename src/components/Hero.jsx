@@ -244,7 +244,7 @@ export default function Hero() {
       />
 
       {/* Tagline */}
-      <p className="hero-desc max-w-2xl text-xs sm:text-base md:text-lg leading-relaxed text-slate-300 font-normal mb-5 sm:mb-7 px-3 sm:px-2">
+      <p className="hero-desc max-w-2xl text-[13px] sm:text-base md:text-lg leading-relaxed text-slate-200/90 font-medium mb-5 sm:mb-7 px-3 sm:px-2">
         Where student engineers build, deploy, and scale — real cloud infrastructure, real CI/CD pipelines, real community.
       </p>
 
@@ -284,11 +284,11 @@ export default function Hero() {
             <div className="flex flex-col items-center justify-center gap-0.5 sm:gap-1 py-3 sm:py-4 px-2 sm:px-3 rounded-[calc(1rem-2px)] bg-[#050505]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
               <span
                 ref={(el) => (counterRefs.current[index] = el)}
-                className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_10px_rgba(255,255,255,0.12)] font-mono tabular-nums"
+                className="text-2xl sm:text-2xl md:text-3xl font-black tracking-tight text-white drop-shadow-[0_2px_10px_rgba(255,255,255,0.18)] font-mono tabular-nums"
               >
                 0{suffix}
               </span>
-              <span className="text-[9px] sm:text-[11px] tracking-wider uppercase font-semibold text-slate-400 text-center">
+              <span className="text-[10px] sm:text-xs tracking-wider uppercase font-bold text-slate-300 text-center">
                 {label}
               </span>
             </div>

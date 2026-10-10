@@ -7,9 +7,15 @@
 .accordion-gallery-track {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
+  gap: 0.5rem;
   width: 100%;
   position: relative;
+}
+
+@media (min-width: 640px) {
+  .accordion-gallery-track {
+    gap: 0.75rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -33,7 +39,7 @@
 .accordion-panel {
   position: relative;
   overflow: hidden;
-  border-radius: 1.25rem;
+  border-radius: 1rem;
   transition: flex 0.75s cubic-bezier(0.2, 0.9, 0.3, 1),
               height 0.6s cubic-bezier(0.2, 0.9, 0.3, 1),
               transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1),
@@ -240,7 +246,7 @@
     flex: 1;
     max-height: none;
     justify-content: flex-start;
-    margin: 0 0.75rem;
+    margin: 0 0.5rem;
   }
 }
 
@@ -263,7 +269,7 @@
   .accordion-vertical-title {
     writing-mode: horizontal-tb;
     transform: none;
-    font-size: 0.9rem;
+    font-size: 0.825rem;
   }
 }
 
@@ -341,7 +347,7 @@
 @media (min-width: 768px) {
   .accordion-expanded-inner {
     min-width: 520px;
-    max-width: 680px;
+    max-width: 720px;
     width: 100%;
     height: 100%;
     display: flex;
