@@ -23,7 +23,7 @@ const MEMBERS = [
   { id: 'krishna-gangshettiwar', name: 'Krishna Gangshettiwar', role: 'Co-Head', domain: 'Finance & Sponsorship', github: 'https://github.com/Krishna5670', linkedin: 'https://www.linkedin.com/in/krishna-gangshettiwar-198a5a385', accent: '#a98bff', portrait: '/team-members/roster/krishna-gangshettiwar.png' },
   { id: 'satyajit-gaikwad', name: 'Satyajit Gaikwad', role: 'Head', domain: 'Web Development', github: 'https://github.com/CodeBySatyajit', linkedin: 'https://www.linkedin.com/in/satyajit-gaikwad-092381372/', accent: '#6b9cff', portrait: '/team-members/roster/satyajit-gaikwad.png' },
   { id: 'tanushka-patil', name: 'Tanushka Patil', role: 'Co-Head', domain: 'Web Development', github: 'https://github.com/Tanushka-sp2007', linkedin: 'https://www.linkedin.com/in/tanushka-sunil-patil-a87090389', accent: '#6b9cff', portrait: '/team-members/roster/tanushka-patil.png' },
-  { id: 'aryan-durgude', name: 'Aryan Durgude', role: 'Head', domain: 'Multimedia', github: 'https://github.com/NotAl2', linkedin: 'https://www.linkedin.com/in/aryan-durgude-777816385', accent: '#36d9c4', portrait: '/team-members/roster/aryan-durgude.png' },
+  { id: 'aryan-durgude', name: 'Aryan Durgude', role: 'Head', domain: 'Multimedia', github: 'https://github.com/NotAl2', linkedin: 'https://www.linkedin.com/in/aryan-durgude-777816385', accent: '#36d9c4', portrait: '/team-members/roster/aryan-durgude.jpg' },
   { id: 'harsh-chendwankar', name: 'Harsh Chendwankar', role: 'Co-Head', domain: 'Multimedia', github: 'https://github.com/Harsh20-06', linkedin: 'https://www.linkedin.com/in/harsh-chendwankar', accent: '#36d9c4', portrait: '/team-members/roster/harsh-chendwankar.png' },
   { id: 'vaishnavi-bhagwat', name: 'Vaishnavi Bhagwat', role: 'Co-Head', domain: 'Multimedia', github: 'https://github.com/vaishnavibhagwat', linkedin: 'https://www.linkedin.com/in/vaishnavi-bhagwat-509a5037a', accent: '#36d9c4', portrait: '/team-members/roster/vaishnavi-bhagwat.png' },
   { id: 'naisha-sahni', name: 'Naisha Sahni', role: 'Co-Head', domain: 'Multimedia', github: 'https://github.com/naishasahni', accent: '#36d9c4', portrait: '/team-members/roster/naisha-sahni.png' },
@@ -43,6 +43,9 @@ const MEMBERS = [
   { id: 'shubham-jadhav', name: 'Shubham Jadhav', role: 'Head', domain: 'Publicity and Outreach', github: 'https://github.com/Shoya0002', linkedin: 'https://www.linkedin.com/in/shubham-jadhav-2615093b6', accent: '#7ce4a5', portrait: '/team-members/roster/shubham-jadhav.png' },
   { id: 'harsh-kukade', name: 'Harsh Kukade', role: 'Co-Head', domain: 'Publicity and Outreach', github: 'https://github.com/Harsh150707', linkedin: 'https://www.linkedin.com/in/harsh-kukade-83b81a385', accent: '#7ce4a5', portrait: '/team-members/roster/harsh-kukade.png' },
   { id: 'parth-birari', name: 'Parth Birari', role: 'Co-Head', domain: 'Publicity and Outreach', github: 'https://github.com/birariparth-ui', linkedin: 'https://www.linkedin.com/in/parth-birari-07344b383', accent: '#7ce4a5', portrait: '/team-members/roster/parth-birari.png' },
+  { id: 'anshul-bhandwalkar', name: 'Anshul Bhandwalkar', role: 'Head', domain: 'Cybersecurity', github: 'https://github.com/codeShul', linkedin: 'https://www.linkedin.com/in/anshulb247', accent: '#ff5e5e', portrait: '/team-members/roster/anshul-bhandwalkar.png' },
+  { id: 'shruti-shinde', name: 'Shruti Shinde', role: 'Co-Head', domain: 'Cybersecurity', github: 'https://github.com/shruus2311', linkedin: 'https://www.linkedin.com/in/shruti-shinde-157a16366/', accent: '#ff5e5e', portrait: '/team-members/roster/shruti-shinde.png' },
+  { id: 'ronak-gohel', name: 'Ronak Gohel', role: 'Co-Head', domain: 'Cybersecurity', github: 'https://github.com/RonakGohel', linkedin: 'https://www.linkedin.com/in/ronakgoheldev/', accent: '#ff5e5e', portrait: '/team-members/roster/ronak-gohel.png' },
 ]
 
 const TEAMS = [
@@ -56,6 +59,7 @@ const TEAMS = [
   { id: 'labs', label: 'App Development', color: '#ff8fbd', logo: '/team-logos/app-development.png', members: MEMBERS.filter((member) => member.domain === 'App Development') },
   { id: 'opensource', label: 'AI/ML', color: '#b3a0ff', logo: '/team-logos/ai-ml.png', members: MEMBERS.filter((member) => member.domain === 'AI/ML') },
   { id: 'community', label: 'Publicity and Outreach', color: '#7ce4a5', logo: '/team-logos/publicity.png', members: MEMBERS.filter((member) => member.domain === 'Publicity and Outreach') },
+  { id: 'cybersecurity', label: 'Cybersecurity', color: '#ff5e5e', logo: '/team-logos/cybersecurity.png', members: MEMBERS.filter((member) => member.domain === 'Cybersecurity') },
 ]
 
 const AUTO_OPEN_DELAY = 900
@@ -273,9 +277,6 @@ function MemberView({ team, activeIndex, setActiveIndex, onClose, reduced, opene
     }
     unlockTimer.current = window.setTimeout(() => {
       gestureLock.current = false
-      const pending = pendingGestureRef.current
-      pendingGestureRef.current = 0
-      if (pending) moveMember(pending)
     }, reduced ? 40 : CARD_TRANSITION_MS)
   }, [close, reduced, setActiveIndex, team.members.length])
 
@@ -311,7 +312,6 @@ function MemberView({ team, activeIndex, setActiveIndex, onClose, reduced, opene
       if (closingRef.current) return
       if (!direction) return
       if (gestureLock.current) {
-        if (entranceDoneRef.current) pendingGestureRef.current = direction
         return
       }
       move(direction)
@@ -576,7 +576,6 @@ export default function TeamSection() {
       const gesture = domainGesture
       if (!autoOpenReadyRef.current) return true
       if (now < gesture.lockedUntil) {
-        if (fromGesture && autoOpenDisabledRef.current) gesture.pending = direction
         return true
       }
       gesture.lockedUntil = now + DOMAIN_TRANSITION_MS
@@ -584,9 +583,6 @@ export default function TeamSection() {
       if (autoOpenDisabledRef.current) {
         domainUnlockTimerRef.current = window.setTimeout(() => {
           domainUnlockTimerRef.current = null
-          const pending = gesture.pending
-          gesture.pending = 0
-          if (pending && pinActiveRef.current && !selectedTeamRef.current) step(pending)
         }, DOMAIN_TRANSITION_MS)
       }
       return true

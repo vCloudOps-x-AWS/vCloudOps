@@ -44,7 +44,7 @@ const INITIAL_ACTIVE_EVENTS = [
     tags: ['AWS Lambda', 'Amazon S3', 'Bedrock GenAI', 'Serverless'],
     category: 'Weekly Sprint',
     actionLabel: 'Join Discord Lab',
-    actionUrl: 'https://discord.gg',
+    actionUrl: 'https://discord.gg/yMZhKMhc2n',
   },
 ]
 

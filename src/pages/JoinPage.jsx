@@ -252,7 +252,7 @@ export default function JoinPage() {
             </button>
 
             <a
-              href="https://discord.com"
+              href="https://discord.gg/yMZhKMhc2n"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/12 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm transition-all duration-300 hover:border-sky-400/40 w-full sm:w-auto shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]"
