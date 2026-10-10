@@ -255,12 +255,12 @@ export default function EventsSection({ customEvents }) {
       <div
         ref={pinWrapperRef}
         onWheel={handleWheel}
-        className="w-full min-h-[100dvh] md:h-[100dvh] max-h-none md:max-h-[1080px] flex flex-col justify-between overflow-visible relative select-none"
+        className="w-full min-h-[100dvh] md:h-[100dvh] max-h-none md:max-h-[1080px] flex flex-col justify-start md:justify-center items-center gap-1 sm:gap-2 overflow-visible relative select-none"
         style={{
           paddingTop: isDesktop
-            ? 'clamp(4.75rem, 6vh + 1rem, 5.75rem)'
-            : 'clamp(3.85rem, 5vh + 0.6rem, 5.75rem)',
-          paddingBottom: 'clamp(0.75rem, 1.5vh, 1.5rem)',
+            ? 'clamp(3.8rem, 4.5vh + 0.6rem, 4.8rem)'
+            : 'clamp(3.2rem, 4.2vh, 4rem)',
+          paddingBottom: 'clamp(0.5rem, 1vh, 1rem)',
         }}
       >
         {/* Ambient atmospheric glows */}
@@ -268,15 +268,15 @@ export default function EventsSection({ customEvents }) {
         <div className="absolute bottom-1/3 right-1/4 w-[550px] h-[340px] bg-indigo-500/10 rounded-full blur-[130px] pointer-events-none -z-10" />
 
         {/* ── Section Header ── */}
-        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-0.5 sm:mt-1 mb-0.5 sm:mb-2">
+        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-0 sm:mt-1 mb-0 sm:mb-1">
           <h2
-            className="font-extrabold text-white leading-tight tracking-tight mb-0.5 sm:mb-2"
-            style={{ fontSize: 'clamp(1.4rem, 3.2vw, 2.75rem)' }}
+            className="font-extrabold text-white leading-tight tracking-tight mb-0.5 sm:mb-1.5"
+            style={{ fontSize: 'clamp(1.35rem, 3vw, 2.6rem)' }}
           >
             Level Up Your Cloud Craft
           </h2>
 
-          <p className="text-[11px] sm:text-sm text-slate-300/90 leading-relaxed max-w-2xl px-2 line-clamp-2 sm:line-clamp-none">
+          <p className="text-[11px] sm:text-sm text-slate-300/90 leading-relaxed max-w-2xl px-2">
             Don&apos;t just learn the cloud — code it live. From hands-on Git essentials at VIT campus to weekly cloud builds and hackathon sprints.
           </p>
         </div>

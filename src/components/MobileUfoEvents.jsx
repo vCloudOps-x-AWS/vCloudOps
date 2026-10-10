@@ -351,7 +351,7 @@ export default function MobileUfoEvents({
 
           {/* The Conical Triangular Shaft of Light (Anchored precisely to UFO emitter nozzle) */}
           <polygon
-            points="115,0 265,0 370,430 10,430"
+            points="105,0 275,0 370,430 10,430"
             fill={`url(#beamShaftGrad-${currentIndex})`}
             stroke={`url(#beamRayGrad-${currentIndex})`}
             strokeWidth="1.5"
@@ -519,6 +519,7 @@ export default function MobileUfoEvents({
       <div className="floating-nav-bar md:hidden">
         {/* Left Arrow Button */}
         <button
+          type="button"
           onClick={handlePrev}
           disabled={currentIndex === 0}
           className={`nav-arrow-btn ${currentIndex === 0 ? 'is-disabled' : ''}`}
@@ -533,6 +534,7 @@ export default function MobileUfoEvents({
             const isActive = idx === currentIndex
             return (
               <button
+                type="button"
                 key={item.id || idx}
                 onClick={() => goToIndex(idx)}
                 className={`nav-pill ${isActive ? 'is-active' : ''}`}
@@ -557,6 +559,7 @@ export default function MobileUfoEvents({
 
         {/* Right Arrow Button */}
         <button
+          type="button"
           onClick={handleNext}
           disabled={currentIndex === total - 1}
           className={`nav-arrow-btn ${currentIndex === total - 1 ? 'is-disabled' : ''}`}
