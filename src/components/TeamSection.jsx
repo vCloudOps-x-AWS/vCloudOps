@@ -169,6 +169,7 @@ function MemberCard({ member, index, active, reduced }) {
   const isRear = distance !== 0
   const style = reduced ? { '--card-opacity': isRear ? 0 : 1 } : {
     '--card-x': `${distance * 300}px`,
+    '--card-x-relative': `${distance * 105}%`,
     '--card-z': `${-Math.abs(distance) * 180}px`,
     '--card-rotate': `${distance > 0 ? Math.min(distance, 1) * 19 : 0}deg`,
     '--card-scale': `${1 - Math.min(Math.abs(distance) * .045, .18)}`,
@@ -176,7 +177,7 @@ function MemberCard({ member, index, active, reduced }) {
   }
   return (
     <article className={`team-member-card ${active === index ? 'is-active' : ''} ${isRear ? 'is-rear' : ''}`} style={style} aria-hidden={active !== index}>
-      <div className={`team-member-card__portrait${member.portrait ? ' has-image' : ''}`} style={{ '--portrait-accent': member.accent }}>
+      <div className={`team-member-card__portrait${member.portrait ? ' has-image' : ''}`} style={{ '--portrait-accent': member.accent, '--portrait-position': member.portraitPosition ?? '50% 38%' }}>
         {member.portrait && !portraitFailed ? <img className="team-member-portrait-image" src={member.portrait} alt={`${member.name} portrait`} onError={() => setPortraitFailed(true)} /> : null}
         <span className="team-portrait-particles" aria-hidden="true" />
         {!member.portrait || portraitFailed ? <span className="team-member-initial">{member.name.charAt(0)}</span> : null}
@@ -888,7 +889,6 @@ export default function TeamSection() {
   return (
     <section ref={sectionRef} id="team" className={`team-section${carouselEnabled ? ' has-domain-carousel' : ''}${selectedTeam ? ' has-open-member' : ''}`} data-auto-open-disabled={autoOpenDisabled ? 'true' : undefined} aria-labelledby="team-heading">
       <div className="team-header">
-        <span className="team-kicker"><img src="/Logo/logo-icon.png" alt="vCloudOps" /> Core above the constellation</span>
         <h2 id="team-heading">Built by students, for students</h2>
         <p>The team running workshops, mentoring lab sessions, and maintaining community infrastructure.</p>
       </div>
