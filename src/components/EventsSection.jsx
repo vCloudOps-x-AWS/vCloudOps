@@ -43,7 +43,7 @@ const INITIAL_ACTIVE_EVENTS = [
     locationCode: null,
     venue: null,
     mapsUrl: null,
-    lead: '100% interactive cloud architecture builds deployed live from scratch.',
+    lead: '100% interactive cloud builds deployed live from scratch on AWS.',
     desc: 'Architect serverless APIs with AWS Lambda, connect cloud databases, configure Amazon S3 static hosting with CloudFront CDN, and explore Generative AI deployments on Amazon Bedrock.',
     src: '/images/events/aws-builder.webp',
     fallbackSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
@@ -255,11 +255,11 @@ export default function EventsSection({ customEvents }) {
       <div
         ref={pinWrapperRef}
         onWheel={handleWheel}
-        className="w-full min-h-[100dvh] md:h-[100dvh] max-h-none md:max-h-[1080px] flex flex-col justify-start md:justify-center items-center gap-1 sm:gap-2 overflow-visible relative select-none"
+        className="w-full min-h-[100dvh] md:h-[100dvh] max-h-none md:max-h-[1080px] flex flex-col justify-start items-center gap-1 sm:gap-2 overflow-visible relative select-none"
         style={{
           paddingTop: isDesktop
-            ? 'clamp(3.8rem, 4.5vh + 0.6rem, 4.8rem)'
-            : 'clamp(3.2rem, 4.2vh, 4rem)',
+            ? 'clamp(7.5rem, 10vh + 2rem, 9.2rem)'
+            : 'clamp(6rem, 8vh + 1.2rem, 7.2rem)',
           paddingBottom: 'clamp(0.5rem, 1vh, 1rem)',
         }}
       >
@@ -268,10 +268,10 @@ export default function EventsSection({ customEvents }) {
         <div className="absolute bottom-1/3 right-1/4 w-[550px] h-[340px] bg-indigo-500/10 rounded-full blur-[130px] pointer-events-none -z-10" />
 
         {/* ── Section Header ── */}
-        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-0 sm:mt-1 mb-0 sm:mb-1">
+        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-1 mb-0">
           <h2
-            className="font-extrabold text-white leading-tight tracking-tight mb-0.5 sm:mb-1.5"
-            style={{ fontSize: 'clamp(1.35rem, 3vw, 2.6rem)' }}
+            className="font-extrabold text-white leading-tight tracking-tight mb-1"
+            style={{ fontSize: 'clamp(1.4rem, 3.2vw, 2.7rem)' }}
           >
             Level Up Your Cloud Craft
           </h2>
@@ -282,7 +282,7 @@ export default function EventsSection({ customEvents }) {
         </div>
 
         {/* ── UFO Beam Events Showcase ── */}
-        <div className="w-full flex-1 flex flex-col justify-center items-center">
+        <div className="w-full flex flex-col justify-start items-center mt-1 sm:mt-1.5">
           {isDesktop ? (
             <MobileUfoEvents
               items={events}
