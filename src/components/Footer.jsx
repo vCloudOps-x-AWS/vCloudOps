@@ -108,9 +108,9 @@ export default function Footer() {
   }
 
   return (
-    <footer ref={footerRef} className="relative z-10 pt-16 sm:pt-20 md:pt-24 pb-0 overflow-hidden text-left">
+    <footer ref={footerRef} className="relative w-full max-w-full overflow-x-clip z-10 pt-16 sm:pt-20 md:pt-24 pb-0 text-left">
       {/* Subtle cosmic background glow behind the card */}
-      <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-sky-500/15 via-blue-600/10 to-indigo-500/15 rounded-full blur-[130px] pointer-events-none -z-10" />
+      <div className="absolute top-24 left-1/2 -translate-x-1/2 w-[min(700px,95vw)] h-[350px] bg-gradient-to-r from-sky-500/15 via-blue-600/10 to-indigo-500/15 rounded-full blur-[130px] pointer-events-none -z-10" />
 
       {/* Floating Island Footer Card */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
@@ -249,7 +249,7 @@ export default function Footer() {
       >
         <span
           className="font-black tracking-tight text-center whitespace-nowrap leading-none select-none pointer-events-none drop-shadow-[0_0_35px_rgba(255,153,0,0.1)] inline-flex items-center justify-center"
-          style={{ fontSize: 'clamp(2.75rem, 11vw, 11rem)', letterSpacing: '-0.04em' }}
+          style={{ fontSize: 'clamp(2rem, 9.5vw, 11rem)', letterSpacing: '-0.04em' }}
         >
           <span className="watermark-awssbg inline-flex items-center">
             <span className="text-transparent bg-clip-text bg-gradient-to-b from-white/80 via-white/50 to-white/10 mr-[0.2em]">

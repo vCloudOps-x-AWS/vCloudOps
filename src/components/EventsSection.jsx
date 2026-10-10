@@ -250,7 +250,7 @@ export default function EventsSection({ customEvents }) {
     <section
       id="events"
       ref={sectionRef}
-      className="relative w-full z-20"
+      className="relative w-full max-w-full overflow-x-clip z-20"
       aria-label="Events and Workshops Section"
     >
       {/* ── Pinned Full-Viewport Container ── */}
@@ -266,8 +266,10 @@ export default function EventsSection({ customEvents }) {
         }}
       >
         {/* Ambient atmospheric glows */}
-        <div className="absolute top-1/4 left-1/4 w-[650px] h-[380px] bg-sky-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-        <div className="absolute bottom-1/3 right-1/4 w-[550px] h-[340px] bg-indigo-500/10 rounded-full blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+          <div className="absolute top-1/4 left-1/4 w-[min(650px,90vw)] h-[380px] bg-sky-500/10 rounded-full blur-[140px]" />
+          <div className="absolute bottom-1/3 right-1/4 w-[min(550px,85vw)] h-[340px] bg-indigo-500/10 rounded-full blur-[130px]" />
+        </div>
 
         {/* ── Section Header ── */}
         <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-1 mb-0">

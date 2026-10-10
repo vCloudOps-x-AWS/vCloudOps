@@ -25,7 +25,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="relative min-h-screen bg-[#050B18] text-[#F8FAFC] selection:bg-sky-500/30 selection:text-sky-200">
+    <div className="relative w-full max-w-full min-h-screen overflow-x-clip bg-[#050B18] text-[#F8FAFC] selection:bg-sky-500/30 selection:text-sky-200">
       {/* ── Persistent Cosmic Planet Backdrop ── */}
       <SpaceBackground />
 
@@ -33,7 +33,7 @@ export default function Home() {
       <Navbar />
 
       {/* ── Main Content Flow ── */}
-      <main className="relative" style={{ zIndex: 1 }}>
+      <main className="relative w-full max-w-full overflow-x-clip" style={{ zIndex: 1 }}>
         <Hero />
         <AboutTeaser />
         <EventsSection />

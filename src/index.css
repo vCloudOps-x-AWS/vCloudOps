@@ -18,6 +18,9 @@
 }
 
 html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
   background-color: var(--navy-deep);
@@ -47,9 +50,11 @@ html.lenis, html.lenis body {
 
 body {
   margin: 0;
+  width: 100%;
+  max-width: 100%;
   font-family: var(--font-main);
   color: #F8FAFC;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
