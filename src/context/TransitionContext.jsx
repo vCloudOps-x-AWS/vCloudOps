@@ -16,23 +16,8 @@ export function TransitionProvider({ children }) {
     }
 
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
-
-    // Phase 1: Enter hyperspace warp (acceleration & blur)
-    setIsWarping(true)
-    setWarpPhase('enter')
-
-    timeoutRef.current = setTimeout(() => {
-      // Phase 2: Route change at peak warp opacity
-      navigate(targetPath)
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-      setWarpPhase('exit')
-
-      // Phase 3: Deceleration & arrival
-      timeoutRef.current = setTimeout(() => {
-        setIsWarping(false)
-        setWarpPhase('idle')
-      }, 340)
-    }, 280)
+    navigate(targetPath)
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [location.pathname, navigate])
 
   return (
