@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import './ParticleText.css';
-import { getHasIntroAnimated, markIntroStarted } from '../utils/introState';
+import { getHasIntroAnimated, markIntroStarted, markIntroCompleted } from '../utils/introState';
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
@@ -26,9 +26,11 @@ const resolveFontSize = (value, container, fontWeight, fontFamily) => {
 const waitForFonts = async font => {
   if (!('fonts' in document)) return;
   try {
-    await document.fonts.load(font);
+    await Promise.race([
+      document.fonts.load(font),
+      new Promise(resolve => setTimeout(resolve, 500))
+    ]);
   } catch {}
-  await document.fonts.ready;
 };
 
 // Segment splitter to isolate "Cloud" / "Cloud." and "Future" / "Future." as blue accents
@@ -284,6 +286,7 @@ const ParticleText = ({
 
       if (gathering && complete) {
         gathering = false;
+        markIntroCompleted();
       }
 
       animationFrame = window.requestAnimationFrame(render);
@@ -439,7 +442,7 @@ const ParticleText = ({
 
       const baseParticleSize = isMobileView ? 2.8 : (particleSize || 2.7);
 
-      const shouldScatter = !getHasIntroAnimated() && !hasGatheredRef.current && !reducedMotion;
+      const shouldScatter = !getHasIntroAnimated() && !reducedMotion;
 
       particles = selected.map((target, index) => {
         const seed = ((index * 9301 + 49297) % 233280) / 233280;
@@ -514,7 +517,6 @@ const ParticleText = ({
       pointer.smoothY = pointer.y;
 
       if (shouldScatter) {
-        hasGatheredRef.current = true;
         markIntroStarted();
         startGather(false);
       } else {
