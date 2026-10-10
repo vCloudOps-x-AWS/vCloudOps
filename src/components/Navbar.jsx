@@ -292,7 +292,7 @@ export default function Navbar() {
               <GithubLogo weight="fill" className="w-6 h-6" />
             </a>
             <a
-              href="https://discord.com"
+              href="https://discord.gg/yMZhKMhc2n"
               target="_blank"
               rel="noreferrer"
               aria-label="Discord"

@@ -340,7 +340,7 @@ const GlowCursor = ({
       }
 
       const config = propsRef.current;
-      const delta = Math.min((now - lastFrameTime) / 16.667, 3);
+      const delta = clamp((now - lastFrameTime) / 16.667, 0.001, 3);
       lastFrameTime = now;
 
       if (initialized) {

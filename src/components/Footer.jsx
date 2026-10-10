@@ -31,7 +31,7 @@ const SOCIAL_LINKS = [
   { icon: XLogo, label: 'X (Twitter)', href: 'https://twitter.com' },
   { icon: GithubLogo, label: 'GitHub', href: 'https://github.com/vCloudOps-x-AWS' },
   { icon: LinkedinLogo, label: 'LinkedIn', href: 'https://linkedin.com' },
-  { icon: DiscordLogo, label: 'Discord', href: 'https://discord.gg' },
+  { icon: DiscordLogo, label: 'Discord', href: 'https://discord.gg/yMZhKMhc2n' },
 ]
 
 export default function Footer() {
