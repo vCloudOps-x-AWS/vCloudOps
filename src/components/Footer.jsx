@@ -3,14 +3,13 @@ import { useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import { scrollToTarget } from '../utils/smoothScroll'
+import { scrollToTarget, scrollToTop } from '../utils/smoothScroll'
 import { usePageTransition } from '../hooks/usePageTransition'
 import {
   GithubLogo,
   DiscordLogo,
   LinkedinLogo,
   InstagramLogo,
-  XLogo,
   EnvelopeSimple,
   MapPin,
   ArrowUpRight,
@@ -27,11 +26,26 @@ const QUICK_LINKS = [
 ]
 
 const SOCIAL_LINKS = [
-  { icon: InstagramLogo, label: 'Instagram', href: 'https://instagram.com' },
-  { icon: XLogo, label: 'X (Twitter)', href: 'https://twitter.com' },
-  { icon: GithubLogo, label: 'GitHub', href: 'https://github.com/vCloudOps-x-AWS' },
-  { icon: LinkedinLogo, label: 'LinkedIn', href: 'https://linkedin.com' },
-  { icon: DiscordLogo, label: 'Discord', href: 'https://discord.gg' },
+  {
+    icon: InstagramLogo,
+    label: 'Instagram',
+    href: 'https://www.instagram.com/awssbg.vit?utm_source=ig_web_button_share_sheet&rpxt=ZDNlZDc0MzIxNw==',
+  },
+  {
+    icon: LinkedinLogo,
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/awssbgvit/home/',
+  },
+  {
+    icon: GithubLogo,
+    label: 'GitHub',
+    href: 'https://github.com/vCloudOps-x-AWS',
+  },
+  {
+    icon: DiscordLogo,
+    label: 'Discord',
+    href: 'https://discord.gg/yMZhKMhc2n',
+  },
 ]
 
 export default function Footer() {
@@ -73,6 +87,11 @@ export default function Footer() {
     { scope: footerRef }
   )
 
+  const handleBackToTop = (e) => {
+    e.preventDefault()
+    scrollToTop()
+  }
+
   const handleNav = (e, href) => {
     e.preventDefault()
     if (href.startsWith('#')) {
@@ -81,6 +100,8 @@ export default function Footer() {
       } else {
         transitionTo(`/${href}`)
       }
+    } else if (href === '/join' && !isHomePage) {
+      scrollToTop()
     } else {
       transitionTo(href)
     }
@@ -173,10 +194,10 @@ export default function Footer() {
                       Email
                     </span>
                     <a
-                      href="mailto:awssbg.vit@gmail.com"
+                      href="mailto:vcloudops@vit.edu"
                       className="text-xs sm:text-sm text-slate-200 hover:text-sky-400 transition-colors whitespace-nowrap"
                     >
-                      awssbg.vit@gmail.com
+                      vcloudops@vit.edu
                     </a>
                   </div>
                 </div>
@@ -206,7 +227,7 @@ export default function Footer() {
             </p>
             <button
               type="button"
-              onClick={(e) => handleNav(e, '#home')}
+              onClick={handleBackToTop}
               className="inline-flex items-center gap-1.5 text-slate-400 hover:text-sky-400 transition-colors cursor-pointer select-none"
             >
               <span>Back to top</span>

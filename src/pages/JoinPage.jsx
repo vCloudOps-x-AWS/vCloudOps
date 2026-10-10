@@ -27,7 +27,7 @@ const DOMAINS = [
     accentColor: '#818CF8', // Cosmic Indigo
     glowRgba: 'rgba(129, 140, 248, 0.22)',
     borderHover: 'hover:border-indigo-400/40',
-    category: 'engineering',
+    category: 'technical',
     description: 'Native iOS and Android apps with real-time cloud sync.',
   },
   {
@@ -37,7 +37,7 @@ const DOMAINS = [
     accentColor: '#22C55E', // Aurora Jade
     glowRgba: 'rgba(34, 197, 94, 0.22)',
     borderHover: 'hover:border-emerald-400/40',
-    category: 'engineering',
+    category: 'technical',
     description: 'Modern full-stack web platforms and cloud-native services.',
   },
   {
@@ -47,7 +47,7 @@ const DOMAINS = [
     accentColor: '#F59E0B', // Solar Gold
     glowRgba: 'rgba(245, 158, 11, 0.22)',
     borderHover: 'hover:border-amber-400/40',
-    category: 'engineering',
+    category: 'technical',
     description: 'Automated CI/CD pipelines, Kubernetes, and cloud infra.',
   },
   {
@@ -77,7 +77,7 @@ const DOMAINS = [
     accentColor: '#38BDF8', // Electric Cyan
     glowRgba: 'rgba(56, 189, 248, 0.22)',
     borderHover: 'hover:border-sky-400/40',
-    category: 'engineering',
+    category: 'technical',
     description: 'Advanced algorithms, data structures, and ICPC prep.',
   },
   {
@@ -124,7 +124,7 @@ const DOMAINS = [
 
 const CATEGORIES = [
   { id: 'all', label: 'All Domains' },
-  { id: 'engineering', label: 'Engineering' },
+  { id: 'technical', label: 'Technical' },
   { id: 'security', label: 'AI & Security' },
   { id: 'operations', label: 'Operations' },
   { id: 'creative', label: 'Creative' },
@@ -252,7 +252,7 @@ export default function JoinPage() {
             </button>
 
             <a
-              href="https://discord.com"
+              href="https://discord.gg/yMZhKMhc2n"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/12 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm transition-all duration-300 hover:border-sky-400/40 w-full sm:w-auto shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]"

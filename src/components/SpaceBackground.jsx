@@ -272,7 +272,7 @@ function BottomLeftPlanet() {
 
         {/* ── Companion Satellite Mini Moon (matching poster) ── */}
         <div
-          className="absolute -top-6 right-2 sm:-top-8 sm:right-6 md:-top-10 md:right-10 pointer-events-none"
+          className="absolute -top-12 -right-1 sm:-top-18 sm:right-4 md:-top-24 md:right-8 pointer-events-none"
           style={{
             animation: 'moonOrbit 8.5s ease-in-out infinite',
             willChange: 'transform',
@@ -280,9 +280,9 @@ function BottomLeftPlanet() {
         >
           <svg
             viewBox="0 0 80 80"
-            className="w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22"
+            className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14"
             style={{
-              filter: 'drop-shadow(0 0 10px rgba(99, 102, 241, 0.45))',
+              filter: 'drop-shadow(0 0 12px rgba(99, 102, 241, 0.45))',
               transform: 'translateZ(0)',
             }}
           >
@@ -291,22 +291,40 @@ function BottomLeftPlanet() {
                 <circle cx="40" cy="40" r="36" />
               </clipPath>
               <radialGradient id="satBase" cx="30%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#818CF8" />
-                <stop offset="45%" stopColor="#4F46E5" />
+                <stop offset="0%" stopColor="#A5B4FC" />
+                <stop offset="35%" stopColor="#818CF8" />
+                <stop offset="65%" stopColor="#4F46E5" />
                 <stop offset="85%" stopColor="#312E81" />
                 <stop offset="100%" stopColor="#1E1B4B" />
               </radialGradient>
+              <linearGradient id="satShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="40%" stopColor="transparent" />
+                <stop offset="85%" stopColor="#0B092B" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#050414" stopOpacity="0.95" />
+              </linearGradient>
             </defs>
+
+            {/* Atmosphere / starlight halo */}
+            <circle cx="40" cy="40" r="37.5" fill="none" stroke="rgba(165, 180, 252, 0.35)" strokeWidth="1.2" />
 
             {/* Moon sphere */}
             <g clipPath="url(#satClip)">
               <circle cx="40" cy="40" r="36" fill="url(#satBase)" />
-              {/* Moon craters */}
-              <circle cx="28" cy="26" r="6" fill="#1E1B4B" opacity="0.6" />
-              <circle cx="48" cy="38" r="8" fill="#1E1B4B" opacity="0.6" />
-              <circle cx="34" cy="50" r="5" fill="#312E81" opacity="0.5" />
+              {/* Moon craters with delicate illuminated rims */}
+              <circle cx="28" cy="26" r="6" fill="#1E1B4B" opacity="0.75" />
+              <path d="M 23 29 A 5.5 4.5 0 0 0 33 24" fill="none" stroke="#C7D2FE" strokeWidth="1" opacity="0.6" />
+
+              <circle cx="48" cy="38" r="8" fill="#1E1B4B" opacity="0.75" />
+              <path d="M 41 42 A 7.5 6 0 0 0 55 35" fill="none" stroke="#C7D2FE" strokeWidth="1.2" opacity="0.6" />
+
+              <circle cx="34" cy="50" r="5" fill="#312E81" opacity="0.65" />
+              <path d="M 30 52 A 4.5 3.5 0 0 0 38 48" fill="none" stroke="#A5B4FC" strokeWidth="0.8" opacity="0.5" />
+
+              {/* Spherical terminator shadow */}
+              <circle cx="40" cy="40" r="36" fill="url(#satShadow)" />
+
               {/* Specular rim */}
-              <path d="M 6 40 A 36 36 0 0 1 40 6 A 36 36 0 0 0 12 34 Z" fill="#C7D2FE" opacity="0.45" />
+              <path d="M 6 40 A 36 36 0 0 1 40 6 A 36 36 0 0 0 12 34 Z" fill="#FFFFFF" opacity="0.45" />
             </g>
           </svg>
         </div>
@@ -395,7 +413,7 @@ function RingedPlanet() {
 function PurpleDwarfPlanet() {
   return (
     <div
-      className="absolute top-[17%] left-[6%] sm:left-[11%] pointer-events-none select-none"
+      className="absolute top-[16%] left-[6%] sm:left-[9%] pointer-events-none select-none"
       style={{
         animation: 'floatOrbit1 15s ease-in-out infinite',
         willChange: 'transform',
@@ -439,11 +457,11 @@ function PurpleDwarfPlanet() {
   )
 }
 
-/* ── 2. Emerald / Mint Gas Mini-Giant with Rings (Mid Left) ──────────────── */
+/* ── 2. Emerald / Mint Gas Mini-Giant with Rings (Mid Left / Distant Orbit) ─ */
 function TealRingedPlanet() {
   return (
     <div
-      className="absolute top-[66%] left-[3%] sm:left-[7%] pointer-events-none select-none"
+      className="absolute top-[38%] left-[5%] sm:top-[42%] sm:left-[8%] md:left-[10%] pointer-events-none select-none"
       style={{
         animation: 'floatOrbit2 19s ease-in-out infinite',
         willChange: 'transform',
@@ -452,37 +470,74 @@ function TealRingedPlanet() {
     >
       <svg
         viewBox="0 0 120 90"
-        className="w-16 h-12 sm:w-20 sm:h-15 md:w-24 md:h-18"
+        className="w-14 h-10 sm:w-18 sm:h-14 md:w-22 md:h-16"
         style={{
-          filter: 'drop-shadow(0 0 12px rgba(45, 212, 191, 0.3))',
+          filter: 'drop-shadow(0 0 14px rgba(45, 212, 191, 0.35))',
           transform: 'translateZ(0)',
         }}
       >
         <defs>
           <radialGradient id="tealPlanetGrad" cx="35%" cy="35%" r="65%">
-            <stop offset="0%" stopColor="#A7F3D0" />
-            <stop offset="35%" stopColor="#2DD4BF" />
-            <stop offset="75%" stopColor="#0F766E" />
+            <stop offset="0%" stopColor="#D1FAE5" />
+            <stop offset="30%" stopColor="#5EEAD4" />
+            <stop offset="65%" stopColor="#14B8A6" />
+            <stop offset="85%" stopColor="#0F766E" />
             <stop offset="100%" stopColor="#042F2E" />
           </radialGradient>
+          <linearGradient id="tealShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="38%" stopColor="transparent" />
+            <stop offset="80%" stopColor="#021E1E" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#010F0F" stopOpacity="0.96" />
+          </linearGradient>
         </defs>
-        {/* Back ring */}
+
+        {/* Back outer dust ring fringe */}
         <ellipse
-          cx="60" cy="45" rx="50" ry="12"
+          cx="60" cy="45" rx="54" ry="13.5"
           fill="none"
-          stroke="rgba(45, 212, 191, 0.45)"
+          stroke="rgba(45, 212, 191, 0.22)"
+          strokeWidth="1.5"
+          transform="rotate(-22 60 45)"
+        />
+        {/* Back main ring */}
+        <ellipse
+          cx="60" cy="45" rx="49" ry="12"
+          fill="none"
+          stroke="rgba(45, 212, 191, 0.5)"
           strokeWidth="4"
           transform="rotate(-22 60 45)"
         />
+
         {/* Planet body */}
         <circle cx="60" cy="45" r="22" fill="url(#tealPlanetGrad)" />
-        {/* Banded cloud layer */}
-        <path d="M 40 43 Q 60 49 80 43 Q 60 46 40 43 Z" fill="#99F6E4" opacity="0.45" />
-        {/* Front ring */}
+
+        {/* Banded zonal cloud layer */}
+        <path d="M 40 43 Q 60 49 80 43 Q 60 46 40 43 Z" fill="#99F6E4" opacity="0.5" />
+        <path d="M 43 49 Q 60 54 77 49 Q 60 52 43 49 Z" fill="#2DD4BF" opacity="0.35" />
+
+        {/* Day/night terminator shadow curve */}
+        <circle cx="60" cy="45" r="22" fill="url(#tealShadow)" />
+
+        {/* Specular starlight crescent rim highlight */}
         <path
-          d="M 14 47 A 50 12 0 0 0 106 43"
+          d="M 39 45 A 22 22 0 0 1 60 23 A 22 22 0 0 0 44 40 Z"
+          fill="#FFFFFF"
+          opacity="0.4"
+        />
+
+        {/* Front ring with double-band starlight definition */}
+        <path
+          d="M 12 47 A 54 13.5 0 0 0 108 43"
           fill="none"
-          stroke="rgba(153, 246, 228, 0.85)"
+          stroke="rgba(45, 212, 191, 0.35)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          transform="rotate(-22 60 45)"
+        />
+        <path
+          d="M 15 47 A 49 12 0 0 0 105 43"
+          fill="none"
+          stroke="rgba(204, 251, 241, 0.9)"
           strokeWidth="3.5"
           strokeLinecap="round"
           transform="rotate(-22 60 45)"
@@ -704,43 +759,43 @@ export default function SpaceBackground() {
   const moonY = useTransform(scrollYProgress, [0, 0.16], [0, -360])
   const moonX = useTransform(scrollYProgress, [0, 0.16], [0, 45])
   const moonRotate = useTransform(scrollYProgress, [0, 0.16], [0, -8])
-  const moonOpacity = useTransform(scrollYProgress, [0, 0.12, 0.16], [1, 0.85, 0])
+  const moonOpacity = useTransform(scrollYProgress, [0, 0.12, 0.16], [1, 0.85, 0], { clamp: true })
 
   // 2. Bottom-Left Ocean World: drifts downwards-left, exiting into space (0% -> 18%)
   const oceanPlanetY = useTransform(scrollYProgress, [0, 0.18], [0, -300])
   const oceanPlanetX = useTransform(scrollYProgress, [0, 0.18], [0, -45])
   const oceanPlanetRotate = useTransform(scrollYProgress, [0, 0.18], [0, 8])
-  const oceanPlanetOpacity = useTransform(scrollYProgress, [0, 0.13, 0.18], [1, 0.85, 0])
+  const oceanPlanetOpacity = useTransform(scrollYProgress, [0, 0.13, 0.18], [1, 0.85, 0], { clamp: true })
 
   // 3. Ringed Titan: tilts rings and drifts up (0% -> 17%)
   const ringedY = useTransform(scrollYProgress, [0, 0.17], [0, -220])
   const ringedRotate = useTransform(scrollYProgress, [0, 0.17], [0, -14])
-  const ringedOpacity = useTransform(scrollYProgress, [0, 0.12, 0.17], [1, 0.8, 0])
+  const ringedOpacity = useTransform(scrollYProgress, [0, 0.12, 0.17], [1, 0.8, 0], { clamp: true })
 
   // 4. Purple Dwarf (Upper Left): swift nearby flyby parallax exit (0% -> 15%)
   const purpleY = useTransform(scrollYProgress, [0, 0.15], [0, -320])
   const purpleX = useTransform(scrollYProgress, [0, 0.15], [0, -40])
-  const purpleOpacity = useTransform(scrollYProgress, [0, 0.10, 0.15], [1, 0.7, 0])
+  const purpleOpacity = useTransform(scrollYProgress, [0, 0.10, 0.15], [1, 0.7, 0], { clamp: true })
 
   // 5. Teal Mini-Giant (Mid Left): mid-depth drift exit (0% -> 18%)
   const tealY = useTransform(scrollYProgress, [0, 0.18], [0, -250])
   const tealX = useTransform(scrollYProgress, [0, 0.18], [0, 30])
   const tealRotate = useTransform(scrollYProgress, [0, 0.18], [0, 12])
-  const tealOpacity = useTransform(scrollYProgress, [0, 0.13, 0.18], [1, 0.8, 0])
+  const tealOpacity = useTransform(scrollYProgress, [0, 0.13, 0.18], [1, 0.8, 0], { clamp: true })
 
   // 6. Ruby Lava Core (Upper Mid Space): rapid upward celestial pass exit (0% -> 14%)
   const rubyY = useTransform(scrollYProgress, [0, 0.14], [0, -320])
   const rubyScale = useTransform(scrollYProgress, [0, 0.14], [1, 0.85])
-  const rubyOpacity = useTransform(scrollYProgress, [0, 0.09, 0.14], [1, 0.7, 0])
+  const rubyOpacity = useTransform(scrollYProgress, [0, 0.09, 0.14], [1, 0.7, 0], { clamp: true })
 
   // 7. Cyan Ice Moon (Lower Right): inward drift exit (0% -> 17%)
   const iceMoonY = useTransform(scrollYProgress, [0, 0.17], [0, -260])
   const iceMoonX = useTransform(scrollYProgress, [0, 0.17], [0, -35])
-  const iceMoonOpacity = useTransform(scrollYProgress, [0, 0.12, 0.17], [1, 0.8, 0])
+  const iceMoonOpacity = useTransform(scrollYProgress, [0, 0.12, 0.17], [1, 0.8, 0], { clamp: true })
 
   // 8. Golden Pearl (Upper Right): distant subtle deep space parallax exit (0% -> 16%)
   const goldY = useTransform(scrollYProgress, [0, 0.16], [0, -180])
-  const goldOpacity = useTransform(scrollYProgress, [0, 0.11, 0.16], [1, 0.75, 0])
+  const goldOpacity = useTransform(scrollYProgress, [0, 0.11, 0.16], [1, 0.75, 0], { clamp: true })
 
   // Starfield subtle deep celestial parallax across whole page (Speed: ~0.025x)
   const starsY = useTransform(scrollYProgress, [0, 1], [0, -110])

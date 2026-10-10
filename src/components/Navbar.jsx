@@ -3,9 +3,9 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { List, X, ArrowUpRight, DiscordLogo, GithubLogo, LinkedinLogo } from '@phosphor-icons/react'
-import { scrollToTarget } from '../utils/smoothScroll'
+import { scrollToTarget, scrollToTop } from '../utils/smoothScroll'
 import { useScrolled } from '../hooks/useScrolled'
-import { usePageTransition } from '../hooks/usePageTransition'
+import { setHasIntroAnimated } from '../utils/introState'
 
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
@@ -18,13 +18,11 @@ const NAV_LINKS = [
 export default function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { transitionTo } = usePageTransition()
   const isHomePage = location.pathname === '/'
   const isJoinPage = location.pathname === '/join'
 
   const [active, setActive] = useState('#home')
   const [menuOpen, setMenuOpen] = useState(false)
-  const [btnPulsing, setBtnPulsing] = useState(false)
   const menuRef = useRef(null)
   const isScrolled = useScrolled(25)
 
@@ -108,6 +106,7 @@ export default function Navbar() {
     if (isHomePage) {
       scrollToTarget(href, -85)
     } else {
+      setHasIntroAnimated(true)
       navigate(`/${href}`)
     }
   }
@@ -119,19 +118,21 @@ export default function Navbar() {
     if (isHomePage) {
       scrollToTarget('#home', -85)
     } else {
-      transitionTo('/')
+      setHasIntroAnimated(true)
+      navigate('/')
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     }
   }
 
   const handleJoinClick = (e) => {
     e.preventDefault()
-    setBtnPulsing(true)
-    setTimeout(() => setBtnPulsing(false), 500)
     setMenuOpen(false)
     if (!isJoinPage) {
-      transitionTo('/join')
+      setHasIntroAnimated(true)
+      navigate('/join')
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      scrollToTop()
     }
   }
 
@@ -194,11 +195,8 @@ export default function Navbar() {
                 isJoinPage
                   ? 'bg-sky-400 text-slate-950 shadow-[0_0_20px_rgba(56,189,248,0.6)] ring-2 ring-sky-300/60'
                   : 'bg-gradient-to-r from-sky-400 to-sky-200 text-slate-950 hover:shadow-[0_0_24px_rgba(56,189,248,0.5)] hover:scale-[1.03] active:scale-[0.95]'
-              } ${btnPulsing ? 'scale-105 ring-4 ring-sky-300/80 shadow-[0_0_30px_rgba(56,189,248,0.9)]' : ''}`}
+              }`}
             >
-              {btnPulsing && (
-                <span className="absolute inset-0 rounded-full bg-white/50 animate-ping pointer-events-none" />
-              )}
               <span className="relative z-10">Join Us</span>
               <div className="relative z-10 w-6 h-6 rounded-full bg-slate-950/15 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 <ArrowUpRight weight="bold" className="w-3.5 h-3.5" />
@@ -213,13 +211,8 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={handleJoinClick}
-                className={`relative overflow-hidden hidden sm:inline-flex px-3 py-1.5 rounded-full bg-gradient-to-r from-sky-400 to-sky-300 text-slate-950 font-bold text-xs items-center gap-1 active:scale-95 transition-all shadow-[0_0_12px_rgba(56,189,248,0.3)] shrink-0 whitespace-nowrap cursor-pointer ${
-                  btnPulsing ? 'ring-2 ring-sky-300 shadow-[0_0_24px_rgba(56,189,248,0.8)]' : ''
-                }`}
+                className="relative overflow-hidden hidden sm:inline-flex px-3 py-1.5 rounded-full bg-gradient-to-r from-sky-400 to-sky-300 text-slate-950 font-bold text-xs items-center gap-1 active:scale-95 transition-all shadow-[0_0_12px_rgba(56,189,248,0.3)] shrink-0 whitespace-nowrap cursor-pointer"
               >
-                {btnPulsing && (
-                  <span className="absolute inset-0 rounded-full bg-white/50 animate-ping pointer-events-none" />
-                )}
                 <span className="relative z-10">Join Us</span>
                 <ArrowUpRight weight="bold" className="w-3.5 h-3.5 relative z-10" />
               </button>
@@ -283,7 +276,7 @@ export default function Navbar() {
         <div className="max-w-sm mx-auto w-full pt-8 border-t border-white/10 flex flex-col items-center gap-4">
           <div className="flex items-center gap-6">
             <a
-              href="https://github.com"
+              href="https://github.com/vCloudOps-x-AWS"
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
@@ -292,7 +285,7 @@ export default function Navbar() {
               <GithubLogo weight="fill" className="w-6 h-6" />
             </a>
             <a
-              href="https://discord.com"
+              href="https://discord.gg/yMZhKMhc2n"
               target="_blank"
               rel="noreferrer"
               aria-label="Discord"
@@ -301,7 +294,7 @@ export default function Navbar() {
               <DiscordLogo weight="fill" className="w-6 h-6" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/awssbgvit/home/"
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
