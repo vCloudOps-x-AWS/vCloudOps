@@ -6,5 +6,9 @@ export function startTouchGesture(touches) {
 
 export function touchGestureDelta(start, touches) {
   if (!start || touches.length !== 1 || touches[0].identifier !== start.id) return null
-  return { x: start.x - touches[0].clientX, y: start.y - touches[0].clientY }
+  const delta = { x: start.x - touches[0].clientX, y: start.y - touches[0].clientY }
+  if (!start.axis && Math.max(Math.abs(delta.x), Math.abs(delta.y)) >= 10) {
+    start.axis = Math.abs(delta.x) > Math.abs(delta.y) ? 'x' : 'y'
+  }
+  return delta
 }
