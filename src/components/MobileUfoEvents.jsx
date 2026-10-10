@@ -316,7 +316,10 @@ export default function MobileUfoEvents({
       </div>
 
       {/* ── 2. THE TRIANGULAR BEAM OF LIGHT WITH SUSPENDED FLOATING INFO ── */}
-      <div className={`ufo-beam-stage ${isFlyingIn ? 'beam-reveal-action' : ''}`}>
+      <div
+        key={`beam-stage-${currentIndex}`}
+        className="ufo-beam-stage beam-reveal-action"
+      >
         {/* Vector SVG Triangular Beam Cone & Floor Ellipse */}
         <svg
           viewBox="0 0 380 470"
@@ -384,16 +387,15 @@ export default function MobileUfoEvents({
           }}
         />
 
-        {/* Laser Sweeper Beam Leading Edge (Travels top to bottom only on initial reveal) */}
-        {isFlyingIn && (
-          <div
-            className="beam-laser-sweeper"
-            style={{
-              background: `linear-gradient(90deg, transparent 5%, rgba(${theme.beamColor}, 0.95) 50%, transparent 95%)`,
-              boxShadow: `0 0 16px rgba(${theme.beamColor}, 1)`,
-            }}
-          />
-        )}
+        {/* Laser Sweeper Beam Leading Edge (Travels top to bottom revealing light and contents) */}
+        <div
+          key={`laser-sweeper-${currentIndex}`}
+          className="beam-laser-sweeper"
+          style={{
+            background: `linear-gradient(90deg, transparent 5%, rgba(${theme.beamColor}, 0.95) 50%, transparent 95%)`,
+            boxShadow: `0 0 16px rgba(${theme.beamColor}, 1)`,
+          }}
+        />
 
         {/* ── PURE FLOATING INFO (SUSPENDED IN THE LIGHT BEAM) ── */}
         <div key={`beam-content-${currentIndex}`} className="beam-floating-content beam-content-switch">

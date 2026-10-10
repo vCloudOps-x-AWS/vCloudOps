@@ -223,20 +223,25 @@
   }
 }
 
-/* Fluid Hologram Content Switch between active events */
+/* Top-to-bottom light sweep revealing contents as laser sweeps down */
 .beam-content-switch {
-  animation: beam-hologram-swap 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: opacity, transform;
+  animation: content-beam-unfurl 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform, clip-path;
 }
 
-@keyframes beam-hologram-swap {
+@keyframes content-beam-unfurl {
   0% {
     opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(-16px);
+  }
+  25% {
+    opacity: 0.7;
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    clip-path: inset(0 0 0% 0);
+    transform: translateY(0);
   }
 }
 
