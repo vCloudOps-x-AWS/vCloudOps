@@ -251,7 +251,9 @@ export default function EventsSection({ customEvents }) {
         onWheel={handleWheel}
         className="w-full min-h-[100dvh] md:h-[100dvh] max-h-none md:max-h-[1080px] flex flex-col justify-between overflow-visible relative select-none"
         style={{
-          paddingTop: 'clamp(4.75rem, 6vh + 1rem, 5.75rem)',
+          paddingTop: isDesktop
+            ? 'clamp(4.75rem, 6vh + 1rem, 5.75rem)'
+            : 'clamp(3.85rem, 5vh + 0.6rem, 5.75rem)',
           paddingBottom: 'clamp(0.75rem, 1.5vh, 1.5rem)',
         }}
       >

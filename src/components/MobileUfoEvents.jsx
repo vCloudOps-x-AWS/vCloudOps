@@ -80,7 +80,7 @@ export default function MobileUfoEvents({
       const timer = setTimeout(() => setTiltAngle(0), 400)
       return () => clearTimeout(timer)
     }
-  }, [controlledIndex, total])
+  }, [controlledIndex, total, currentIndex])
 
   // UFO Fly-in sequence trigger when mounted
   useEffect(() => {
@@ -177,8 +177,6 @@ export default function MobileUfoEvents({
   }
 
   if (!items || items.length === 0) return null
-
-  const itemNumber = String(currentIndex + 1).padStart(2, '0')
 
   return (
     <div
@@ -332,7 +330,7 @@ export default function MobileUfoEvents({
 
           {/* The Conical Triangular Shaft of Light (Anchored precisely to UFO emitter nozzle) */}
           <polygon
-            points="125,0 255,0 372,430 8,430"
+            points="115,0 265,0 370,430 10,430"
             fill={`url(#beamShaftGrad-${currentIndex})`}
             stroke={`url(#beamRayGrad-${currentIndex})`}
             strokeWidth="1.5"
@@ -343,7 +341,7 @@ export default function MobileUfoEvents({
           <ellipse
             cx="190"
             cy="430"
-            rx="176"
+            rx="175"
             ry="16"
             fill={`url(#beamFloorGrad-${currentIndex})`}
             stroke={`rgba(${theme.beamColor}, 0.5)`}
@@ -374,128 +372,122 @@ export default function MobileUfoEvents({
           }}
         />
 
-        {/* ── PURE FLOATING INFO (NO CARDS, SUSPENDED IN THE LIGHT BEAM) ── */}
+        {/* ── PURE FLOATING INFO (SUSPENDED IN THE LIGHT BEAM) ── */}
         <div className="beam-floating-content">
-          {/* Mode Name (Pure glowing typography — no pill capsule) */}
-          {(currentItem.mode || currentItem.category) && (
-            <div className="beam-mode-text-row">
-              <span
-                className="font-mono text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em]"
-                style={{
-                  color: theme.accent,
-                  textShadow: `0 0 14px ${theme.textGlow}, 0 0 28px rgba(${theme.beamColor}, 0.6)`,
-                }}
-              >
-                {currentItem.mode || currentItem.category}
-              </span>
-            </div>
-          )}
-
-          {/* Level 2 (Upper Cone): Big Luminous Holographic Date */}
-          <div className="beam-date-row">
-            <div className="flex items-baseline justify-center gap-1.5">
-              <span
-                className="font-mono font-black text-3xl sm:text-4xl tracking-tighter leading-none text-white"
-                style={{
-                  textShadow: `0 0 25px ${theme.textGlow}, 0 0 50px rgba(${theme.beamColor}, 0.6)`,
-                }}
-              >
-                {currentItem.dateDay || '12'}
-              </span>
-              <span
-                className="font-mono font-extrabold text-[11px] sm:text-xs tracking-wider uppercase"
-                style={{
-                  color: theme.accent,
-                  textShadow: `0 0 12px ${theme.textGlow}`,
-                }}
-              >
-                {currentItem.dateMonth || 'OCT'} {currentItem.dateYear || '2026'}
-              </span>
-            </div>
-
-            {/* Venue Tag (Only rendered when venue / mapsUrl exists, e.g. Event 1) */}
-            {(currentItem.venue || currentItem.mapsUrl) && (
-              <div className="mt-1">
-                {currentItem.mapsUrl ? (
-                  <a
-                    href={currentItem.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-mono text-[11px] font-bold transition-opacity hover:opacity-80"
-                    style={{
-                      color: theme.accent,
-                      textShadow: `0 0 10px ${theme.textGlow}`,
-                    }}
-                    title="Open Venue in Google Maps"
-                  >
-                    <MapPin className="w-3 h-3" />
-                    <span className="underline underline-offset-2">
-                      {currentItem.locationCode || currentItem.venue || 'CAMPUS'}
-                    </span>
-                    <ArrowSquareOut className="w-2.5 h-2.5" />
-                  </a>
-                ) : (
-                  <span
-                    className="font-mono text-[11px] font-semibold text-slate-300"
-                    style={{ textShadow: `0 0 8px ${theme.textGlow}` }}
-                  >
-                    {currentItem.locationCode || currentItem.venue}
-                  </span>
-                )}
+          <div className="beam-info-body">
+            {/* Mode Name (Pure glowing typography — no pill capsule) */}
+            {(currentItem.mode || currentItem.category) && (
+              <div className="beam-mode-text-row">
+                <span
+                  className="beam-mode-badge font-mono font-black uppercase"
+                  style={{
+                    color: theme.accent,
+                    textShadow: `0 0 14px ${theme.textGlow}, 0 0 28px rgba(${theme.beamColor}, 0.6)`,
+                  }}
+                >
+                  {currentItem.mode || currentItem.category}
+                </span>
               </div>
             )}
-          </div>
 
-          {/* Level 3 (Mid Cone): Glowing Event Title */}
-          <h3
-            className="beam-title"
-            style={{
-              textShadow: `0 0 20px ${theme.textGlow}, 0 0 40px rgba(${theme.beamColor}, 0.5)`,
-            }}
-          >
-            {currentItem.title}
-          </h3>
+            {/* Level 2 (Upper Cone): Big Luminous Holographic Date */}
+            <div className="beam-date-row">
+              <div className="flex items-baseline justify-center gap-1.5">
+                <span
+                  className="beam-date-day font-mono font-black tracking-tighter leading-none text-white"
+                  style={{
+                    textShadow: `0 0 25px ${theme.textGlow}, 0 0 50px rgba(${theme.beamColor}, 0.6)`,
+                  }}
+                >
+                  {currentItem.dateDay || '12'}
+                </span>
+                <span
+                  className="beam-date-month font-mono font-extrabold uppercase"
+                  style={{
+                    color: theme.accent,
+                    textShadow: `0 0 12px ${theme.textGlow}`,
+                  }}
+                >
+                  {currentItem.dateMonth || 'OCT'} {currentItem.dateYear || '2026'}
+                </span>
+              </div>
 
-          {/* Level 4 (Lower Cone): Lead Holographic Statement */}
-          {currentItem.lead && (
-            <p
-              className="beam-lead"
+              {/* Venue Tag (Only rendered when venue / mapsUrl exists, e.g. Event 1) */}
+              {(currentItem.venue || currentItem.mapsUrl) && (
+                <div className="beam-venue-wrapper">
+                  {currentItem.mapsUrl ? (
+                    <a
+                      href={currentItem.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="beam-venue-link inline-flex items-center gap-1 font-mono font-bold transition-opacity hover:opacity-80"
+                      style={{
+                        color: theme.accent,
+                        textShadow: `0 0 10px ${theme.textGlow}`,
+                      }}
+                      title="Open Venue in Google Maps"
+                    >
+                      <MapPin className="w-3 h-3 shrink-0" />
+                      <span className="beam-venue-text underline underline-offset-2">
+                        {currentItem.locationCode || currentItem.venue || 'CAMPUS'}
+                      </span>
+                      <ArrowSquareOut className="w-2.5 h-2.5 shrink-0" />
+                    </a>
+                  ) : (
+                    <span
+                      className="beam-venue-text font-mono font-semibold text-slate-300"
+                      style={{ textShadow: `0 0 8px ${theme.textGlow}` }}
+                    >
+                      {currentItem.locationCode || currentItem.venue}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Level 3 (Mid Cone): Glowing Event Title */}
+            <h3
+              className="beam-title"
               style={{
-                color: theme.badgeText,
-                textShadow: `0 0 14px rgba(${theme.beamColor}, 0.6)`,
+                textShadow: `0 0 20px ${theme.textGlow}, 0 0 40px rgba(${theme.beamColor}, 0.5)`,
               }}
             >
-              {currentItem.lead}
-            </p>
-          )}
+              {currentItem.title}
+            </h3>
 
-          {/* ── Level 5: CIRCULAR SHADOW PART OF LIGHT BEAM WITH MORE INFO BUTTON ── */}
-          <div className="beam-floor-shadow-dock">
-            {/* The Glowing Circular / Elliptical Ground Shadow Pool */}
-            <div
-              className="beam-floor-shadow-disc"
-              style={{
-                background: `radial-gradient(ellipse 65% 50% at center, rgba(${theme.beamColor}, 0.5) 0%, rgba(${theme.beamColor}, 0.15) 50%, rgba(0, 0, 0, 0.8) 75%, transparent 100%)`,
-              }}
-            />
+            {/* Level 4 (Lower Cone): Lead Holographic Statement */}
+            {currentItem.lead && (
+              <p
+                className="beam-lead"
+                style={{
+                  color: theme.badgeText,
+                  textShadow: `0 0 14px rgba(${theme.beamColor}, 0.6)`,
+                }}
+              >
+                {currentItem.lead}
+              </p>
+            )}
 
-            <button
-              type="button"
-              onClick={() => setIsDetailsOpen(true)}
-              className="beam-more-info-btn"
-              style={{
-                borderColor: theme.accent,
-                boxShadow: `0 0 22px rgba(${theme.beamColor}, 0.45), inset 0 0 12px rgba(${theme.beamColor}, 0.25)`,
-                background: `radial-gradient(ellipse at center, rgba(${theme.beamColor}, 0.28) 0%, rgba(10, 15, 29, 0.92) 80%)`,
-                color: '#FFFFFF',
-                textShadow: `0 0 10px ${theme.textGlow}`,
-              }}
-              aria-label={`Open details for ${currentItem.title}`}
-            >
-              <Sparkle weight="fill" className="w-3.5 h-3.5" style={{ color: theme.accent }} />
-              <span>More Info</span>
-              <ArrowSquareOut weight="bold" className="w-3.5 h-3.5" style={{ color: theme.accent }} />
-            </button>
+            {/* Level 5: More Info Button floating comfortably inside the beam above the floor ring */}
+            <div className="beam-btn-wrapper">
+              <button
+                type="button"
+                onClick={() => setIsDetailsOpen(true)}
+                className="beam-more-info-btn"
+                style={{
+                  borderColor: theme.accent,
+                  boxShadow: `0 0 20px rgba(${theme.beamColor}, 0.45), inset 0 0 10px rgba(${theme.beamColor}, 0.25)`,
+                  background: `radial-gradient(ellipse at center, rgba(${theme.beamColor}, 0.25) 0%, rgba(10, 15, 29, 0.92) 80%)`,
+                  color: '#FFFFFF',
+                  textShadow: `0 0 10px ${theme.textGlow}`,
+                }}
+                aria-label={`Open details for ${currentItem.title}`}
+              >
+                <Sparkle weight="fill" className="w-3.5 h-3.5" style={{ color: theme.accent }} />
+                <span>More Info</span>
+                <ArrowSquareOut weight="bold" className="w-3.5 h-3.5" style={{ color: theme.accent }} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
