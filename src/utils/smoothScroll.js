@@ -57,6 +57,20 @@ export function getLenis() {
 }
 
 /**
+ * Smoothly scroll to the top of the current page
+ */
+export function scrollToTop() {
+  if (lenisInstance) {
+    lenisInstance.scrollTo(0, {
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    })
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+}
+
+/**
  * Smoothly scroll to a specific target (selector or DOM element)
  * Automatically accounts for sticky/fixed navigation offset
  */

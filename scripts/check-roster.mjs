@@ -16,14 +16,14 @@ const expectedDomains = [
   'App Development',
   'AI/ML',
   'Publicity and Outreach',
+  'Cybersecurity',
 ]
 const counts = Object.fromEntries(expectedDomains.map((domain) => [domain, members.filter((member) => member.domain === domain).length]))
 const errors = []
 
-if (members.length !== 30) errors.push(`expected 30 members, found ${members.length}`)
+if (members.length !== 33) errors.push(`expected 33 members, found ${members.length}`)
 if (new Set(members.map((member) => member.id)).size !== members.length) errors.push('duplicate member id found')
 if (members.filter((member) => member.name === 'Vaishnavi Bhagwat').length !== 1) errors.push('Vaishnavi Bhagwat must appear exactly once')
-if (members.some((member) => member.domain.toLowerCase().includes('cyber'))) errors.push('Cybersecurity member found')
 if (!members.some((member) => member.name === 'Varad Takale' && member.role === 'Head')) errors.push('Varad Takale head missing')
 if (!members.some((member) => member.name === 'Shubham Jadhav' && member.role === 'Head')) errors.push('Shubham Jadhav head missing')
 if (members.some((member) => /instagram|bio:|tags:|@/.test(member.fields))) errors.push('private/social placeholder fields found in roster')
