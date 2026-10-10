@@ -354,7 +354,7 @@ export default function MobileUfoEvents({
 
           {/* The Conical Triangular Shaft of Light (Anchored precisely to UFO emitter nozzle) */}
           <polygon
-            points="105,0 275,0 370,430 10,430"
+            points="137,0 243,0 370,430 10,430"
             fill={`url(#beamShaftGrad-${currentIndex})`}
             stroke={`url(#beamRayGrad-${currentIndex})`}
             strokeWidth="1.5"
