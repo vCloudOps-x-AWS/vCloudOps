@@ -545,7 +545,13 @@ const ParticleText = ({
       cachedRect = section.getBoundingClientRect();
     };
 
+    let lastRectTime = 0;
     const handlePointerMove = event => {
+      const now = performance.now();
+      if (now - lastRectTime > 300) {
+        cachedRect = section.getBoundingClientRect();
+        lastRectTime = now;
+      }
       const clientX = event.touches ? event.touches[0].clientX : event.clientX;
       const clientY = event.touches ? event.touches[0].clientY : event.clientY;
 
@@ -571,9 +577,7 @@ const ParticleText = ({
 
     reduceMotionQuery?.addEventListener('change', handleReduceMotionChange);
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    window.addEventListener('touchmove', handlePointerMove, { passive: true });
     window.addEventListener('pointerleave', handlePointerLeave, { passive: true });
-    window.addEventListener('scroll', updateCachedRect, { passive: true });
     window.addEventListener('resize', updateCachedRect, { passive: true });
 
     const handleDocVisibility = () => {
@@ -616,9 +620,7 @@ const ParticleText = ({
       document.removeEventListener('visibilitychange', handleDocVisibility);
       reduceMotionQuery?.removeEventListener('change', handleReduceMotionChange);
       window.removeEventListener('pointermove', handlePointerMove);
-      window.removeEventListener('touchmove', handlePointerMove);
       window.removeEventListener('pointerleave', handlePointerLeave);
-      window.removeEventListener('scroll', updateCachedRect);
       window.removeEventListener('resize', updateCachedRect);
 
       if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);

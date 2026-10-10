@@ -219,9 +219,14 @@ const Particles = ({
 
     const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
 
+    let lastW = 0;
+    let lastH = 0;
     const resize = () => {
       const width = container.clientWidth || window.innerWidth;
       const height = container.clientHeight || window.innerHeight;
+      if (width === lastW && Math.abs(height - lastH) < 120) return;
+      lastW = width;
+      lastH = height;
       renderer.setSize(width, height);
       const aspect = (width && height) ? (width / height) : (16 / 9);
       camera.perspective({ aspect });

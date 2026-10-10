@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Sparkle, X } from '@phosphor-icons/react'
+import { ArrowLeft, ArrowRight, X } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import CircularCarousel from './CircularCarousel'
@@ -69,14 +69,13 @@ export default function GallerySection() {
   return (
     <section id="gallery" className="gallery-section relative py-20 sm:py-28 md:py-36 px-4 flex flex-col items-center text-center overflow-hidden z-10">
       <div className="gallery-header flex flex-col items-center max-w-3xl mb-8 sm:mb-10 relative z-20">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-sky-400/20 backdrop-blur-xl mb-6">
-          <Sparkle weight="fill" className="w-3.5 h-3.5 text-sky-400" />
-          <span className="text-[10px] sm:text-xs tracking-[0.22em] uppercase font-bold text-sky-400">Community moments</span>
-        </div>
-        <h2 className="font-extrabold text-white leading-tight tracking-tight mb-4" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>
-          Moments in Orbit
+        <h2 className="font-extrabold tracking-tight leading-[1.2] mb-3 sm:mb-4 px-2" style={{ fontSize: 'clamp(1.8rem, 4.5vw, 3.5rem)' }}>
+          <span className="text-white">Moments in </span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-sky-400 to-sky-600 drop-shadow-[0_0_24px_rgba(56,189,248,0.3)]">
+            Orbit
+          </span>
         </h2>
-        <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
+        <p className="max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed text-slate-200/90 font-medium px-1 sm:px-2">
           The people, ideas, and memories that bring our community together.
         </p>
       </div>
@@ -87,13 +86,13 @@ export default function GallerySection() {
           className="gallery-carousel"
           items={GALLERY_ITEMS}
           preset="helix"
-          helixPitch={36}
+          helixPitch={typeof window !== 'undefined' && window.innerWidth < 768 ? 24 : 36}
           intro="rise"
-          cardWidth={205}
+          cardWidth={typeof window !== 'undefined' && window.innerWidth < 768 ? 165 : 205}
           aspectRatio={1.42}
-          gap={12}
+          gap={10}
           autoplay="drift"
-          speed={12}
+          speed={typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 12}
           interval={4}
           pauseOnHover={false}
           tilt={-5}
@@ -105,7 +104,7 @@ export default function GallerySection() {
           captions
           onVelocityChange={updateRocketLift}
           onItemClick={(item) => setSelectedPhoto(item)}
-          style={{ height: 'clamp(390px, 48vw, 590px)' }}
+          style={{ height: 'clamp(380px, 46vw, 590px)' }}
         >
           <div
             ref={rocketRef}

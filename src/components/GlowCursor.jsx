@@ -157,21 +157,32 @@ const GlowCursor = ({
   const canvasRef = useRef(null);
   const propsRef = useRef({});
   const [isTouchDevice, setIsTouchDevice] = useState(() => {
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      return Boolean((window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(hover: none)').matches) && !mobile);
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 768 && !mobile) return true;
+      if (window.matchMedia) {
+        return Boolean((window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(hover: none)').matches) && !mobile);
+      }
     }
     return false;
   });
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return;
-    const coarseMedia = window.matchMedia('(pointer: coarse)');
+    if (typeof window === 'undefined') return;
+    const coarseMedia = window.matchMedia?.('(pointer: coarse)');
+    const hoverMedia = window.matchMedia?.('(hover: none)');
     const updateTouch = () => {
-      const isCoarse = coarseMedia.matches || window.matchMedia('(hover: none)').matches;
+      const isMobileWidth = window.innerWidth < 768;
+      const isCoarse = isMobileWidth || Boolean(coarseMedia?.matches || hoverMedia?.matches);
       setIsTouchDevice(isCoarse && !mobile);
     };
-    coarseMedia.addEventListener?.('change', updateTouch);
-    return () => coarseMedia.removeEventListener?.('change', updateTouch);
+    coarseMedia?.addEventListener?.('change', updateTouch);
+    hoverMedia?.addEventListener?.('change', updateTouch);
+    window.addEventListener('resize', updateTouch, { passive: true });
+    return () => {
+      coarseMedia?.removeEventListener?.('change', updateTouch);
+      hoverMedia?.removeEventListener?.('change', updateTouch);
+      window.removeEventListener('resize', updateTouch);
+    };
   }, [mobile]);
 
   useEffect(() => {

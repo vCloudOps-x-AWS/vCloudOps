@@ -279,7 +279,7 @@ export default function Hero() {
         {STATS.map(({ suffix, label }, index) => (
           <div
             key={label}
-            className="hero-stat-card p-1 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl transition-[border-color,box-shadow,transform] duration-300 hover:border-sky-400/40 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(56,189,248,0.12)] will-change-transform"
+            className="hero-stat-card p-1 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md contain-paint transition-[border-color,box-shadow,transform] duration-300 hover:border-sky-400/40 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(56,189,248,0.12)] will-change-transform"
           >
             <div className="flex flex-col items-center justify-center gap-0.5 sm:gap-1 py-3 sm:py-4 px-2 sm:px-3 rounded-[calc(1rem-2px)] bg-[#050505]/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
               <span

@@ -16,17 +16,17 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-              return 'vendor-react'
-            }
-            if (id.includes('gsap') || id.includes('framer-motion') || id.includes('lenis')) {
-              return 'vendor-animation'
+            if (id.includes('@phosphor-icons')) {
+              return 'vendor-icons'
             }
             if (id.includes('ogl')) {
               return 'vendor-webgl'
             }
-            if (id.includes('@phosphor-icons')) {
-              return 'vendor-icons'
+            if (id.includes('gsap') || id.includes('framer-motion') || id.includes('lenis')) {
+              return 'vendor-animation'
+            }
+            if (/[\\/]node_modules[\\/](react|react-dom|react-router-dom|scheduler)[\\/]/.test(id)) {
+              return 'vendor-react'
             }
           }
         },

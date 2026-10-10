@@ -13,59 +13,59 @@ import './TeamSection.css'
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 const MEMBERS = [
-  { id: 'aditya-katare', name: 'Aditya Katare', role: 'President', domain: 'Core leadership', github: 'https://github.com/ADITYA-K-07', linkedin: 'https://www.linkedin.com/in/aditya-katare-873a56385', instagram: 'https://www.instagram.com/being_adiiiiiii?stkn=ODI5c2NsdjVzOHdy&utm_source=qr', accent: '#4aa9db', portrait: '/team-members/roster/aditya-katare.png' },
-  { id: 'aryan-khade', name: 'Aryan Khade', role: 'Vice President', domain: 'Core leadership', github: 'https://github.com/Aryan886', linkedin: 'https://www.linkedin.com/in/aryankhade005', accent: '#4aa9db', portrait: '/team-members/roster/aryan-khade.jpeg' },
-  { id: 'mrugesh-kulkarni', name: 'Mrugesh Kulkarni', role: 'Head', domain: 'Cloud', github: 'https://github.com/Pixel-Stock', linkedin: 'https://www.linkedin.com/in/mrugeshkulkarni/', instagram: 'https://www.instagram.com/its.mrugesh/', accent: '#57c7ff', portrait: '/team-members/roster/mrugesh-kulkarni.png' },
-  { id: 'anup-dubey', name: 'Anup Dubey', role: 'Co-Head', domain: 'Cloud', github: 'https://github.com/Anup1dubey', linkedin: 'https://www.linkedin.com/in/anup-dubey-646433328/', instagram: 'https://www.instagram.com/anup1dubey/?hl=en', accent: '#57c7ff', portrait: '/team-members/roster/anup-dubey.png' },
-  { id: 'pranav-amdekar', name: 'Pranav Amdekar', role: 'Co-Head', domain: 'Cloud', github: 'https://github.com/0xprxnav', linkedin: 'https://www.linkedin.com/in/pranav-amdekar-04b304386', accent: '#57c7ff', portrait: '/team-members/roster/pranav-amdekar.png' },
-  { id: 'ishani-bharsakade', name: 'Ishani Bharsakade', role: 'Co-Head', domain: 'Finance & Sponsorship', github: 'https://github.com/RealSpidey69', linkedin: 'https://www.linkedin.com/in/ishani-bharsakade-3a1866229/', instagram: 'https://www.instagram.com/seriously_ish/', accent: '#a98bff', portrait: '/team-members/roster/ishani-bharsakade.png' },
-  { id: 'govind-agrawal', name: 'Govind Agrawal', role: 'Co-Head', domain: 'Finance & Sponsorship', linkedin: 'https://www.linkedin.com/in/govind-agrawal-a85806384', accent: '#a98bff', portrait: '/team-members/roster/govind-agrawal.png' },
-  { id: 'krishna-gangshettiwar', name: 'Krishna Gangshettiwar', role: 'Co-Head', domain: 'Finance & Sponsorship', github: 'https://github.com/Krishna5670', linkedin: 'https://www.linkedin.com/in/krishna-gangshettiwar-198a5a385', accent: '#a98bff', portrait: '/team-members/roster/krishna-gangshettiwar.png' },
-  { id: 'satyajit-gaikwad', name: 'Satyajit Gaikwad', role: 'Head', domain: 'Web Development', github: 'https://github.com/CodeBySatyajit', linkedin: 'https://www.linkedin.com/in/satyajit-gaikwad-092381372/', instagram: 'https://www.instagram.com/itz_satyajit._07/', accent: '#6b9cff', portrait: '/team-members/roster/satyajit-gaikwad.png' },
-  { id: 'tanushka-patil', name: 'Tanushka Patil', role: 'Co-Head', domain: 'Web Development', github: 'https://github.com/Tanushka-sp2007', linkedin: 'https://www.linkedin.com/in/tanushka-sunil-patil-a87090389', accent: '#6b9cff', portrait: '/team-members/roster/tanushka-patil.png' },
-  { id: 'aryan-durgude', name: 'Aryan Durgude', role: 'Head', domain: 'Multimedia', github: 'https://github.com/NotAl2', linkedin: 'https://www.linkedin.com/in/aryan-durgude-777816385', instagram: 'https://www.instagram.com/not.al2?stkn=aG1pdHBiMGowbjJx', accent: '#36d9c4', portrait: '/team-members/roster/aryan-durgude.jpg' },
-  { id: 'harsh-chendwankar', name: 'Harsh Chendwankar', role: 'Co-Head', domain: 'Multimedia', github: 'https://github.com/Harsh20-06', linkedin: 'https://www.linkedin.com/in/harsh-chendwankar', instagram: 'https://www.instagram.com/harsh_chendwankar?stkn=cWd6aGRjMm5xdnAz&utm_source=qr', accent: '#36d9c4', portrait: '/team-members/roster/harsh-chendwankar.png' },
-  { id: 'vaishnavi-bhagwat', name: 'Vaishnavi Bhagwat', role: 'Co-Head', domain: 'Multimedia', github: 'https://github.com/vaishnavibhagwat', linkedin: 'https://www.linkedin.com/in/vaishnavi-bhagwat-509a5037a', instagram: 'https://www.instagram.com/v_are_aesthetic?stkn=dWtmYms5NHY4ZmFl&utm_source=qr', accent: '#36d9c4', portrait: '/team-members/roster/vaishnavi-bhagwat.png' },
-  { id: 'naisha-sahni', name: 'Naisha Sahni', role: 'Co-Head', domain: 'Multimedia', github: 'https://github.com/naishasahni', accent: '#36d9c4', portrait: '/team-members/roster/naisha-sahni.png' },
-  { id: 'sanskar-babar', name: 'Sanskar Babar', role: 'Video Editor', domain: 'Multimedia', github: 'https://github.com/sanskarbabar', linkedin: 'https://www.linkedin.com/in/sanskar-babar-1079021b9', accent: '#36d9c4', portrait: '/team-members/roster/sanskar-babar.jpeg' },
-  { id: 'jiteesh-ghodke', name: 'Jiteesh Ghodke', role: 'Co-Head', domain: 'Competitive Programming', github: 'https://github.com/jiteeshghodke456-del', linkedin: 'https://www.linkedin.com/in/jiteesh-ghodke-642832398', instagram: 'https://instagram.com/jiteez._?stkn=MXg1aHJuaG5qN2o1Mg%3D%3D', accent: '#58d8e8', portrait: '/team-members/roster/jiteesh-ghodke.png' },
-  { id: 'jayesh-khandelwal', name: 'Jayesh Khandelwal', role: 'Co-Head', domain: 'Competitive Programming', github: 'https://github.com/itsjayeshk', linkedin: 'https://www.linkedin.com/in/jayesh-khandelwal-vit', accent: '#58d8e8', portrait: '/team-members/roster/jayesh-khandelwal.png' },
-  { id: 'manthan-devi', name: 'Manthan Devi', role: 'Co-Head', domain: 'Competitive Programming', github: 'https://github.com/coder-manthan-007', linkedin: 'https://www.linkedin.com/in/manthan-devi-8764a3386/', instagram: 'https://www.instagram.com/devimanthan/', accent: '#58d8e8', portrait: '/team-members/roster/manthan-devi.png' },
-  { id: 'vipul-bangar', name: 'Vipul Bangar', role: 'Co-Head', domain: 'Operations', github: 'https://github.com/thevipulbangar', linkedin: 'https://www.linkedin.com/in/vipul-bangar-8a4a9937b/', accent: '#f6b75d', portrait: '/team-members/roster/vipul-bangar.png' },
-  { id: 'aryaan-antarkar', name: 'Aryaan Antarkar', role: 'Co-Head', domain: 'Operations', github: 'https://github.com/aryaanantarkar-byte', linkedin: 'https://www.linkedin.com/in/aryaan-antarkar-74565b386/', instagram: 'https://www.instagram.com/vvant0394/', accent: '#f6b75d', portrait: '/team-members/roster/aryaan-antarkar.png' },
-  { id: 'sanskar-dhonde', name: 'Sanskar Dhonde', role: 'Head', domain: 'App Development', github: 'https://github.com/dhonde290-netizen', linkedin: 'https://www.linkedin.com/in/sanskardhonde/', accent: '#ff8fbd', portrait: '/team-members/roster/sanskar-dhonde.png' },
-  { id: 'arnav-agarwal', name: 'Arnav Agarwal', role: 'Co-Head', domain: 'App Development', github: 'https://github.com/Arnav-Code-hub', linkedin: 'https://www.linkedin.com/in/arnav-agarwal-727323375', accent: '#ff8fbd', portrait: '/team-members/roster/arnav-agarwal.png' },
-  { id: 'sara-tamboli', name: 'Sara Tamboli', role: 'Co-Head', domain: 'App Development', github: 'https://github.com/TamboliSara', linkedin: 'https://www.linkedin.com/in/sara-tamboli-bb0823385/', accent: '#ff8fbd', portrait: '/team-members/roster/sara-tamboli.png' },
-  { id: 'srushti-saner', name: 'Srushti Saner', role: 'Co-Head', domain: 'App Development', github: 'https://github.com/srushtisaner06-ops', linkedin: 'https://www.linkedin.com/in/srushti-saner-b7b55422a', instagram: 'https://www.instagram.com/nisarga_sru/?hl=en', accent: '#ff8fbd', portrait: '/team-members/roster/srushti-saner.png' },
-  { id: 'raghav-kumar', name: 'Raghav Kumar', role: 'Head', domain: 'AI/ML', github: 'https://github.com/Raghs3', linkedin: 'https://www.linkedin.com/in/raghav-kumar2803', instagram: 'https://www.instagram.com/_raghs3', accent: '#b3a0ff', portrait: '/team-members/roster/raghav-kumar.png' },
-  { id: 'anand-nair', name: 'Anand Nair', role: 'Co-Head', domain: 'AI/ML', github: 'https://github.com/Dazzanova', linkedin: 'https://www.linkedin.com/in/heyy-anand-here', accent: '#b3a0ff', portrait: '/team-members/roster/anand-nair.png' },
-  { id: 'varad-takale', name: 'Varad Takale', role: 'Head', domain: 'Publicity and Outreach', github: 'https://github.com/varadtakale45-sudo', linkedin: 'https://www.linkedin.com/in/varad-takale-189967378', instagram: 'https://www.instagram.com/varad.takale55?stkn=aWYxcjcyMjVpNWJx&utm_source=qr', accent: '#7ce4a5', portrait: '/team-members/roster/varad-takale.png' },
-  { id: 'shubham-jadhav', name: 'Shubham Jadhav', role: 'Head', domain: 'Publicity and Outreach', github: 'https://github.com/Shoya0002', linkedin: 'https://www.linkedin.com/in/shubham-jadhav-2615093b6', instagram: 'https://www.instagram.com/shoya_0002?stkn=a2kxdGR3NnZrczk4', accent: '#7ce4a5', portrait: '/team-members/roster/shubham-jadhav.png' },
-  { id: 'harsh-kukade', name: 'Harsh Kukade', role: 'Co-Head', domain: 'Publicity and Outreach', github: 'https://github.com/Harsh150707', linkedin: 'https://www.linkedin.com/in/harsh-kukade-83b81a385', instagram: 'https://www.instagram.com/harsh_150707?stkn=MTl3N3V3dnplZ2hmZg==', accent: '#7ce4a5', portrait: '/team-members/roster/harsh-kukade.png' },
-  { id: 'parth-birari', name: 'Parth Birari', role: 'Co-Head', domain: 'Publicity and Outreach', github: 'https://github.com/birariparth-ui', linkedin: 'https://www.linkedin.com/in/parth-birari-07344b383', instagram: 'https://www.instagram.com/birariparth?stkn=NGR3NGQ2YTR6Zmxt', accent: '#7ce4a5', portrait: '/team-members/roster/parth-birari.png' },
-  { id: 'anshul-bhandwalkar', name: 'Anshul Bhandwalkar', role: 'Head', domain: 'Cybersecurity', github: 'https://github.com/codeShul', linkedin: 'https://www.linkedin.com/in/anshulb247', accent: '#ff5e5e', portrait: '/team-members/roster/anshul-bhandwalkar.png' },
-  { id: 'shruti-shinde', name: 'Shruti Shinde', role: 'Co-Head', domain: 'Cybersecurity', github: 'https://github.com/shruus2311', linkedin: 'https://www.linkedin.com/in/shruti-shinde-157a16366/', accent: '#ff5e5e', portrait: '/team-members/roster/shruti-shinde.png' },
-  { id: 'ronak-gohel', name: 'Ronak Gohel', role: 'Co-Head', domain: 'Cybersecurity', github: 'https://github.com/RonakGohel', linkedin: 'https://www.linkedin.com/in/ronakgoheldev/', accent: '#ff5e5e', portrait: '/team-members/roster/ronak-gohel.png' },
+  { id: 'aditya-katare', name: 'Aditya Katare', role: 'President', domain: 'Core leadership', github: 'https://github.com/ADITYA-K-07', linkedin: 'https://www.linkedin.com/in/aditya-katare-873a56385', instagram: 'https://www.instagram.com/being_adiiiiiii?stkn=ODI5c2NsdjVzOHdy&utm_source=qr', accent: '#4aa9db', portrait: '/team-members/roster/aditya-katare.webp' },
+  { id: 'aryan-khade', name: 'Aryan Khade', role: 'Vice President', domain: 'Core leadership', github: 'https://github.com/Aryan886', linkedin: 'https://www.linkedin.com/in/aryankhade005', accent: '#4aa9db', portrait: '/team-members/roster/aryan-khade.webp' },
+  { id: 'mrugesh-kulkarni', name: 'Mrugesh Kulkarni', role: 'Head', domain: 'Cloud', github: 'https://github.com/Pixel-Stock', linkedin: 'https://www.linkedin.com/in/mrugeshkulkarni/', instagram: 'https://www.instagram.com/its.mrugesh/', accent: '#57c7ff', portrait: '/team-members/roster/mrugesh-kulkarni.webp' },
+  { id: 'anup-dubey', name: 'Anup Dubey', role: 'Co-Head', domain: 'Cloud', github: 'https://github.com/Anup1dubey', linkedin: 'https://www.linkedin.com/in/anup-dubey-646433328/', instagram: 'https://www.instagram.com/anup1dubey/?hl=en', accent: '#57c7ff', portrait: '/team-members/roster/anup-dubey.webp' },
+  { id: 'pranav-amdekar', name: 'Pranav Amdekar', role: 'Co-Head', domain: 'Cloud', github: 'https://github.com/0xprxnav', linkedin: 'https://www.linkedin.com/in/pranav-amdekar-04b304386', accent: '#57c7ff', portrait: '/team-members/roster/pranav-amdekar.webp' },
+  { id: 'ishani-bharsakade', name: 'Ishani Bharsakade', role: 'Co-Head', domain: 'Finance & Sponsorship', github: 'https://github.com/RealSpidey69', linkedin: 'https://www.linkedin.com/in/ishani-bharsakade-3a1866229/', instagram: 'https://www.instagram.com/seriously_ish/', accent: '#a98bff', portrait: '/team-members/roster/ishani-bharsakade.webp' },
+  { id: 'govind-agrawal', name: 'Govind Agrawal', role: 'Co-Head', domain: 'Finance & Sponsorship', linkedin: 'https://www.linkedin.com/in/govind-agrawal-a85806384', accent: '#a98bff', portrait: '/team-members/roster/govind-agrawal.webp' },
+  { id: 'krishna-gangshettiwar', name: 'Krishna Gangshettiwar', role: 'Co-Head', domain: 'Finance & Sponsorship', github: 'https://github.com/Krishna5670', linkedin: 'https://www.linkedin.com/in/krishna-gangshettiwar-198a5a385', accent: '#a98bff', portrait: '/team-members/roster/krishna-gangshettiwar.webp' },
+  { id: 'satyajit-gaikwad', name: 'Satyajit Gaikwad', role: 'Head', domain: 'Web Development', github: 'https://github.com/CodeBySatyajit', linkedin: 'https://www.linkedin.com/in/satyajit-gaikwad-092381372/', instagram: 'https://www.instagram.com/itz_satyajit._07/', accent: '#6b9cff', portrait: '/team-members/roster/satyajit-gaikwad.webp' },
+  { id: 'tanushka-patil', name: 'Tanushka Patil', role: 'Co-Head', domain: 'Web Development', github: 'https://github.com/Tanushka-sp2007', linkedin: 'https://www.linkedin.com/in/tanushka-sunil-patil-a87090389', accent: '#6b9cff', portrait: '/team-members/roster/tanushka-patil.webp' },
+  { id: 'aryan-durgude', name: 'Aryan Durgude', role: 'Head', domain: 'Multimedia', github: 'https://github.com/NotAl2', linkedin: 'https://www.linkedin.com/in/aryan-durgude-777816385', instagram: 'https://www.instagram.com/not.al2?stkn=aG1pdHBiMGowbjJx', accent: '#36d9c4', portrait: '/team-members/roster/aryan-durgude.webp' },
+  { id: 'harsh-chendwankar', name: 'Harsh Chendwankar', role: 'Co-Head', domain: 'Multimedia', github: 'https://github.com/Harsh20-06', linkedin: 'https://www.linkedin.com/in/harsh-chendwankar', instagram: 'https://www.instagram.com/harsh_chendwankar?stkn=cWd6aGRjMm5xdnAz&utm_source=qr', accent: '#36d9c4', portrait: '/team-members/roster/harsh-chendwankar.webp' },
+  { id: 'vaishnavi-bhagwat', name: 'Vaishnavi Bhagwat', role: 'Co-Head', domain: 'Multimedia', github: 'https://github.com/vaishnavibhagwat', linkedin: 'https://www.linkedin.com/in/vaishnavi-bhagwat-509a5037a', instagram: 'https://www.instagram.com/v_are_aesthetic?stkn=dWtmYms5NHY4ZmFl&utm_source=qr', accent: '#36d9c4', portrait: '/team-members/roster/vaishnavi-bhagwat.webp' },
+  { id: 'naisha-sahni', name: 'Naisha Sahni', role: 'Co-Head', domain: 'Multimedia', github: 'https://github.com/naishasahni', accent: '#36d9c4', portrait: '/team-members/roster/naisha-sahni.webp' },
+  { id: 'sanskar-babar', name: 'Sanskar Babar', role: 'Video Editor', domain: 'Multimedia', github: 'https://github.com/sanskarbabar', linkedin: 'https://www.linkedin.com/in/sanskar-babar-1079021b9', accent: '#36d9c4', portrait: '/team-members/roster/sanskar-babar.webp' },
+  { id: 'jiteesh-ghodke', name: 'Jiteesh Ghodke', role: 'Co-Head', domain: 'Competitive Programming', github: 'https://github.com/jiteeshghodke456-del', linkedin: 'https://www.linkedin.com/in/jiteesh-ghodke-642832398', instagram: 'https://instagram.com/jiteez._?stkn=MXg1aHJuaG5qN2o1Mg%3D%3D', accent: '#58d8e8', portrait: '/team-members/roster/jiteesh-ghodke.webp' },
+  { id: 'jayesh-khandelwal', name: 'Jayesh Khandelwal', role: 'Co-Head', domain: 'Competitive Programming', github: 'https://github.com/itsjayeshk', linkedin: 'https://www.linkedin.com/in/jayesh-khandelwal-vit', accent: '#58d8e8', portrait: '/team-members/roster/jayesh-khandelwal.webp' },
+  { id: 'manthan-devi', name: 'Manthan Devi', role: 'Co-Head', domain: 'Competitive Programming', github: 'https://github.com/coder-manthan-007', linkedin: 'https://www.linkedin.com/in/manthan-devi-8764a3386/', instagram: 'https://www.instagram.com/devimanthan/', accent: '#58d8e8', portrait: '/team-members/roster/manthan-devi.webp' },
+  { id: 'vipul-bangar', name: 'Vipul Bangar', role: 'Co-Head', domain: 'Operations', github: 'https://github.com/thevipulbangar', linkedin: 'https://www.linkedin.com/in/vipul-bangar-8a4a9937b/', accent: '#f6b75d', portrait: '/team-members/roster/vipul-bangar.webp' },
+  { id: 'aryaan-antarkar', name: 'Aryaan Antarkar', role: 'Co-Head', domain: 'Operations', github: 'https://github.com/aryaanantarkar-byte', linkedin: 'https://www.linkedin.com/in/aryaan-antarkar-74565b386/', instagram: 'https://www.instagram.com/vvant0394/', accent: '#f6b75d', portrait: '/team-members/roster/aryaan-antarkar.webp' },
+  { id: 'sanskar-dhonde', name: 'Sanskar Dhonde', role: 'Head', domain: 'App Development', github: 'https://github.com/dhonde290-netizen', linkedin: 'https://www.linkedin.com/in/sanskardhonde/', instagram: 'https://www.instagram.com/about_sanskar/', accent: '#ff8fbd', portrait: '/team-members/roster/sanskar-dhonde.webp' },
+  { id: 'arnav-agarwal', name: 'Arnav Agarwal', role: 'Co-Head', domain: 'App Development', github: 'https://github.com/Arnav-Code-hub', linkedin: 'https://www.linkedin.com/in/arnav-agarwal-727323375', accent: '#ff8fbd', portrait: '/team-members/roster/arnav-agarwal.webp' },
+  { id: 'sara-tamboli', name: 'Sara Tamboli', role: 'Co-Head', domain: 'App Development', github: 'https://github.com/TamboliSara', linkedin: 'https://www.linkedin.com/in/sara-tamboli-bb0823385/', accent: '#ff8fbd', portrait: '/team-members/roster/sara-tamboli.webp' },
+  { id: 'srushti-saner', name: 'Srushti Saner', role: 'Co-Head', domain: 'App Development', github: 'https://github.com/srushtisaner06-ops', linkedin: 'https://www.linkedin.com/in/srushti-saner-b7b55422a', instagram: 'https://www.instagram.com/nisarga_sru/?hl=en', accent: '#ff8fbd', portrait: '/team-members/roster/srushti-saner.webp' },
+  { id: 'raghav-kumar', name: 'Raghav Kumar', role: 'Head', domain: 'AI/ML', github: 'https://github.com/Raghs3', linkedin: 'https://www.linkedin.com/in/raghav-kumar2803', instagram: 'https://www.instagram.com/_raghs3', accent: '#b3a0ff', portrait: '/team-members/roster/raghav-kumar.webp' },
+  { id: 'anand-nair', name: 'Anand Nair', role: 'Co-Head', domain: 'AI/ML', github: 'https://github.com/Dazzanova', linkedin: 'https://www.linkedin.com/in/heyy-anand-here', accent: '#b3a0ff', portrait: '/team-members/roster/anand-nair.webp' },
+  { id: 'varad-takale', name: 'Varad Takale', role: 'Head', domain: 'Publicity and Outreach', github: 'https://github.com/varadtakale45-sudo', linkedin: 'https://www.linkedin.com/in/varad-takale-189967378', instagram: 'https://www.instagram.com/varad.takale55?stkn=aWYxcjcyMjVpNWJx&utm_source=qr', accent: '#7ce4a5', portrait: '/team-members/roster/varad-takale.webp' },
+  { id: 'shubham-jadhav', name: 'Shubham Jadhav', role: 'Head', domain: 'Publicity and Outreach', github: 'https://github.com/Shoya0002', linkedin: 'https://www.linkedin.com/in/shubham-jadhav-2615093b6', instagram: 'https://www.instagram.com/shoya_0002?stkn=a2kxdGR3NnZrczk4', accent: '#7ce4a5', portrait: '/team-members/roster/shubham-jadhav.webp' },
+  { id: 'harsh-kukade', name: 'Harsh Kukade', role: 'Co-Head', domain: 'Publicity and Outreach', github: 'https://github.com/Harsh150707', linkedin: 'https://www.linkedin.com/in/harsh-kukade-83b81a385', instagram: 'https://www.instagram.com/harsh_150707?stkn=MTl3N3V3dnplZ2hmZg==', accent: '#7ce4a5', portrait: '/team-members/roster/harsh-kukade.webp' },
+  { id: 'parth-birari', name: 'Parth Birari', role: 'Co-Head', domain: 'Publicity and Outreach', github: 'https://github.com/birariparth-ui', linkedin: 'https://www.linkedin.com/in/parth-birari-07344b383', instagram: 'https://www.instagram.com/birariparth?stkn=NGR3NGQ2YTR6Zmxt', accent: '#7ce4a5', portrait: '/team-members/roster/parth-birari.webp' },
+  { id: 'anshul-bhandwalkar', name: 'Anshul Bhandwalkar', role: 'Head', domain: 'Cybersecurity', github: 'https://github.com/codeShul', linkedin: 'https://www.linkedin.com/in/anshulb247', instagram: 'https://www.instagram.com/anshull_247?cplk=MWpxNXA0bHcwbWx3Zg==', accent: '#ff5e5e', portrait: '/team-members/roster/anshul-bhandwalkar.webp' },
+  { id: 'shruti-shinde', name: 'Shruti Shinde', role: 'Co-Head', domain: 'Cybersecurity', github: 'https://github.com/shruus2311', linkedin: 'https://www.linkedin.com/in/shruti-shinde-157a16366/', instagram: 'https://www.instagram.com/shruti.s_2311?exln=MW55czE1MzNyb2NkMA==', accent: '#ff5e5e', portrait: '/team-members/roster/shruti-shinde.webp' },
+  { id: 'ronak-gohel', name: 'Ronak Gohel', role: 'Co-Head', domain: 'Cybersecurity', github: 'https://github.com/RonakGohel', linkedin: 'https://www.linkedin.com/in/ronakgoheldev/', instagram: 'https://www.instagram.com/ronakkg_?cplk=MWdobjVlZmV2b3Zp', accent: '#ff5e5e', portrait: '/team-members/roster/ronak-gohel.webp' },
 ]
 
 const TEAMS = [
   { id: 'core', label: 'Core leadership', color: '#4aa9db', members: MEMBERS.filter((member) => member.domain === 'Core leadership') },
-  { id: 'cloud', label: 'Cloud', color: '#57c7ff', logo: '/team-logos/cloud.png', members: MEMBERS.filter((member) => member.domain === 'Cloud') },
-  { id: 'delivery', label: 'Finance & Sponsorship', color: '#a98bff', logo: '/team-logos/finance.png', members: MEMBERS.filter((member) => member.domain === 'Finance & Sponsorship') },
-  { id: 'platform', label: 'Web Development', color: '#6b9cff', logo: '/team-logos/web-development.png', members: MEMBERS.filter((member) => member.domain === 'Web Development') },
-  { id: 'security', label: 'Multimedia', color: '#36d9c4', logo: '/team-logos/multimedia.png', members: MEMBERS.filter((member) => member.domain === 'Multimedia') },
-  { id: 'containers', label: 'Competitive Programming', color: '#58d8e8', logo: '/team-logos/competitive-programming.png', members: MEMBERS.filter((member) => member.domain === 'Competitive Programming') },
-  { id: 'automation', label: 'Operations', color: '#f6b75d', logo: '/team-logos/operations.png', members: MEMBERS.filter((member) => member.domain === 'Operations') },
-  { id: 'labs', label: 'App Development', color: '#ff8fbd', logo: '/team-logos/app-development.png', members: MEMBERS.filter((member) => member.domain === 'App Development') },
-  { id: 'opensource', label: 'AI/ML', color: '#b3a0ff', logo: '/team-logos/ai-ml.png', members: MEMBERS.filter((member) => member.domain === 'AI/ML') },
-  { id: 'community', label: 'Publicity and Outreach', color: '#7ce4a5', logo: '/team-logos/publicity.png', members: MEMBERS.filter((member) => member.domain === 'Publicity and Outreach') },
-  { id: 'cybersecurity', label: 'Cybersecurity', color: '#ff5e5e', logo: '/team-logos/cybersecurity.png', members: MEMBERS.filter((member) => member.domain === 'Cybersecurity') },
+  { id: 'cloud', label: 'Cloud', color: '#57c7ff', logo: '/team-logos/cloud.webp', members: MEMBERS.filter((member) => member.domain === 'Cloud') },
+  { id: 'delivery', label: 'Finance & Sponsorship', color: '#a98bff', logo: '/team-logos/finance.webp', members: MEMBERS.filter((member) => member.domain === 'Finance & Sponsorship') },
+  { id: 'platform', label: 'Web Development', color: '#6b9cff', logo: '/team-logos/web-development.webp', members: MEMBERS.filter((member) => member.domain === 'Web Development') },
+  { id: 'security', label: 'Multimedia', color: '#36d9c4', logo: '/team-logos/multimedia.webp', members: MEMBERS.filter((member) => member.domain === 'Multimedia') },
+  { id: 'containers', label: 'Competitive Programming', color: '#58d8e8', logo: '/team-logos/competitive-programming.webp', members: MEMBERS.filter((member) => member.domain === 'Competitive Programming') },
+  { id: 'automation', label: 'Operations', color: '#f6b75d', logo: '/team-logos/operations.webp', members: MEMBERS.filter((member) => member.domain === 'Operations') },
+  { id: 'labs', label: 'App Development', color: '#ff8fbd', logo: '/team-logos/app-development.webp', members: MEMBERS.filter((member) => member.domain === 'App Development') },
+  { id: 'opensource', label: 'AI/ML', color: '#b3a0ff', logo: '/team-logos/ai-ml.webp', members: MEMBERS.filter((member) => member.domain === 'AI/ML') },
+  { id: 'community', label: 'Publicity and Outreach', color: '#7ce4a5', logo: '/team-logos/publicity.webp', members: MEMBERS.filter((member) => member.domain === 'Publicity and Outreach') },
+  { id: 'cybersecurity', label: 'Cybersecurity', color: '#ff5e5e', logo: '/team-logos/cybersecurity.webp', members: MEMBERS.filter((member) => member.domain === 'Cybersecurity') },
 ]
 
-const AUTO_OPEN_DELAY = 900
-const CARD_TRANSITION_MS = 620
-const CLOSE_TRANSITION_MS = 520
-const DOMAIN_TRANSITION_MS = 620
+const AUTO_OPEN_DELAY = 300
+const CARD_TRANSITION_MS = 220
+const CLOSE_TRANSITION_MS = 180
+const DOMAIN_TRANSITION_MS = 200
 const PIN_EDGE_INSET = 32
 const DOMAIN_BOX_WIDTH = 260
 const DOMAIN_GAP = 52
@@ -117,7 +117,7 @@ function PlanetFace({ color, label, variant = 'default' }) {
 function DomainBox({ team, onOpen, isCore = false, isOpen = false, tabIndex }) {
   return (
     <button type="button" data-team-id={team.id} className={`team-domain-box ${isCore ? 'is-core' : ''} ${isOpen ? 'is-open' : ''}`} style={{ '--box-accent': team.color }} tabIndex={tabIndex} onClick={(event) => onOpen(team, event.currentTarget, event.currentTarget.querySelector('.team-domain-box__face > *'))} aria-label={`Open ${team.label}`}>
-      <span className="team-domain-box__face">{team.logo ? <img className="team-domain-logo" src={team.logo} alt="" /> : <PlanetFace color={team.color} label={team.label} variant={isCore ? 'core' : 'default'} />}</span>
+      <span className="team-domain-box__face">{team.logo ? <img className="team-domain-logo" src={team.logo} alt="" loading="lazy" decoding="async" width="80" height="80" /> : <PlanetFace color={team.color} label={team.label} variant={isCore ? 'core' : 'default'} />}</span>
       <span className="team-domain-lens" aria-hidden="true" />
       <span className="team-domain-box__label">{team.label}</span>
     </button>
@@ -178,7 +178,7 @@ function MemberCard({ member, index, active, reduced }) {
   return (
     <article className={`team-member-card ${active === index ? 'is-active' : ''} ${isRear ? 'is-rear' : ''}`} style={style} aria-hidden={active !== index}>
       <div className={`team-member-card__portrait${member.portrait ? ' has-image' : ''}`} style={{ '--portrait-accent': member.accent, '--portrait-position': member.portraitPosition ?? '50% 38%' }}>
-        {member.portrait && !portraitFailed ? <img className="team-member-portrait-image" src={member.portrait} alt={`${member.name} portrait`} onError={() => setPortraitFailed(true)} /> : null}
+        {member.portrait && !portraitFailed ? <img className="team-member-portrait-image" src={member.portrait} alt={`${member.name} portrait`} loading="lazy" decoding="async" onError={() => setPortraitFailed(true)} /> : null}
         <span className="team-portrait-particles" aria-hidden="true" />
         {!member.portrait || portraitFailed ? <span className="team-member-initial">{member.name.charAt(0)}</span> : null}
         <span className="team-member-index">0{index + 1}</span>
@@ -301,6 +301,7 @@ function MemberView({ team, activeIndex, setActiveIndex, onClose, reduced, opene
       if (closingRef.current) return
       if (!direction) return
       if (gestureLock.current) {
+        if (entranceDoneRef.current) pendingGestureRef.current = direction
         return
       }
       move(direction)
@@ -315,7 +316,7 @@ function MemberView({ team, activeIndex, setActiveIndex, onClose, reduced, opene
       const delta = touchGestureDelta(touchGestureRef.current, event.changedTouches)
       const axis = touchGestureRef.current?.axis
       touchGestureRef.current = null
-      if (!delta || !axis || closingRef.current || Math.abs(delta[axis]) < 40) return
+      if (!delta || !axis || closingRef.current || Math.abs(delta[axis]) < 20) return
       const direction = Math.sign(delta[axis])
       if (gestureLock.current) {
         if (entranceDoneRef.current) pendingGestureRef.current = direction
@@ -607,7 +608,7 @@ export default function TeamSection() {
       const dy = event.deltaY * unit
       if (!dx && !dy) return
       const now = performance.now()
-      const axis = now - domainGesture.lastAt < 180 && domainGesture.axis
+      const axis = now - domainGesture.lastAt < 60 && domainGesture.axis
         ? domainGesture.axis : Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'
       if (axis === 'y' && !pinActiveRef.current) return
       const direction = Math.sign(axis === 'x' ? dx : dy)
@@ -622,7 +623,10 @@ export default function TeamSection() {
       const gesture = domainGesture
       const previousDirection = gesture.direction
       const intent = wheelGestureDirection(gesture, dy, now, dx)
-      if (previousDirection && previousDirection !== gesture.direction) gesture.pending = 0
+      if (previousDirection && previousDirection !== gesture.direction) {
+        gesture.pending = 0
+        gesture.lockedUntil = 0
+      }
       if (intent) step(intent, true)
     }
     const onTouchStart = (event) => {
@@ -649,7 +653,7 @@ export default function TeamSection() {
       const delta = touchGestureDelta(touchGestureRef.current, event.changedTouches)
       const axis = touchGestureRef.current?.axis
       touchGestureRef.current = null
-      if (delta && axis && (axis === 'x' || pinActiveRef.current) && Math.abs(delta[axis]) >= 40) step(Math.sign(delta[axis]), true)
+      if (delta && axis && (axis === 'x' || pinActiveRef.current) && Math.abs(delta[axis]) >= 25) step(Math.sign(delta[axis]), true)
     }
     const onKeyDown = (event) => {
       const insideCarousel = event.target instanceof Element && Boolean(event.target.closest('.team-domain-carousel'))
@@ -836,7 +840,7 @@ export default function TeamSection() {
         pinSpacing: true,
         anticipatePin: 1,
         start: 'center center',
-        end: () => `+=${Math.max(window.innerHeight * .75, 500) * (TEAMS.length - 1)}`,
+        end: () => `+=${Math.max(window.innerHeight * .38, 280) * (TEAMS.length - 1)}`,
         invalidateOnRefresh: true,
         onEnter: () => { pinActiveRef.current = true; if (!ScrollTrigger.isRefreshing && !selectedTeamRef.current && !pendingAdjacentTeamIdRef.current) enterSection(1) },
         onEnterBack: () => { pinActiveRef.current = true; if (!ScrollTrigger.isRefreshing && !selectedTeamRef.current && !pendingAdjacentTeamIdRef.current) enterSection(-1) },
@@ -888,9 +892,16 @@ export default function TeamSection() {
 
   return (
     <section ref={sectionRef} id="team" className={`team-section${carouselEnabled ? ' has-domain-carousel' : ''}${selectedTeam ? ' has-open-member' : ''}`} data-auto-open-disabled={autoOpenDisabled ? 'true' : undefined} aria-labelledby="team-heading">
-      <div className="team-header">
-        <h2 id="team-heading">Built by students, for students</h2>
-        <p>The team running workshops, mentoring lab sessions, and maintaining community infrastructure.</p>
+      <div className="team-header flex flex-col items-center text-center">
+        <h2 id="team-heading" className="font-extrabold tracking-tight leading-[1.2] mb-3 sm:mb-4 px-2" style={{ fontSize: 'clamp(1.8rem, 4.5vw, 3.5rem)' }}>
+          <span className="text-white">Built by students, </span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-sky-400 to-sky-600 drop-shadow-[0_0_24px_rgba(56,189,248,0.3)]">
+            for students
+          </span>
+        </h2>
+        <p className="max-w-2xl mx-auto text-xs sm:text-sm md:text-base leading-relaxed text-slate-200/90 font-medium px-2">
+          The team running workshops, mentoring lab sessions, and maintaining community infrastructure.
+        </p>
       </div>
       <div className={`team-overview${carouselEnabled ? ' is-carousel' : ''}`} aria-label="Team domains">
         {carouselEnabled ? <DomainCarousel index={domainIndex} onNavigate={(_, direction) => domainStepRef.current?.(direction)} onOpen={openTeam} locked={Boolean(selectedTeam) || domainNavigating} selectedTeam={selectedTeam} /> : <>
