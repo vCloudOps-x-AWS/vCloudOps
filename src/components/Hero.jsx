@@ -5,6 +5,7 @@ import { ArrowUpRight } from '@phosphor-icons/react'
 import ScrollCue from './ScrollCue'
 import ParticleText from './ParticleText'
 import { scrollToTarget } from '../utils/smoothScroll'
+import { getHasIntroAnimated, markIntroStarted, markIntroCompleted } from '../utils/introState'
 
 const STATS = [
   { num: 40, suffix: '+', label: 'Active Members' },
@@ -18,6 +19,31 @@ export default function Hero() {
   const counterRefs = useRef([])
 
   useGSAP(() => {
+    const isFirstTime = !getHasIntroAnimated()
+
+    if (!isFirstTime) {
+      // Reveal all hero elements immediately without delay or layout shift
+      gsap.set('.main-nav-header', { y: 0, opacity: 1, clearProps: 'transform,opacity' })
+      gsap.set('.hero-desc', { y: 0, opacity: 1, filter: 'blur(0px)' })
+      gsap.set('.hero-cta', { y: 0, opacity: 1, scale: 1, filter: 'blur(0px)' })
+      gsap.set('.hero-stat-card', {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        filter: 'blur(0px)',
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+        boxShadow: '0 0 0px rgba(0, 0, 0, 0)',
+      })
+      gsap.set('.hero-scroll', { y: 0, opacity: 1, filter: 'blur(0px)' })
+
+      STATS.forEach((stat, i) => {
+        const el = counterRefs.current[i]
+        if (el) el.textContent = `${stat.num}${stat.suffix}`
+      })
+      return
+    }
+
+    markIntroStarted()
     // ─── Initial States with Optical Blur & Subtle Physical Offsets ───
     gsap.set('.main-nav-header', { y: -24, opacity: 0 })
     gsap.set('.hero-desc', { y: 18, opacity: 0, filter: 'blur(8px)' })
@@ -35,7 +61,12 @@ export default function Hero() {
     })
     gsap.set('.hero-scroll', { y: 15, opacity: 0, filter: 'blur(6px)' })
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+    const tl = gsap.timeline({
+      defaults: { ease: 'power3.out' },
+      onComplete: () => {
+        markIntroCompleted()
+      },
+    })
 
     // Step 1: Particles gather first over ~1.6s
     // Step 2: Navbar glides down right as headline particles settle

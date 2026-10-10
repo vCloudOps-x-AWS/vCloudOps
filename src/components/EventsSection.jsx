@@ -48,6 +48,8 @@ const INITIAL_ACTIVE_EVENTS = [
     src: '/images/events/aws-builder.webp',
     fallbackSrc: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop',
     category: 'Weekly Sprint',
+    actionLabel: 'Join Discord Lab',
+    actionUrl: 'https://discord.gg/yMZhKMhc2n',
   },
 ]
 

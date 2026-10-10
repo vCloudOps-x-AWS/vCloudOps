@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import './ParticleText.css';
+import { getHasIntroAnimated, markIntroStarted, markIntroCompleted } from '../utils/introState';
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
@@ -25,9 +26,11 @@ const resolveFontSize = (value, container, fontWeight, fontFamily) => {
 const waitForFonts = async font => {
   if (!('fonts' in document)) return;
   try {
-    await document.fonts.load(font);
+    await Promise.race([
+      document.fonts.load(font),
+      new Promise(resolve => setTimeout(resolve, 500))
+    ]);
   } catch {}
-  await document.fonts.ready;
 };
 
 // Segment splitter to isolate "Cloud" / "Cloud." and "Future" / "Future." as blue accents
@@ -107,6 +110,7 @@ const ParticleText = ({
 }) => {
   const anchorRef = useRef(null);
   const canvasRef = useRef(null);
+  const hasGatheredRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
@@ -282,6 +286,7 @@ const ParticleText = ({
 
       if (gathering && complete) {
         gathering = false;
+        markIntroCompleted();
       }
 
       animationFrame = window.requestAnimationFrame(render);
@@ -437,11 +442,15 @@ const ParticleText = ({
 
       const baseParticleSize = isMobileView ? 2.8 : (particleSize || 2.7);
 
+      const shouldScatter = !getHasIntroAnimated() && !reducedMotion;
+
       particles = selected.map((target, index) => {
         const seed = ((index * 9301 + 49297) % 233280) / 233280;
         const depth = 0.45 + (((index * 233 + 97) % 1000) / 1000) * 0.9;
         
-        const { sx, sy } = getWholeScreenScatter(seed, depth, width, height);
+        const { sx, sy } = shouldScatter
+          ? getWholeScreenScatter(seed, depth, width, height)
+          : { sx: target.x, sy: target.y };
 
         const dx = target.x - sx;
         const dy = target.y - sy;
@@ -454,7 +463,7 @@ const ParticleText = ({
         const waveAmp = ((depth * 53) % 1) * 28;
         const phase = ((seed * 197) % 1) * Math.PI * 2;
         const easePower = 2.0 + ((depth * 73) % 1) * 1.8;
-        const delay = Math.pow((seed * 3137) % 1, 1.4) * stagger;
+        const delay = shouldScatter ? Math.pow((seed * 3137) % 1, 1.4) * stagger : 0;
         const inertia = 0.14 + ((depth * 41) % 1) * 0.12;
         const spinDir = seed > 0.5 ? 1 : -1;
 
@@ -472,8 +481,8 @@ const ParticleText = ({
           : Math.max(4.6, (baseParticleSize * 2.2) * (0.85 + target.alpha * 0.35));
 
         return {
-          x: reducedMotion ? target.x : sx,
-          y: reducedMotion ? target.y : sy,
+          x: shouldScatter ? sx : target.x,
+          y: shouldScatter ? sy : target.y,
           startX: sx,
           startY: sy,
           targetX: target.x,
@@ -507,7 +516,10 @@ const ParticleText = ({
       pointer.smoothX = pointer.x;
       pointer.smoothY = pointer.y;
 
-      if (reducedMotion) {
+      if (shouldScatter) {
+        markIntroStarted();
+        startGather(false);
+      } else {
         particles.forEach(particle => {
           particle.x = particle.targetX;
           particle.y = particle.targetY;
@@ -516,8 +528,6 @@ const ParticleText = ({
           particle.delay = 0;
         });
         gathering = false;
-      } else {
-        startGather(false);
       }
 
       ensureRenderLoop();
