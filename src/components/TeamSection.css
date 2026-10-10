@@ -43,6 +43,8 @@
 }
 
 .team-domain-box {
+  --domain-cue-scale: 1;
+  scale: var(--domain-cue-scale);
   position: relative;
   display: grid;
   place-items: center;
@@ -261,6 +263,11 @@
 }
 
 .team-domain-carousel__controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
   padding: .55rem .9rem;
   border: 1px solid rgba(125, 205, 246, .3);
   border-radius: 999px;
@@ -272,6 +279,30 @@
 
 .team-domain-carousel__controls button:disabled { opacity: .4; cursor: default; }
 .team-domain-carousel__controls button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.team-domain-carousel__controls svg { width: 18px; height: 18px; }
+
+.team-member-nav {
+  position: absolute;
+  z-index: 8;
+  bottom: var(--dock-bottom);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(125, 205, 246, .5);
+  border-radius: 50%;
+  color: #a8e9ff;
+  background: rgba(4, 14, 28, .9);
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease;
+}
+.team-member-nav--previous { left: max(16px, env(safe-area-inset-left)); }
+.team-member-nav--next { right: max(16px, env(safe-area-inset-right)); }
+.team-member-nav svg { width: 22px; height: 22px; }
+.team-member-nav:hover:not(:disabled) { border-color: #9ae7ff; background: #102439; }
+.team-member-nav:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.team-member-nav:disabled { opacity: .35; cursor: default; }
 
 .team-member-view {
   animation: team-overlay-in 320ms ease-out both;
@@ -759,6 +790,27 @@
 }
 
 @media (max-width: 700px) {
+  .team-domain-carousel__controls svg { width: 16px; height: 16px; }
+
+  .team-member-nav {
+    border: 0;
+    background: transparent;
+  }
+
+  .team-member-nav::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(125, 205, 246, .5);
+    border-radius: 50%;
+    background: rgba(4, 14, 28, .9);
+    transition: border-color .2s ease, background .2s ease;
+  }
+
+  .team-member-nav svg { position: relative; width: 18px; height: 18px; }
+  .team-member-nav:hover:not(:disabled) { background: transparent; }
+  .team-member-nav:hover:not(:disabled)::before { border-color: #9ae7ff; background: #102439; }
+
   .team-section {
     --member-card-width: min(276px, calc(100vw - 2rem));
     --member-card-height: 315px;
@@ -858,6 +910,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .team-domain-box { scale: 1; }
 
   .team-member-view,
   .team-member-view .team-carousel,
