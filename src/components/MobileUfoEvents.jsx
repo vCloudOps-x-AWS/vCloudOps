@@ -147,27 +147,38 @@ export default function MobileUfoEvents({
     return () => window.removeEventListener('keydown', handleKeyNav)
   }, [currentIndex, goToIndex, isDetailsOpen, total])
 
-  // Touch Swipe Handlers for tactile mobile gestures
-  const onTouchStart = (e) => {
-    setTouchStartX(e.touches[0].clientX)
+  // Touch & Gesture Handlers throttled to display refresh rate via requestAnimationFrame
+  const rafIdRef = useRef(null)
+
+  const handleDragStart = (clientX) => {
+    setTouchStartX(clientX)
     setTouchDeltaX(0)
   }
 
-  const onTouchMove = (e) => {
+  const handleDragMove = (clientX) => {
     if (touchStartX === null) return
-    const currentX = e.touches[0].clientX
-    const delta = currentX - touchStartX
-    setTouchDeltaX(delta)
-    // Dynamic tilt feedback while dragging
-    const clampedTilt = Math.max(-10, Math.min(10, -delta * 0.12))
-    setTiltAngle(clampedTilt)
+    const delta = clientX - touchStartX
+
+    if (!rafIdRef.current) {
+      rafIdRef.current = requestAnimationFrame(() => {
+        setTouchDeltaX(delta)
+        // Dynamic tilt feedback while dragging
+        const clampedTilt = Math.max(-10, Math.min(10, -delta * 0.12))
+        setTiltAngle(clampedTilt)
+        rafIdRef.current = null
+      })
+    }
   }
 
-  const onTouchEnd = () => {
+  const handleDragEnd = () => {
+    if (rafIdRef.current) {
+      cancelAnimationFrame(rafIdRef.current)
+      rafIdRef.current = null
+    }
     if (touchStartX === null) return
-    if (touchDeltaX < -40 && currentIndex < total - 1) {
+    if (touchDeltaX < -38 && currentIndex < total - 1) {
       handleNext()
-    } else if (touchDeltaX > 40 && currentIndex > 0) {
+    } else if (touchDeltaX > 38 && currentIndex > 0) {
       handlePrev()
     } else {
       setTiltAngle(0)
@@ -176,15 +187,25 @@ export default function MobileUfoEvents({
     setTouchDeltaX(0)
   }
 
+  // Cancel pending RAF on unmount
+  useEffect(() => {
+    return () => {
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current)
+      }
+    }
+  }, [])
+
   if (!items || items.length === 0) return null
 
   return (
     <div
       ref={containerRef}
       className={`mobile-ufo-events-container ${isFlyingIn ? 'is-flying-in' : ''}`}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
+      onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+      onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
+      onTouchEnd={handleDragEnd}
+      onTouchCancel={handleDragEnd}
       aria-label="Mobile UFO Events Experience"
     >
       {/* ── 1. UFO SPACECRAFT AT TOP ── */}
@@ -295,7 +316,7 @@ export default function MobileUfoEvents({
       </div>
 
       {/* ── 2. THE TRIANGULAR BEAM OF LIGHT WITH SUSPENDED FLOATING INFO ── */}
-      <div key={`beam-stage-${currentIndex}`} className="ufo-beam-stage beam-reveal-action">
+      <div className={`ufo-beam-stage ${isFlyingIn ? 'beam-reveal-action' : ''}`}>
         {/* Vector SVG Triangular Beam Cone & Floor Ellipse */}
         <svg
           viewBox="0 0 380 470"
@@ -363,17 +384,19 @@ export default function MobileUfoEvents({
           }}
         />
 
-        {/* Laser Sweeper Beam Leading Edge (Travels top to bottom as beam reveals info) */}
-        <div
-          className="beam-laser-sweeper"
-          style={{
-            background: `linear-gradient(90deg, transparent 5%, rgba(${theme.beamColor}, 0.95) 50%, transparent 95%)`,
-            boxShadow: `0 0 16px rgba(${theme.beamColor}, 1)`,
-          }}
-        />
+        {/* Laser Sweeper Beam Leading Edge (Travels top to bottom only on initial reveal) */}
+        {isFlyingIn && (
+          <div
+            className="beam-laser-sweeper"
+            style={{
+              background: `linear-gradient(90deg, transparent 5%, rgba(${theme.beamColor}, 0.95) 50%, transparent 95%)`,
+              boxShadow: `0 0 16px rgba(${theme.beamColor}, 1)`,
+            }}
+          />
+        )}
 
         {/* ── PURE FLOATING INFO (SUSPENDED IN THE LIGHT BEAM) ── */}
-        <div className="beam-floating-content">
+        <div key={`beam-content-${currentIndex}`} className="beam-floating-content beam-content-switch">
           <div className="beam-info-body">
             {/* Mode Name (Pure glowing typography — no pill capsule) */}
             {(currentItem.mode || currentItem.category) && (

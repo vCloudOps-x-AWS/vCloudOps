@@ -128,98 +128,104 @@ export default function EventsSection({ customEvents }) {
     }
   }, [totalCards])
 
-  // GSAP ScrollTrigger Pinned Accordion Setup
+  // GSAP ScrollTrigger Responsive Accordion Setup via matchMedia
   useGSAP(
     () => {
       const section = sectionRef.current
       const pinWrapper = pinWrapperRef.current
       if (!section || !pinWrapper) return
 
-      // Clean up previous trigger if re-running
-      if (stRef.current) {
-        stRef.current.kill()
-        stRef.current = null
-      }
+      const mm = gsap.matchMedia()
 
-      // On mobile screens (< 768px), disable pin-hijacking for smooth native scrolling & UFO swipe
-      if (typeof window !== 'undefined' && window.innerWidth < 768) {
-        return
-      }
+      // Only enable pin-hijacked scroll on desktop/laptop screens (>= 768px)
+      mm.add('(min-width: 768px)', () => {
+        const getPinDistance = () =>
+          Math.max(1400, window.innerHeight * Math.max(1.6, totalCards * 0.65))
 
-      // Vertical distance dynamically scaled to the number of cards
-      const getPinDistance = () =>
-        Math.max(1400, window.innerHeight * Math.max(1.6, totalCards * 0.65))
+        const step = 1 / totalCards
+        const deadband = Math.min(0.02, step * 0.1)
 
-      const step = 1 / totalCards
-      const deadband = Math.min(0.02, step * 0.1)
+        const trigger = ScrollTrigger.create({
+          trigger: section,
+          pin: pinWrapper,
+          start: 'top top',
+          end: () => `+=${getPinDistance()}`,
+          scrub: 0.8,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const p = self.progress
 
-      const trigger = ScrollTrigger.create({
-        trigger: section,
-        pin: pinWrapper,
-        start: 'top top',
-        end: () => `+=${getPinDistance()}`,
-        scrub: 0.8,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const p = self.progress
+            // Dynamic hysteresis state machine supporting ANY number of cards:
+            setActiveIndex((currentIdx) => {
+              if (totalCards <= 1) return 0
 
-          // Dynamic hysteresis state machine supporting ANY number of cards:
-          setActiveIndex((currentIdx) => {
-            if (totalCards <= 1) return 0
-
-            // Forward transition: advancing to next card
-            if (currentIdx < totalCards - 1) {
-              const forwardBoundary = (currentIdx + 1) * step + deadband
-              if (p >= forwardBoundary) {
-                let target = currentIdx + 1
-                while (target < totalCards - 1 && p >= (target + 1) * step + deadband) {
-                  target++
+              // Forward transition: advancing to next card
+              if (currentIdx < totalCards - 1) {
+                const forwardBoundary = (currentIdx + 1) * step + deadband
+                if (p >= forwardBoundary) {
+                  let target = currentIdx + 1
+                  while (target < totalCards - 1 && p >= (target + 1) * step + deadband) {
+                    target++
+                  }
+                  return target
                 }
-                return target
               }
-            }
 
-            // Backward transition: retreating to previous card
-            if (currentIdx > 0) {
-              const backwardBoundary = currentIdx * step - deadband
-              if (p < backwardBoundary) {
-                let target = currentIdx - 1
-                while (target > 0 && p < target * step - deadband) {
-                  target--
+              // Backward transition: retreating to previous card
+              if (currentIdx > 0) {
+                const backwardBoundary = currentIdx * step - deadband
+                if (p < backwardBoundary) {
+                  let target = currentIdx - 1
+                  while (target > 0 && p < target * step - deadband) {
+                    target--
+                  }
+                  return target
                 }
-                return target
               }
-            }
 
-            return currentIdx
-          })
-        },
+              return currentIdx
+            })
+          },
+        })
+
+        stRef.current = trigger
+
+        return () => {
+          trigger.kill()
+          stRef.current = null
+        }
       })
 
-      stRef.current = trigger
-
-      const timeout = setTimeout(() => {
-        ScrollTrigger.refresh()
-      }, 250)
-
       return () => {
-        clearTimeout(timeout)
-        trigger.kill()
+        mm.revert()
       }
     },
     { scope: sectionRef, dependencies: [totalCards] }
   )
 
   // Track desktop vs mobile screen
-  const [isDesktop, setIsDesktop] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== 'undefined' ? window.innerWidth >= 768 : false
+  )
 
   // Listen to window resize to keep ScrollTrigger measurements pristine and track desktop
+  // In Chrome on mobile devices, vertical scrolling collapses/expands the browser URL bar,
+  // which fires window resize events with changing innerHeight.
+  // We only re-calculate & refresh ScrollTrigger if the viewport WIDTH changes (e.g., orientation or window resize).
   useEffect(() => {
+    let lastWidth = typeof window !== 'undefined' ? window.innerWidth : 0
+
     const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768)
-      ScrollTrigger.refresh()
+      if (typeof window === 'undefined') return
+      const currentWidth = window.innerWidth
+      if (currentWidth !== lastWidth) {
+        lastWidth = currentWidth
+        setIsDesktop(currentWidth >= 768)
+        ScrollTrigger.refresh()
+      }
     }
+
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
