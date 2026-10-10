@@ -829,10 +829,10 @@ export default function SpaceBackground() {
       <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
         <Particles
           particleColors={['#7DD3FC', '#38BDF8', '#BAE6FD', '#67E8F9', '#93C5FD']}
-          particleCount={140}
+          particleCount={typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 140}
           speed={0.07}
           particleBaseSize={130}
-          moveParticlesOnHover
+          moveParticlesOnHover={typeof window !== 'undefined' ? window.innerWidth >= 768 : true}
           particleHoverFactor={0.5}
           alphaParticles={false}
           disableRotation={false}

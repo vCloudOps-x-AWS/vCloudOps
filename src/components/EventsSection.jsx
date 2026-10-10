@@ -270,15 +270,19 @@ export default function EventsSection({ customEvents }) {
         </div>
 
         {/* ── Section Header ── */}
-        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-1 mb-0">
+        <div className="events-header flex flex-col items-center text-center px-4 sm:px-6 shrink-0 mt-0 sm:mt-1 mb-1">
+
           <h2
-            className="font-extrabold text-white leading-tight tracking-tight mb-1"
-            style={{ fontSize: 'clamp(1.4rem, 3.2vw, 2.7rem)' }}
+            className="font-extrabold tracking-tight leading-[1.2] mb-1 sm:mb-1.5 px-2"
+            style={{ fontSize: 'clamp(1.45rem, 3.4vw, 2.85rem)' }}
           >
-            Level Up Your Cloud Craft
+            <span className="text-white">Level Up Your </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-sky-400 to-sky-600 drop-shadow-[0_0_24px_rgba(56,189,248,0.3)]">
+              Cloud Craft
+            </span>
           </h2>
 
-          <p className="text-xs sm:text-sm text-slate-300/90 font-medium leading-relaxed max-w-2xl px-2">
+          <p className="text-xs sm:text-sm text-slate-200/90 font-medium leading-relaxed max-w-2xl px-2">
             Don&apos;t just learn the cloud — code it live. From hands-on Git essentials at VIT campus to weekly cloud builds and hackathon sprints.
           </p>
         </div>

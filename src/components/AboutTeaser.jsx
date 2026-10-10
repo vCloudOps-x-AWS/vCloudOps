@@ -45,16 +45,6 @@ export default function AboutTeaser() {
   const containerRef = useRef(null)
 
   useGSAP(() => {
-    // Mission Label
-    gsap.from('.mission-label', {
-      y: 20,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      clearProps: 'opacity,transform',
-      scrollTrigger: { trigger: '.mission-label', start: 'top 85%', once: true },
-    })
-
     // Words
     gsap.from('.mission-word', {
       y: 24,
@@ -109,19 +99,6 @@ export default function AboutTeaser() {
 
       {/* Main Centered Mission Presentation */}
       <div className="flex flex-col items-center max-w-5xl my-auto w-full">
-        {/* Mission Label */}
-        <div className="mission-label mb-3 sm:mb-5">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white/5 border border-sky-400/20 backdrop-blur-xl shadow-[0_0_20px_rgba(56,189,248,0.15)]">
-            <img
-              src="/Logo/aws-logo-white.png"
-              alt="AWS SBG"
-              className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain drop-shadow-[0_0_8px_rgba(255,153,0,0.5)]"
-            />
-            <span className="text-[10px] sm:text-xs tracking-[0.22em] uppercase font-bold text-sky-400 drop-shadow-[0_0_12px_rgba(56,189,248,0.5)]">
-              Our Core Mission
-            </span>
-          </div>
-        </div>
 
         {/* Large Mission Statement */}
         <h2

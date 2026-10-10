@@ -529,9 +529,10 @@
   justify-content: center;
   padding: 1.25rem 1rem;
   box-sizing: border-box;
-  background: rgba(2, 6, 18, 0.82);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(2, 6, 18, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transform: translateZ(0);
   animation: modal-backdrop-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -556,8 +557,9 @@
   border-width: 1px;
   border-style: solid;
   border-top-color: rgba(255, 255, 255, 0.5) !important;
-  backdrop-filter: blur(32px) saturate(200%);
-  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  transform: translateZ(0);
   animation: modal-card-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.18) transparent;

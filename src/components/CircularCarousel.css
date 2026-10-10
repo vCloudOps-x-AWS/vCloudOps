@@ -64,6 +64,7 @@
   width: 0;
   height: 0;
   transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .circular-carousel__camera {
