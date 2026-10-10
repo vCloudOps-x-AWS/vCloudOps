@@ -612,28 +612,7 @@
 }
 
 .team-member-card__portrait.has-image {
-  background: #8298c3;
-}
-
-.team-member-card__portrait::before,
-.team-member-card__portrait::after {
-  content: '';
-  position: absolute;
-  border: 1px solid color-mix(in srgb, var(--portrait-accent), transparent 40%);
-  border-radius: 50%;
-  transform: rotate(-25deg);
-}
-
-.team-member-card__portrait::before {
-  width: 155%;
-  height: 35%;
-}
-
-.team-member-card__portrait::after {
-  width: 145%;
-  height: 50%;
-  opacity: .55;
-  transform: rotate(22deg);
+  background: var(--portrait-background, #8298c3);
 }
 
 .team-portrait-particles {
@@ -647,7 +626,8 @@
 }
 
 .team-member-portrait-image {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
   display: block;
   width: 100%;
