@@ -188,7 +188,7 @@ export default function AccordionGallery({
                       <div>
                         {/* Mode / Category Tag */}
                         <div className="inline-flex items-center gap-2 mb-1">
-                          <span className="text-[9px] sm:text-[10px] md:text-[11px] font-mono font-semibold uppercase tracking-widest text-slate-400">
+                          <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-widest text-slate-300">
                             {item.mode || item.category}
                           </span>
                         </div>

@@ -417,25 +417,49 @@ export default function MobileUfoEvents({
 
             {/* Level 2 (Upper Cone): Big Luminous Holographic Date */}
             <div className="beam-date-row">
-              <div className="flex items-baseline justify-center gap-1.5">
-                <span
-                  className="beam-date-day font-mono font-black tracking-tighter leading-none text-white"
-                  style={{
-                    textShadow: `0 0 25px ${theme.textGlow}, 0 0 50px rgba(${theme.beamColor}, 0.6)`,
-                  }}
-                >
-                  {currentItem.dateDay || '12'}
-                </span>
-                <span
-                  className="beam-date-month font-mono font-extrabold uppercase"
-                  style={{
-                    color: theme.accent,
-                    textShadow: `0 0 12px ${theme.textGlow}`,
-                  }}
-                >
-                  {currentItem.dateMonth || 'OCT'} {currentItem.dateYear || '2026'}
-                </span>
-              </div>
+              {currentItem.dateDay === 'TBA' ? (
+                <div className="flex flex-col items-center justify-center">
+                  <span
+                    className="beam-date-day font-mono font-black tracking-tight leading-none text-white"
+                    style={{
+                      fontSize: 'clamp(1.3rem, 4.5vw, 1.6rem)',
+                      textShadow: `0 0 25px ${theme.textGlow}, 0 0 50px rgba(${theme.beamColor}, 0.6)`,
+                    }}
+                  >
+                    TBA
+                  </span>
+                  <span
+                    className="beam-date-month font-mono font-extrabold uppercase tracking-widest mt-0.5"
+                    style={{
+                      color: theme.accent,
+                      fontSize: 'clamp(9px, 2.2vw, 10.5px)',
+                      textShadow: `0 0 12px ${theme.textGlow}`,
+                    }}
+                  >
+                    {currentItem.dateMonth || 'ANNOUNCING'} {currentItem.dateYear || 'SOON'}
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-baseline justify-center gap-1.5">
+                  <span
+                    className="beam-date-day font-mono font-black tracking-tighter leading-none text-white"
+                    style={{
+                      textShadow: `0 0 25px ${theme.textGlow}, 0 0 50px rgba(${theme.beamColor}, 0.6)`,
+                    }}
+                  >
+                    {currentItem.dateDay || '12'}
+                  </span>
+                  <span
+                    className="beam-date-month font-mono font-extrabold uppercase"
+                    style={{
+                      color: theme.accent,
+                      textShadow: `0 0 12px ${theme.textGlow}`,
+                    }}
+                  >
+                    {currentItem.dateMonth || 'OCT'} {currentItem.dateYear || '2026'}
+                  </span>
+                </div>
+              )}
 
               {/* Venue Tag (Only rendered when venue / mapsUrl exists, e.g. Event 1) */}
               {(currentItem.venue || currentItem.mapsUrl) && (

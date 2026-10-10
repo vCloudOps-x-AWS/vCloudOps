@@ -261,7 +261,7 @@ export default function EventsSection({ customEvents }) {
         style={{
           paddingTop: isDesktop
             ? 'clamp(7.5rem, 10vh + 2rem, 9.2rem)'
-            : 'clamp(6rem, 8vh + 1.2rem, 7.2rem)',
+            : 'clamp(4.25rem, 6vh + 1rem, 5.5rem)',
           paddingBottom: 'clamp(0.5rem, 1vh, 1rem)',
         }}
       >
@@ -278,7 +278,7 @@ export default function EventsSection({ customEvents }) {
             Level Up Your Cloud Craft
           </h2>
 
-          <p className="text-[11px] sm:text-sm text-slate-300/90 leading-relaxed max-w-2xl px-2">
+          <p className="text-xs sm:text-sm text-slate-300/90 font-medium leading-relaxed max-w-2xl px-2">
             Don&apos;t just learn the cloud — code it live. From hands-on Git essentials at VIT campus to weekly cloud builds and hackathon sprints.
           </p>
         </div>

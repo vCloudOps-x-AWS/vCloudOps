@@ -194,12 +194,12 @@ export default function Footer() {
                       <EnvelopeSimple weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400" />
                     </div>
                     <div className="min-w-0">
-                      <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-slate-400 block">
+                      <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-slate-300 block">
                         Email
                       </span>
                       <a
                         href="mailto:vcloudops@vit.edu"
-                        className="text-[11px] sm:text-sm text-slate-200 hover:text-sky-400 transition-colors break-all sm:whitespace-nowrap leading-tight block"
+                        className="text-xs sm:text-sm text-slate-200 hover:text-sky-400 transition-colors break-all sm:whitespace-nowrap leading-tight block"
                       >
                         vcloudops@vit.edu
                       </a>
@@ -212,10 +212,10 @@ export default function Footer() {
                       <MapPin weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400" />
                     </div>
                     <div className="min-w-0">
-                      <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-slate-400 block">
+                      <span className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-slate-300 block">
                         Campus
                       </span>
-                      <span className="text-[11px] sm:text-sm text-slate-200 leading-tight block">
+                      <span className="text-xs sm:text-sm text-slate-200 leading-tight block">
                         VIT Pune · Bibwewadi
                       </span>
                     </div>
