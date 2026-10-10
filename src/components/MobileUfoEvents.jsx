@@ -597,7 +597,7 @@ export default function MobileUfoEvents({
 
       {/* Interactive Micro-Label (Mobile Only) */}
       <div className="swipe-hint-label md:hidden">
-        <span>← Swipe to explore events →</span>
+        <span>↕ Scroll or swipe to swap events ↕</span>
       </div>
 
       {/* ── 4. DETAILS CARD MODAL (GLOW-IN-THE-DARK GLASS CHAMBER VIA PORTAL) ── */}

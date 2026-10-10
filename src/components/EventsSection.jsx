@@ -137,70 +137,68 @@ export default function EventsSection({ customEvents }) {
       const pinWrapper = pinWrapperRef.current
       if (!section || !pinWrapper) return
 
-      const mm = gsap.matchMedia()
-
-      // Only enable pin-hijacked scroll on desktop/laptop screens (>= 768px)
-      mm.add('(min-width: 768px)', () => {
-        const getPinDistance = () =>
-          Math.max(1400, window.innerHeight * Math.max(1.6, totalCards * 0.65))
-
-        const step = 1 / totalCards
-        const deadband = Math.min(0.02, step * 0.1)
-
-        const trigger = ScrollTrigger.create({
-          trigger: section,
-          pin: pinWrapper,
-          start: 'top top',
-          end: () => `+=${getPinDistance()}`,
-          scrub: 0.8,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const p = self.progress
-
-            // Dynamic hysteresis state machine supporting ANY number of cards:
-            setActiveIndex((currentIdx) => {
-              if (totalCards <= 1) return 0
-
-              // Forward transition: advancing to next card
-              if (currentIdx < totalCards - 1) {
-                const forwardBoundary = (currentIdx + 1) * step + deadband
-                if (p >= forwardBoundary) {
-                  let target = currentIdx + 1
-                  while (target < totalCards - 1 && p >= (target + 1) * step + deadband) {
-                    target++
-                  }
-                  return target
-                }
-              }
-
-              // Backward transition: retreating to previous card
-              if (currentIdx > 0) {
-                const backwardBoundary = currentIdx * step - deadband
-                if (p < backwardBoundary) {
-                  let target = currentIdx - 1
-                  while (target > 0 && p < target * step - deadband) {
-                    target--
-                  }
-                  return target
-                }
-              }
-
-              return currentIdx
-            })
-          },
-        })
-
-        stRef.current = trigger
-
-        return () => {
-          trigger.kill()
-          stRef.current = null
+      // Enable pin-hijacked scroll on both mobile and desktop/laptop screens
+      const getPinDistance = () => {
+        const isMob = typeof window !== 'undefined' && window.innerWidth < 768
+        if (isMob) {
+          // Mobile touch scroll: calibrated so each card gets ~350-450px of smooth scroll
+          return Math.max(900, window.innerHeight * Math.max(1.3, totalCards * 0.55))
         }
+        return Math.max(1400, window.innerHeight * Math.max(1.6, totalCards * 0.65))
+      }
+
+      const step = 1 / totalCards
+      const deadband = Math.min(0.02, step * 0.1)
+
+      const trigger = ScrollTrigger.create({
+        trigger: section,
+        pin: pinWrapper,
+        start: 'top top',
+        end: () => `+=${getPinDistance()}`,
+        scrub: typeof window !== 'undefined' && window.innerWidth < 768 ? 0.4 : 0.8,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const p = self.progress
+
+          // Dynamic hysteresis state machine supporting ANY number of cards:
+          setActiveIndex((currentIdx) => {
+            if (totalCards <= 1) return 0
+
+            // Forward transition: advancing to next card
+            if (currentIdx < totalCards - 1) {
+              const forwardBoundary = (currentIdx + 1) * step + deadband
+              if (p >= forwardBoundary) {
+                let target = currentIdx + 1
+                while (target < totalCards - 1 && p >= (target + 1) * step + deadband) {
+                  target++
+                }
+                return target
+              }
+            }
+
+            // Backward transition: retreating to previous card
+            if (currentIdx > 0) {
+              const backwardBoundary = currentIdx * step - deadband
+              if (p < backwardBoundary) {
+                let target = currentIdx - 1
+                while (target > 0 && p < target * step - deadband) {
+                  target--
+                }
+                return target
+              }
+            }
+
+            return currentIdx
+          })
+        },
       })
 
+      stRef.current = trigger
+
       return () => {
-        mm.revert()
+        trigger.kill()
+        stRef.current = null
       }
     },
     { scope: sectionRef, dependencies: [totalCards] }
@@ -257,7 +255,7 @@ export default function EventsSection({ customEvents }) {
       <div
         ref={pinWrapperRef}
         onWheel={handleWheel}
-        className="w-full min-h-[100dvh] md:h-[100dvh] max-h-none md:max-h-[1080px] flex flex-col justify-start items-center gap-1 sm:gap-2 overflow-visible relative select-none"
+        className="w-full h-[100dvh] max-h-[100dvh] md:max-h-[1080px] flex flex-col justify-start items-center gap-1 sm:gap-2 overflow-visible relative select-none"
         style={{
           paddingTop: isDesktop
             ? 'clamp(7.5rem, 10vh + 2rem, 9.2rem)'
@@ -285,20 +283,16 @@ export default function EventsSection({ customEvents }) {
           </p>
         </div>
 
-        {/* ── UFO Beam Events Showcase ── */}
+        {/* ── UFO Beam Events Showcase (Scroll & Touch Synchronized) ── */}
         <div className="w-full flex flex-col justify-start items-center mt-1 sm:mt-1.5">
-          {isDesktop ? (
-            <MobileUfoEvents
-              items={events}
-              activeIndex={activeIndex}
-              onSelect={(idx) => {
-                setActiveIndex(idx)
-                scrollToCard(idx)
-              }}
-            />
-          ) : (
-            <MobileUfoEvents items={events} />
-          )}
+          <MobileUfoEvents
+            items={events}
+            activeIndex={activeIndex}
+            onSelect={(idx) => {
+              setActiveIndex(idx)
+              scrollToCard(idx)
+            }}
+          />
         </div>
       </div>
     </section>
