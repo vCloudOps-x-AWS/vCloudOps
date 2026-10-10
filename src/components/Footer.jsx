@@ -60,7 +60,7 @@ export default function Footer() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: watermarkRef.current,
-          start: 'top 88%',
+          start: 'top 95%',
           toggleActions: 'restart reverse restart reverse',
         },
       })
@@ -114,8 +114,8 @@ export default function Footer() {
 
       {/* Floating Island Footer Card */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className="relative rounded-[2rem] sm:rounded-[2.5rem] bg-[#050B18]/90 border border-white/10 backdrop-blur-2xl p-6 sm:p-10 md:p-12 shadow-[0_24px_70px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.12)]">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
+        <div className="relative rounded-[1.75rem] sm:rounded-[2.5rem] bg-[#050B18]/90 border border-white/10 backdrop-blur-2xl p-5 sm:p-8 md:p-12 shadow-[0_24px_70px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.12)]">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 md:gap-10">
             {/* Column 1: Brand & Mission & Socials (md:col-span-5) */}
             <div className="md:col-span-5 flex flex-col justify-between">
               <div>
@@ -123,26 +123,26 @@ export default function Footer() {
                 <a
                   href={isHomePage ? '#home' : '/'}
                   onClick={(e) => handleNav(e, '#home')}
-                  className="inline-flex items-center gap-2.5 mb-4 group cursor-pointer select-none"
+                  className="inline-flex items-center gap-2 sm:gap-2.5 mb-2.5 sm:mb-4 group cursor-pointer select-none"
                 >
                   <img
                     src="/Logo/aws-logo-white.png"
                     alt="AWS SBG Logo"
-                    className="h-8 w-auto object-contain drop-shadow-[0_0_12px_rgba(255,153,0,0.5)] group-hover:scale-105 transition-transform"
+                    className="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_0_12px_rgba(255,153,0,0.5)] group-hover:scale-105 transition-transform"
                   />
-                  <span className="font-extrabold text-white text-2xl tracking-tight">
-                    AWS <span className="text-amber-400">SBG</span> <span className="text-white/60 font-semibold text-xl mx-1">x</span> <span className="text-sky-400">VIT</span>
+                  <span className="font-extrabold text-white text-xl sm:text-2xl tracking-tight">
+                    AWS <span className="text-amber-400">SBG</span> <span className="text-white/60 font-semibold text-lg sm:text-xl mx-0.5 sm:mx-1">x</span> <span className="text-sky-400">VIT</span>
                   </span>
                 </a>
 
                 {/* Description */}
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mb-6 font-normal">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mb-4 sm:mb-6 font-normal">
                   AWS SBG x VIT is a student-led engineering collective passionate about cloud architecture, DevOps pipelines, container systems, and open-source infrastructure. Empowering student builders, one deployment at a time.
                 </p>
               </div>
 
-              {/* Social Icons row matching GDG style */}
-              <div className="flex items-center gap-3">
+              {/* Social Icons row */}
+              <div className="flex items-center gap-2.5 sm:gap-3 mb-2 md:mb-0">
                 {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
                   <a
                     key={label}
@@ -150,70 +150,75 @@ export default function Footer() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={label}
-                    className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 hover:border-sky-400/30 hover:scale-105 transition-all duration-200"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 hover:border-sky-400/30 hover:scale-105 transition-all duration-200"
                   >
-                    <Icon weight="bold" className="w-4 h-4" />
+                    <Icon weight="bold" className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Column 2: Quick Links (md:col-span-3) */}
-            <div className="md:col-span-3 text-left">
-              <h3 className="font-bold text-white text-sm sm:text-base tracking-tight mb-4">
-                Quick Links
-              </h3>
-              <ul className="flex flex-col gap-2.5 list-none p-0 m-0">
-                {QUICK_LINKS.map(({ label, href }) => (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      onClick={(e) => handleNav(e, href)}
-                      className="text-xs sm:text-sm text-slate-400 hover:text-sky-300 transition-colors inline-block"
-                    >
-                      {label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* Subgrid: Quick Links + Contact Us (2 columns on mobile, md:col-span-7 on desktop) */}
+            <div className="md:col-span-7 grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 pt-4 md:pt-0 border-t border-white/5 md:border-t-0">
+              {/* Column 2: Quick Links */}
+              <div className="text-left">
+                <h3 className="font-bold text-white text-xs sm:text-sm md:text-base tracking-tight mb-2.5 sm:mb-4 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-400 sm:hidden" />
+                  Quick Links
+                </h3>
+                <ul className="flex flex-col gap-2 sm:gap-2.5 list-none p-0 m-0">
+                  {QUICK_LINKS.map(({ label, href }) => (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        onClick={(e) => handleNav(e, href)}
+                        className="text-[11px] sm:text-sm text-slate-400 hover:text-sky-300 transition-colors inline-block py-0.5"
+                      >
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            {/* Column 3: Contact Us (md:col-span-4) */}
-            <div className="md:col-span-4 text-left">
-              <h3 className="font-bold text-white text-sm sm:text-base tracking-tight mb-4">
-                Contact Us
-              </h3>
-              <div className="flex flex-col gap-4">
-                {/* Email */}
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-400/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <EnvelopeSimple weight="duotone" className="w-4 h-4 text-sky-400" />
+              {/* Column 3: Contact Us */}
+              <div className="text-left">
+                <h3 className="font-bold text-white text-xs sm:text-sm md:text-base tracking-tight mb-2.5 sm:mb-4 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 sm:hidden" />
+                  Contact Us
+                </h3>
+                <div className="flex flex-col gap-2.5 sm:gap-4">
+                  {/* Email */}
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-sky-500/10 border border-sky-400/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <EnvelopeSimple weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-slate-400 block">
+                        Email
+                      </span>
+                      <a
+                        href="mailto:vcloudops@vit.edu"
+                        className="text-[11px] sm:text-sm text-slate-200 hover:text-sky-400 transition-colors break-all sm:whitespace-nowrap leading-tight block"
+                      >
+                        vcloudops@vit.edu
+                      </a>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block">
-                      Email
-                    </span>
-                    <a
-                      href="mailto:vcloudops@vit.edu"
-                      className="text-xs sm:text-sm text-slate-200 hover:text-sky-400 transition-colors whitespace-nowrap"
-                    >
-                      vcloudops@vit.edu
-                    </a>
-                  </div>
-                </div>
 
-                {/* Campus Location */}
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-400/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <MapPin weight="duotone" className="w-4 h-4 text-sky-400" />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block">
-                      Campus
-                    </span>
-                    <span className="text-xs sm:text-sm text-slate-200">
-                      VIT Pune · Bibwewadi
-                    </span>
+                  {/* Campus Location */}
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-sky-500/10 border border-sky-400/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <MapPin weight="duotone" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-slate-400 block">
+                        Campus
+                      </span>
+                      <span className="text-[11px] sm:text-sm text-slate-200 leading-tight block">
+                        VIT Pune · Bibwewadi
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -221,14 +226,14 @@ export default function Footer() {
           </div>
 
           {/* Card Bottom Divider & Copyright */}
-          <div className="mt-8 sm:mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
-            <p className="text-center sm:text-left">
-              © {new Date().getFullYear()} AWS SBG x VIT. All rights reserved.
+          <div className="mt-6 sm:mt-10 pt-4 sm:pt-6 border-t border-white/10 flex flex-row items-center justify-between gap-3 text-[11px] sm:text-xs font-mono text-slate-400">
+            <p className="text-left truncate">
+              © {new Date().getFullYear()} AWS SBG x VIT. <span className="hidden sm:inline">All rights reserved.</span>
             </p>
             <button
               type="button"
               onClick={handleBackToTop}
-              className="inline-flex items-center gap-1.5 text-slate-400 hover:text-sky-400 transition-colors cursor-pointer select-none"
+              className="inline-flex items-center gap-1.5 text-slate-400 hover:text-sky-400 transition-colors cursor-pointer select-none shrink-0"
             >
               <span>Back to top</span>
               <ArrowUpRight weight="bold" className="w-3.5 h-3.5" />
@@ -240,24 +245,24 @@ export default function Footer() {
       {/* ── Giant Typographic Watermark Below Footer ── */}
       <div
         ref={watermarkRef}
-        className="relative w-full overflow-hidden flex items-center justify-center pt-8 sm:pt-12 md:pt-14 pb-0 select-none pointer-events-none"
+        className="relative w-full overflow-hidden flex items-center justify-center pt-8 sm:pt-12 md:pt-14 pb-10 sm:pb-14 md:pb-16 select-none pointer-events-none px-2"
       >
         <span
-          className="font-black tracking-tight text-center whitespace-nowrap leading-none select-none pointer-events-none drop-shadow-[0_0_35px_rgba(255,153,0,0.08)] inline-flex items-center justify-center"
+          className="font-black tracking-tight text-center whitespace-nowrap leading-none select-none pointer-events-none drop-shadow-[0_0_35px_rgba(255,153,0,0.1)] inline-flex items-center justify-center"
           style={{ fontSize: 'clamp(2.75rem, 11vw, 11rem)', letterSpacing: '-0.04em' }}
         >
           <span className="watermark-awssbg inline-flex items-center">
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white/65 via-white/35 to-white/5 mr-[0.2em]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white/80 via-white/50 to-white/10 mr-[0.2em]">
               AWS
             </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-amber-400/90 via-orange-400/50 to-amber-500/10">
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-amber-400 via-orange-400/90 to-amber-500/20">
               SBG
             </span>
           </span>
-          <span className="watermark-x inline-block text-transparent bg-clip-text bg-gradient-to-b from-white/45 via-white/20 to-transparent mx-[0.22em]">
+          <span className="watermark-x inline-block text-transparent bg-clip-text bg-gradient-to-b from-white/60 via-white/30 to-white/10 mx-[0.22em]">
             x
           </span>
-          <span className="watermark-vit inline-block text-transparent bg-clip-text bg-gradient-to-b from-sky-400/85 via-sky-400/45 to-sky-400/10">
+          <span className="watermark-vit inline-block text-transparent bg-clip-text bg-gradient-to-b from-sky-400 via-sky-400/80 to-sky-400/20">
             VIT
           </span>
         </span>

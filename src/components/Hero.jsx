@@ -5,7 +5,7 @@ import { ArrowUpRight } from '@phosphor-icons/react'
 import ScrollCue from './ScrollCue'
 import ParticleText from './ParticleText'
 import { scrollToTarget } from '../utils/smoothScroll'
-import { getHasIntroAnimated, markIntroStarted } from '../utils/introState'
+import { getHasIntroAnimated, markIntroStarted, markIntroCompleted } from '../utils/introState'
 
 const STATS = [
   { num: 40, suffix: '+', label: 'Active Members' },
@@ -61,7 +61,12 @@ export default function Hero() {
     })
     gsap.set('.hero-scroll', { y: 15, opacity: 0, filter: 'blur(6px)' })
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+    const tl = gsap.timeline({
+      defaults: { ease: 'power3.out' },
+      onComplete: () => {
+        markIntroCompleted()
+      },
+    })
 
     // Step 1: Particles gather first over ~1.6s
     // Step 2: Navbar glides down right as headline particles settle
